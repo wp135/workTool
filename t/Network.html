@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TWaver HTML5 Demo</title>
+<script type="text/javascript" src="js/twaver.js"></script>
+<script type="text/javascript">
+function init() {
+var network = new twaver.network.Network();
+var box = network.getElementBox();
+var node = new twaver.Node();
+node.setLocation(20,20);
+node.setName("node1")
+box.add(node);
+var node2 = new twaver.Node();
+node2.getAlarmState().setNewAlarmCount(twaver.AlarmSeverity.MAJOR, 1);
+node2.setLocation(150,50);
+node2.setName("node2");
+box.add(node2);
+var link = new twaver.Link(node, node2);
+box.add(link);
+var buttonInRootDiv = createDiv("div in rootDiv", 20, 90, 255, 100, 100);
+network.getRootDiv().appendChild(buttonInRootDiv);
+var buttonInTopDiv = createDiv("div in topDiv", 70, 115, 100, 255, 100);
+network.getTopDiv().appendChild(buttonInTopDiv);
+var buttonInAttachmentDiv = createDiv("div in AttachmentDiv", 130, 140, 100, 255, 255);
+network.getAttachmentDiv().appendChild(buttonInAttachmentDiv);
+var buttonInBottomDiv = createDiv("div in bottomDiv", 180, 165, 100, 100, 255)
+network.getBottomDiv().appendChild(buttonInBottomDiv);
+network.setMovableFunction(function(e){
+	if(e._name=="node1"){
+	return false;
+	}else{
+		return true;
+	}
+})
+var networkDom = network.getView();
+networkDom.style.width = "100%";
+networkDom.style.height = "100%";
+document.body.appendChild(networkDom);
+}
+function createDiv(text, x, y, r, g, b){
+var div= document.createElement("div");
+div.innerHTML = text;
+div.style.position = "absolute";
+div.style.textAlign = 'right';
+div.style.fontSize = "16px";
+div.style.left = x + "px";
+div.style.top = y + "px";
+div.style.border = "solid";
+div.style.backgroundColor = "rgba("+ r + ", " + g + ", " + b + ", 0.7)";
+div.style.height = "80px";
+div.style.width = "160px";
+return div;
+}
+</script>
+</head>
+<body onload="init()" style="margin:0;"></body>
+</html>

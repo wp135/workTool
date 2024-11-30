@@ -1,0 +1,117 @@
+一.数据监听
+元素数量变化（kind, data, datas）
+		操作类型，单个数据，批量删除的数据
+addDataBoxChangeListener: function (listener, scope, ahead)
+removeDataBoxChangeListener: function (listener)
+
+
+属性变化（property, oldValue, newValue）
+addDataPropertyChangeListener: function (listener, scope, ahead)
+removeDataPropertyChangeListener: function (listener)
+
+层次变化（oldIndex, newIndex）
+addHierarchyChangeListener: function (listener, scope, ahead)
+removeHierarchyChangeListener: function (listener)
+
+
+
+二.其他功能方法
+getChildren: function ()
+getChildrenSize: function ()
+toChildren: function (matchFunction, scope)
+addChild: function (child, index)
+removeChild: function (child)
+getChildAt: function (index)
+clearChildren: function ()
+getParent: function ()
+setParent: function (parent)
+hasChildren: function ()
+isRelatedTo: function (data)
+isParentOf: function (data)
+isDescendantOf: function (data)
+
+三.管理方法
+add: function (data, index)
+remove: function (data)
+clear: function ()
+
+四.遍历方法
+getSiblings: function (data)
+getRoots: function ()
+getDatas: function ()
+getDataAt: function (index)
+toDatas: function (matchFunction, scope)
+forEach: function (f, scope)
+forEachReverse: function (f, scope)
+forEachByDepthFirst: function (callbackFunction, data, scope)
+forEachByBreadthFirst: function (callbackFunction, data, scope)
+
+五.层次模型
+moveTo: function (data, newIndex)
+moveUp: function (data)
+moveDown: function (data)
+moveToTop: function (data)
+moveToBottom: function (data)
+
+六.快速查找器
+构造方法 
+twaver.QuickFinder(dataBox, propertyName, propertyType, valueFunction, filterFunction)
+
+dataBox : 数据容器，查找器在此容器中查找
+propertyName : 属性名，如上面的例子查找"name"属性
+propertyType : 属性类型，默认为"accessor"，表示可直接获取的属性，如上面的"name"属性，对应的获取方式是
+			   data.getName()
+属性类型支持三种：
+accessor : 直接，类似java中的javaBean属性类型，通过data[propertyName]读取
+client : 客户属性，通过data.getClient(propertyName)读取
+style: 样式属性，通过data.getStyle(propertyName)读取
+
+valueFunction : 值获取函数，默认根据上面三种方式获取数据，用户也可以指定值的获取方式，通过设置valueFunction实现
+filterFunction : 过滤函数，用于控制那些元素参与查找
+函数体如下，传入data，返回true/false，表示这个元素是否参与查找
+function(data){}
+
+findFirst : 返回第一个找到的元素
+find : 返回找到的所有元素集合
+
+六.选中模型
+databox.getSelectionModel();
+方法
+//追加选中元素，传入参数可以是单个元素，也可以是元素集合
+appendSelection : function(datas)
+//设置选中元素，与追加选中不同，此方法会先清除原始选中状态
+setSelection : function(datas)
+//选中databox中所有元素
+selectAll : function()
+//取消元素选中状态，传入参数可以是单个元素，也可以是元素集合
+removeSelection : function(datas)
+//清除所有元素的选中状态
+clearSelection : function()
+
+//获得选中元素集合，注意此方法返回的是SelectionModel内部选中元素集合对象的引用，
+//直接对这个集合操作会影响选中模型，所以不要对这个集合做修改操作
+getSelection : function()
+//获取当前选中元素集合，注意此方法与上个函数有区别，此方法返回的是新构建的集合类，
+//而不是SelectionModel中原始的选中元素集合对象引用
+//matchFunction : 匹配函数，传入IData，返回true或false，false表示排除
+toSelection: function (matchFunction, scope)
+//选中数量
+size: function ()
+//元素是否选中
+contains: function (data)
+//选中集合中的最后一个元素
+getLastData: function ()
+//选中集合中的第一个元素
+getFirstData: function ()
+//是否允许选中
+isSelectable: function (data)
+
+选中事件
+selectionModel.addSelectionChangeListener(function(e){
+console.log("Kind: " + e.kind + ", datas: " + e.datas.toString());
+});
+
+选择模式
+selectionModel.setSelectionMode("singleSelection");
+("multipleSelection", "singleSelection", "noneSelection")，多选，单选，不可选
+

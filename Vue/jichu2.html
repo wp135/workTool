@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app1">
+			<!--
+            	作者：wp
+            	时间：2017-01-02
+            	描述：css渲染
+            -->
+			<div :class="classObject">111</div>
+			<div v-bind:class="[isActive ? activeClass : '', errorClass]">222</div>
+			<div v-bind:class="[{ active: isActive }, errorClass]">333</div>
+			<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">444</div>
+			<div v-bind:style="styleObject">555</div>
+			<div v-bind:style="[styleObject, styleObject]">666</div>
+			
+			<ul>
+				<li v-for="(i,key,index) in 3" :item="i" :key="i+1">{{key}}</li>
+			</ul>
+			
+			<ul>
+				<li v-for="(i,key,index) in 3" v-if="">{{key}}</li>
+			</ul>
+			
+			<input
+			    v-model="newTodoText"
+			    v-on:keyup.enter="addNewTodo"
+			    placeholder="Add a todo"
+			>
+			<ul>
+			    <li
+			      is="todo-item"
+			      v-for="(todo, index) in todos"
+			      v-bind:key="index"
+			      v-bind:title1="todo"
+			      v-on:remove="todos.splice(index, 1)"
+			    ></li>
+			</ul>
+			
+			<!--
+            	作者：wp
+            	时间：2017-01-02
+            	描述：组件渲染
+            -->
+			<my-component class="baz boo"></my-component>
+		</div>
+			
+            
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//全局组件渲染
+		Vue.component('todo-item', {
+			  template: '\
+			    <li>\
+			      {{ title1 }}\
+			      <button v-on:click="$emit(\'remove\')">{{x}}</button>\
+			    </li>\
+			  ',
+			  props: ['title1'],
+			  data:function () {
+				  return {
+				    x: 0
+				  }
+				 }
+			})
+		Vue.component('my-component', {
+			  template: '<p class="foo bar">Hi</p>'
+			})
+		
+		//css渲染
+		new Vue({
+			el:'#app1',
+			data: {
+			  todos:[
+			  	'woqu1','woqu2','woqu3','woqu4'
+			  ],
+			  isActive: true,
+			  error: null,
+			  errorClass: 'text-danger',
+			  activeClass: 'active',
+			  activeColor: 'red',
+			  fontSize:30,
+			  
+			  styleObject: {
+			    color: 'red',
+			    fontSize: '28px'
+			  }
+			},
+			computed: {
+			  classObject: function () {
+			    return {
+			      active: this.isActive && !this.error,
+			      'text-danger': this.error && this.error.type === 'fatal',
+			    }
+			  },
+			  evenNumbers: function () {
+			    return this.numbers.filter(function (number) {
+			      return number % 2 === 0
+			    })
+			  }
+			},
+			methods:{
+				addNewTodo: function () {
+			      this.todos.push(this.newTodoText)
+			      this.newTodoText = ''
+			    }
+			}
+		});
+		
+	</script>
+</html>

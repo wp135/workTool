@@ -1,0 +1,27 @@
+图片注册
+twaver.Util.registerImage : function (name, source, width, height)
+
+eg:
+twaver.Util.registerImage('loading', 'images/loading.gif', 32, 32);
+var node3 = new twaver.Node();
+node3.setImage('loading');
+
+位置尺寸
+get/setX : function(x)
+get/setY : function(y)
+get/setCenterLocation : function(point)
+get/setLocation : function(point)
+get/setWidth : function(width)
+get/setHeight : function(height)
+translate: function (x, y)
+获取与节点相连的连线，如果没有连线与节点相连，返回的是null
+getLoopedLinks: function ()
+getLinks: function ()
+getAgentLinks: function ()
+getFromLinks: function ()
+getToLinks: function ()
+hasAgentLinks: function ()
+getFromAgentLinks: function ()
+getToAgentLinks: function ()
+跟随者
+getFollowers: function ()

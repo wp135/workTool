@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+			.color{
+				color:#0077AA;
+			}
+	</style>
+	<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function init () {
+			regiterImages("img/35.jpg","img1");
+			var network = new twaver.network.Network();
+			var box = network.getElementBox();
+			var node = new twaver.Node();
+			node.setImage("img1");
+			node.setName("from");
+			node.setLocation(100,100);
+			box.add(node);
+			var net = network.getView();
+			net.style.width = "100%";
+			net.style.height = "100%";
+			document.body.appendChild(net);
+			function regiterImages(url, name) {
+				var image = new Image();
+				image.src = url;
+				image.onload = function() {
+					twaver.Util.registerImage(name, image, image.width, image.height);
+					image.onload = null;
+					if (window.network) {
+						window.network.invalidateElementUIs();
+					}
+					if (window.tree) {
+						window.tree.invalidateDisplay();
+					}
+				};
+			}
+			
+		}
+	</script>
+	
+	<body onload="init()">
+	</body>
+</html>

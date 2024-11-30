@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/dome.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<script type="text/javascript">
+		var s;
+		var box;
+
+		function init() {
+			var network = new twaver.network.Network;
+			box = network.getElementBox();
+			var node1 = new twaver.Node();
+			node1.setName("CRITfdsaddddddddddddddddddddddddddddddddddddd");
+			node1.setStyle('label.maxlength',30);
+			node1.setLocation(100, 100);
+			box.add(node1);
+			var node2 = new twaver.Node();
+			node2.setName("MAJOR");
+			node2.setLocation(200, 100);
+			box.add(node2);
+			var node3 = new twaver.Node();
+			node3.setName("MINOR");
+			node3.setLocation(300, 100);
+			box.add(node3);
+			var node4 = new twaver.Node();
+			node4.setName("WARNING");
+			node4.setLocation(400, 100);
+			box.add(node4);
+			var node5 = new twaver.Node();
+			node5.setName("INDETERMINATE");
+			node5.setLocation(500, 100);
+			box.add(node5);
+			//覆盖默认告警
+			twaver.AlarmSeverity.CRITICAL = twaver.AlarmSeverity.add(500, 'CRITICAL', '','#FF0000');
+			//覆盖填充色
+			 network.getInnerColor = function(data) {
+//		      if (data.IElement) {
+//		        for (var i = 0, len = Alarm.length; i < len; i++) {
+//		          if (Alarm[i].id == data.getId()) {
+//		            return data.getStyle('inner.color');
+//		          }
+//		        }
+//		        var t = data.getAlarmState().getHighestNativeAlarmSeverity();
+//		        return t ? t.color : data.getStyle('inner.color');
+//		      }
+		      return null;
+		    };
+			node1.getAlarmState().increaseNewAlarm(twaver.AlarmSeverity.CRITICAL, 2);
+			node1.getAlarmState().increaseNewAlarm(twaver.AlarmSeverity.CRITICAL, 2);
+			node2.getAlarmState().increaseNewAlarm(twaver.AlarmSeverity.MAJOR, 1);
+			node3.getAlarmState().increaseNewAlarm(twaver.AlarmSeverity.MINOR, 1);
+			node4.getAlarmState().increaseNewAlarm(twaver.AlarmSeverity.WARNING, 1);
+			node5.getAlarmState().increaseNewAlarm(twaver.AlarmSeverity.INDETERMINATE, 1);
+			//			alarm=new twaver.Alarm("aa1",node1.getId(),twaver.AlarmSeverity.CRITICAL);
+			//			s.add(alarm);
+
+			var networkDom = network.getView();
+			networkDom.style.width = "100%";
+			networkDom.style.height = "100%";
+			document.body.appendChild(networkDom);
+		}
+	</script>
+
+	<body onload="init()">
+	</body>
+
+</html>

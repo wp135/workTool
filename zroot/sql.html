@@ -1,0 +1,1446 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="icon" href="" type="image/x-icon"/>
+		<title>工具-报表管理</title>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+		<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="jquery-easyui-1.5.4.1/themes/bootstrap/easyui.css"/>
+		<link rel="stylesheet" type="text/css" href="jquery-easyui-1.5.4.1/themes/icon.css"/>
+		<script src="jquery-easyui-1.5.4.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fileCtrl/exel.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jqGrid -->
+		<link rel="stylesheet" type="text/css" href="css/jqGrid/jquery-ui-1.10.3.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jqGrid/ui.jqgrid.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jqGrid/jqGrid.overrides.css"/>
+		<script src="jqGrid_5.3.1/js/jquery.jqGrid.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jqGrid_5.3.1/js/i18n/grid.locale-cn.js" type="text/javascript" charset="utf-8"></script>
+		<!--头部图标-->
+		<link rel="icon" href="img/baobiao.png" type="image/x-icon"/>
+		<!--下面两个是使用Code Mirror必须引入的-->
+		<link rel=stylesheet href="editOnline/lib/codemirror.css">
+		<script src="editOnline/lib/codemirror.js"></script>
+		<!--Java代码高亮必须引入-->
+		<!--<script src="editOnline/mode/clike/clike.js"></script>-->
+		<!--引入css文件，用以支持主题-->
+		<link rel="stylesheet" href="editOnline/theme/seti.css">
+		<link rel="stylesheet" href="editOnline/theme/abcdef.css">
+		<link rel="stylesheet" href="editOnline/theme/3024-day.css">
+		<link rel="stylesheet" href="editOnline/theme/3024-night.css">
+		<link rel="stylesheet" href="editOnline/theme/ambiance.css">
+		<link rel="stylesheet" href="editOnline/theme/ambiance-mobile.css">
+		<link rel="stylesheet" href="editOnline/theme/base16-dark.css">
+		<link rel="stylesheet" href="editOnline/theme/base16-light.css">
+		<!--Html标签匹配-->
+		<script src="editOnline/mode/xml/xml.js"></script>
+		<!--<script src="editOnline/mode/vbscript/vbscript.js"></script>-->
+		<script src="editOnline/mode/javascript/javascript.js"></script>
+		<script src="editOnline/mode/css/css.js"></script>
+		<script src="editOnline/mode/properties/properties.js"></script>
+		<script src="editOnline/mode/turtle/turtle.js"></script>
+		<script src="editOnline/mode/mathematica/mathematica.js"></script>
+		<script src="editOnline/mode/cypher/cypher.js"></script>
+		<script src="editOnline/mode/sql/sql.js"></script>
+		
+		<script src="editOnline/mode/htmlmixed/htmlmixed.js"></script>
+		<script src="editOnline/addon/fold/xml-fold.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/edit/matchtags.js"></script>
+		<script src="editOnline/addon/edit/closetag.js" type="text/javascript" charset="utf-8"></script>
+		<!--搜索功能-->
+		<script src="editOnline/addon/search/searchcursor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/search/search.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="editOnline/addon/search/match-highlighter.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/search/matchesonscrollbar.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/scroll/annotatescrollbar.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="editOnline/doc/docs.css"/>-->
+		<link rel="stylesheet" type="text/css" href="editOnline/addon/search/matchesonscrollbar.css"/>
+		<!--对话框-->
+		<script src="editOnline/addon/dialog/dialog.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="editOnline/addon/dialog/dialog.css"/>
+		<!--代码提示-->
+		<link rel="stylesheet" href="editOnline/addon/hint/show-hint.css">
+		<script src="editOnline/addon/hint/show-hint.js"></script>
+		<script src="editOnline/addon/hint/xml-hint.js"></script>
+		<script src="editOnline/addon/hint/html-hint.js"></script>
+		<script src="editOnline/addon/hint/javascript-hint.js"></script>
+		<script src="editOnline/addon/hint/css-hint.js"></script>
+		<style type="text/css">
+			.neirong td{
+				    border: solid gainsboro 1px;
+				    word-break: break-word;
+				    /* overflow: hidden; */
+				    height: 35px;
+				    font-size: 18px;
+				}
+			.neirong .hanghao{
+				    text-align: center;
+				    font-family: 宋体;
+				    background: aliceblue;
+				    cursor: url(img/right57_1.png),auto;
+				    -webkit-touch-callout: none; /* iOS Safari */
+					-webkit-user-select: none; /* Chrome/Safari/Opera */
+					-khtml-user-select: none; /* Konqueror */
+					-moz-user-select: none; /* Firefox */
+					-ms-user-select: none; /* Internet Explorer/Edge */
+					user-select: none; 
+			}
+			.meiclo{
+					text-align: center;
+				    font-family: 宋体;
+				    background: ;
+				    cursor: url(img/down.png),auto;
+				    -webkit-touch-callout: none; /* iOS Safari */
+					-webkit-user-select: none; /* Chrome/Safari/Opera */
+					-khtml-user-select: none; /* Konqueror */
+					-moz-user-select: none; /* Firefox */
+					-ms-user-select: none; /* Internet Explorer/Edge */
+					user-select: none; 
+			}
+			.selectTr{
+				    background: floralwhite;
+			}
+			.selectClo{
+				background: floralwhite;
+			}
+			.val{
+				cursor: cell;
+			}
+			body{
+				padding: 0px;
+				overflow-x: hidden;
+			}
+			.CodeMirror {
+				line-height: 1.4em;
+			    font-size: 14px;
+			    font-family: Inconsolata,Monaco,"Andale Mono","Lucida Console","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+			    overflow: hidden;
+			    background: #F3F5F6;
+			    color: #39464E;
+			    height: auto;
+			}
+			.CodeMirror * {
+			    -webkit-font-smoothing: subpixel-antialiased;
+			}
+			.cm-matchhighlight{
+				background-color: antiquewhite;
+			}
+			.tab{
+				overflow-y: auto;
+				border: 1px solid #DCDCDC;
+				/*height: 500px;*/
+				/*width: 100%;*/
+				padding: 5px;
+				margin-left: -5px;
+				margin-top: 3px;
+			}
+			.timetable{
+			    width: 70px;
+			    height: 30px;
+			    font-size: 18px;
+			    visibility:hidden;
+			}
+			.texta{
+				width: 20%;
+				margin-left: -4px;
+				height: 81px;
+				/*border-left-width: 0px;*/
+			}
+			#sql{
+				font-family: Consolas;
+			    font-size: 16px;
+			    /*letter-spacing: 1px;*/
+			    color: white;
+			}
+			.row{
+				    padding: 0px 5px;
+				    font-size: 17px;
+				    margin: 0px;
+				    color: #DCDCDC;
+				    text-align: right;
+			}
+			.gaojing{
+				border-color: red;
+			    background: red;
+			    color: white;
+			}
+			#tab{
+				position: absolute;
+				width: 67%;
+				top: 7px;
+				left: 222px;
+			}
+			#tab td{
+				width: 99px;
+				height: 37px;
+			}
+			
+			#fuzhu{
+				display: none; position: absolute;width: 200px;height: 300px;;right: 0px;
+				z-index: 22;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+				background-color:white ;
+			}
+			
+			#fuzhu ul{
+				width: 100%;
+				height: auto;
+				list-style-type: none;
+				padding: 3px 0px;
+			}
+			#fuzhu ul li{
+				width: 100%;
+				height:auto;
+				font-family: "微软雅黑";
+			}
+			#fuzhu ul .def{
+				padding: 3px 25px;
+				height: 30px;
+				cursor: pointer;
+				display: block;
+			}
+			#fuzhu ul .dis{
+				padding: 3px 25px;
+				cursor: pointer;
+				display: block;
+				color: #B7B7B7;
+			}
+			#fuzhu ul .def:hover{
+				/*background-color: #06B6EF;
+				color: white !important;*/
+			}
+			#fuzhu_diao2 li{
+				float:left;
+			}
+			#fuzhu ul .kuaijie{
+				float: right;color:#B7B7B7;text-align: right;
+			}
+			.replaceText{
+				height: 67px;
+				width: calc(49% - 46px);
+				max-height: 83%;
+				max-width: calc(50% - 46px);
+				margin: 6px 0 6px 1%;
+				border: 1px beige solid;
+				float: left;
+			}
+			.tip{
+				margin: 1px;
+				padding: 1px 3px;
+				position: relative;
+				top: 6px;
+				font-size: 20px;
+			}
+			.tip:hover{
+				background-color: darkgray;
+				color: white !important;
+			}
+			.tip i{
+				width: 20px;
+				height: 20px;
+				text-align: center;
+			}
+			#table_zi_grid td{
+				height: 25px;
+				width: 80px;
+				max-width: 80px;
+			}
+			#bianji{
+				background: white;
+    			border-left: 1px beige solid;
+    			position: relative;
+    			height: 100%;
+    			z-index: 12;
+			}
+			.tabs-wrap{
+				margin-left: 25px !important;
+				margin-right: 25px !important;
+			}
+			/*#floatRight .panel-htop{
+				width: 100% !important;
+				height: 100% !important;
+			}*/
+			/*#floatRight .panel-body{
+				width: 100% !important;
+				height: 100% !important;
+			}*/
+			.alert_title{
+				position: fixed;
+				width: 100%;
+				height: auto;
+				z-index: 1056;
+				bottom: 10px;
+				font-size: 14px;
+				display: block;
+				padding: 0 29px;
+			}
+			.save{
+				background: deeppink !important; 
+				color: white !important;
+			}
+			input[type='text'] {
+				border: 1px solid #ddd;
+				padding: 4px;
+				height: 34px;
+				border-radius: 2px
+			}
+			
+			input[type='radio'],input[type='checkbox'] {
+				border-color: #ddd;
+				margin-right: 5px;
+				margin-left: 20px
+			}
+			
+			select {
+				padding: 4px;
+				border: 1px solid #ddd;
+				height: 34px;
+				border-radius: 2px
+			}
+			.autocomplete-suggestions {
+				text-align: left;
+				cursor: default;
+				border: 1px solid #ccc;
+				border-top: 0;
+				background: #fff;
+				box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+			    /* core styles should not be changed */
+				position: absolute;
+				display: none;
+				z-index: 9999;
+				max-height: 254px;
+				overflow: hidden;
+				overflow-y: auto;
+				box-sizing: border-box;
+			}
+			
+			.autocomplete-suggestion {
+				position: relative;
+				padding: 0 .6em;
+				line-height: 23px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-size: 1.02em;
+				color: #333;
+			}
+			
+			.autocomplete-suggestion b {
+				font-weight: normal;
+				color: #1f8dd6;
+			}
+			
+			.autocomplete-suggestion.selected {
+				background: #f0f0f0;
+			}
+			.ziyou {
+			    width: 100%;
+			    position: absolute;
+			    left: 0px;
+			}
+			.chuiCenter{
+				position: relative;
+				top:50%;
+				transform:translate(0,-50%);
+				text-align: center;
+			}
+    			.hengCenter{
+				position: relative;
+				left:50%;
+				transform:translate(-50%);
+				text-align: center;
+			}
+			.chuihengCenter{
+				position: relative;
+				top:50%;
+				left: 50%;
+				transform:translate(-50%,-50%);
+				text-align: center;
+			}
+			.clear {
+			    clear:both;/*主要使用这个属性来清除浮动*/
+			    height: 0;
+			    line-height: 0;
+			    font-size: 0;
+			  }
+			  .reportUser{
+			  	font-size: 16px;
+			  	border-style: none;
+			  	padding: 0;
+			  }
+			  .accordion .accordion-header-selected {
+				    background: cadetblue;
+				}
+			  table {
+		        	font-family: inherit;
+		        	font-size: inherit;
+		        }
+		    .icon-report{
+		    	    background: url(img/baobiao.png) no-repeat center center;
+				    line-height: 5px;
+				    display: inline-block;
+		    }
+		    #tab_select .tabs-header{
+		    	background-color:white;
+		    }
+		    .icon-gengxin{
+	    	    background: url(img/gengxin.png) no-repeat center center;
+			    background-size: 100% 100%;
+			    width: 20px;
+			    height: 20px;
+			    left: 0;
+			    margin-top: -10px;
+		    }
+		    *{
+		    	/*z-index: 0;*/
+		    }
+		    .layout-panel-center{
+		    	z-index: 0;
+		    }
+		    #peizhiTable{
+		    	width: 877px !important;
+		    }
+		</style>
+		
+		<!--自己的js-->
+		<script src="js/baobiaoCtrl/formatTime.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/select/chosen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fileCtrl/copy.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/seach/search.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/baobiaoCtrl/button.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/baobiaoCtrl/initClass.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/baobiaoCtrl/ThresAjax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/baobiaoCtrl/main.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/baobiaoCtrl/initReport.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/baobiaoCtrl/bootbox.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		
+		<script type="text/javascript">
+			function checkLeave(){
+		         event.returnValue="确定离开当前页面吗？";    
+		   }
+		</script>
+	</head>
+	<body class="easyui-layout" onbeforeunload="checkLeave()" style="background-color: white;">
+		<input type="button" name="" id="sss" value="" style="display: none;" data-clipboard-text="aaaa" />
+		<div style=" height: 76px;border: 0px solid #DCDCDC;margin-bottom: 7px;" data-options="region:'north'">
+			<div style="border: 1px solid #e8e8e8;padding: 10px 0 10px 0;position: relative;">
+    	  	      	<input type="radio" id="lisan" name="lianxuOrlisan1" value="lisan" onchange="select_Tiao()" checked="checked"><span style="margin: 0 10px 0 5px">离散时间</span>
+    	  	      	<input type="radio" id="lianxu" name="lianxuOrlisan1" value="lianxu" onchange="select_Tiao()" style="margin-left: 10px"><span style="margin: 0 10px 0 5px">连续时间</span>
+    	  	      	<table id="tab">
+    	  	      		<tr>
+    	  	      			<td style="width: 140px;min-width: 75px;">
+    	  	      				时间粒度:
+    	  	      			</td>
+    	  	      			<td>
+                    			<input type="checkbox" id="checkbox_min" name="timeType" value="min"><span id="labels_min" >5分钟</span>
+    	  	      			</td>
+    	  	      			<td>
+                    			<input type="checkbox" id="checkbox_15min" name="timeType" value="15min"><span id="labels_15min" >15分钟</span>
+    	  	      			</td>
+    	  	      			<td>
+    	  	      				<input type="checkbox" id="checkbox_30min" name="timeType" value="30min"><span id="labels_30min" >30分钟</span>
+    	  	      			</td>
+    	  	      			<td>
+    	  	      				<input type="checkbox" id="checkbox_hour" name="timeType" value="hour"><span id="labels_hour" >小时&nbsp;&nbsp;</span>
+    	  	      			</td>
+    	  	      			<td>
+    	  	      				<input type="checkbox" id="checkbox_day" name="timeType" value="day"><span id="labels_day" >天&nbsp;&nbsp;&nbsp;</span>
+    	  	      			</td>
+    	  	      			<td>
+    	  	      				<input type="checkbox" id="checkbox_dayconver" name="timeType" value="dayconver"><span id="labels_dayconver" >天汇聚</span>
+    	  	      			</td>
+    	  	      			<td>
+    	  	      				<input type="checkbox" id="checkbox_week" name="timeType" value="week"><span id="labels_week" >周&nbsp;&nbsp;&nbsp;</span>
+    	  	      			</td>
+    	  	      			<td>
+    	  	      				<input type="checkbox" id="checkbox_month" name="timeType" value="month"><span id="labels_month" >月&nbsp;&nbsp;&nbsp;</span>
+    	  	      			</td>
+    	  	      			<td>
+                    			<input type="checkbox" id="checkbox_timeSelect" name="timeType" value="timeSelect"><span id="labels_timeSelect" >其他</span>
+    	  	      			</td>
+    	  	      		</tr>
+    	  	      		<tr>
+    	  	      			<td style="width: 140px;min-width: 75px;">
+    	  	      				所在表名:
+    	  	      			</td>
+    	  	      			<td>
+    							<input id="min" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="15min" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="30min" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="hour" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="day" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="dayconver" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="week" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="month" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      			<td>
+			    				<input id="timeSelect" class="timetable" type="text" name="timeTypeValue" value="" oninput="select_Table();"/>
+    	  	      			</td>
+    	  	      		</tr>
+    	  	      	</table>
+	        </div>
+	        <div id="" style="height: 35px;">
+    	  	      		<input type="checkbox" style="margin-left: 3px;" name="time_type" id="time_type" value="" />DATe
+    	  	      		<input type="checkbox" style="margin-left: 3px;" name="time_type" id="time_mess" value="" />杂乱
+  	      	</div>
+                    <input style="position: absolute;top:8px;right: 12px;" class="btn btn-danger" type="button" name="kand" id="kand" value="隐藏结果" onclick="kand(this.value);" />
+		</div>
+		<div id="" data-options="region:'center'" style="">
+	        	<div id="" class="easyui-layout" data-options="fit:true">
+	        		<div id="" data-options="region:'north'" style="height: 126px;border-style: none;">
+	        			<textarea id="mapp" name="texta" class="texta"></textarea>
+			        	<textarea id="fields" name="texta" class="texta"></textarea>
+			        	<textarea id="table" name="texta" class="texta"></textarea>
+			        	<textarea id="weidus" name="texta" class="texta"></textarea>
+			        	<textarea id="tiao" name="texta" class="texta"></textarea>
+			        	<input id="clearTable" class="btn btn-default" type="button" value="清空表格" />
+						<input id="" class="btn btn-default" onclick="addOne(1)" type="button" value="添加行" />
+						<input id="" class="btn btn-default" onclick="removeOne();" type="button" value="删除行" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input id="" class="btn btn-default" onclick="clearOne();" type="button" value="清空行 / 列" />
+						<div style="float: right;margin: 0px 5px 0 0;">
+							<input id="seleFile" type="file" style="display: none;" value="选择文件" />
+							<input type="button" class="btn btn-default" name="" id="seleFile_b" value="选择文件" />
+							<input type="text" name="" id="seleFile_t" value="" />
+							<a class="btn btn-default" href="/H/格式--JSON数组/css/报表专用.xlsx" download="报表专用.xlsx">
+								下载模板
+							</a>
+						</div>
+	        		</div>
+	        		<div id="table1Div" data-options="region:'center'" style="padding:0 5px;    border-width: 0">
+						<table id="table1" cellspacing="0" cellpadding="0"  id="InFo" border="1" style="border:solid gainsboro 1px;margin:0px auto;width:100%;">
+							<tr><td width="3%"></td><td class="meiclo" info="biaotou" width="23%">中文表头</td><td class="meiclo" info="ziduan" width="23%">英文字段</td><td class="meiclo" info="suanfa" width="33%">算法</td><td info="fei0" class="meiclo">非0</td><td width="5%">维度<input id="isweidu" type="checkbox" onclick="weidu1_2();" title="若'多个条件组成一个&#10;维度,即最终选一个作&#10;为条件则打勾;若全部&#10;为作用条件则不打勾。"/></td></tr>
+							<tr class="neirong">
+								<td class="hanghao" onmousedown="selectTr(this);">1</td>
+								<td class="val" contentEditable="true" oninput="inputFun(this);" name="biaotou"></td>
+								<td class="val" contentEditable="true" oninput="inputFun(this);" name="ziduan"></td>
+								<td class="val" contentEditable="true" oninput="inputFun(this);" name="suanfa"></td>
+								<td class="val" contentEditable="true" oninput="inputFun(this);" name="fei0"></td>
+								<td contentEditable="false" name="" style="text-align: center;"><input name="weidu" type="checkbox" onclick="inputFun(this);"/></td>
+							</tr>
+						</table>
+	        		</div>
+	        	</div>
+	        	<div id="zon" class="easyui-layout" data-options="fit:true" style="overflow: hidden;position: absolute;top: 0px;">
+					<div id="floatLeft" data-options="region:'west',title:'报表目录',split:true,maxWidth:'50%'" style="width: 300px;position: relative;">
+						<div style="-webkit-user-select: none; cursor: pointer;color: white;text-align: center;right:0;top:4px;right:4px;border-radius: 10px;overflow: hidden; position: absolute;z-index: 20;" id="">
+							<div id="" class="fl btn btn-info" onclick="shouUl(1,this);" style="float: left;padding: 3px 5px;border-radius: 0px;">
+								树目录
+							</div>
+							<div id="" class="fl btn btn-default" onclick="shouUl(2,this);" style="float: left;padding: 3px 5px;border-radius: 0px;">
+								生成区
+							</div>
+							<div id="" class="clear"></div>
+						</div>
+						<textarea id="sql" name="" rows="" cols=""></textarea>	
+						<div id="table_zi" style="background: beige;overflow: hidden;position: absolute;height: 100%;width: 100%;z-index: 11;top: 0px;">
+							<div id="" style="position: absolute;height: 40px;width: 95%;left: 5%;">
+								根路径：<select id="rootUrl" style="max-width: 52%;"></select>
+								<input type="hidden" id="urlSelf" value="" style="position: absolute;left:49px;"/>
+							</div>
+							<ul id="tree" onselectstart="return false;" style="-moz-user-select:none;list-style-type: none;margin:40px 0px 0px 0;padding:0 3px 10px 0;overflow: auto;height: calc(100% - 40px);" ></ul>
+						</div>
+					</div>
+					<div id="floatRight" class="easyui-panel"  data-options="region:'center'" style="">
+						<!-- 报表配置配置模块-->
+						<div id="initOfset" style="background-color: #F3F5F6;top: 32px;left: 2px;bottom: 2px;z-index: 20;display: none;" class="ziyou">
+							<ul class="nav nav-tabs" id="initCtrl">
+							  <li role="presentation" onclick="initReport.qiehuanHead(this);" class="active" name="reportSearch"><a>报表搜索</a></li>
+							  <li role="presentation" onclick="initReport.qiehuanHead(this);" name="reportShouquan"><a>报表授权</a></li>
+							  <li role="presentation" onclick="initReport.qiehuanHead(this);" name="reportPeizhi"><a>报表配置</a></li>
+							  <li role="presentation" onclick="initReport.qiehuanHead(this);" name="reportInfo"><a>报表信息</a></li>
+							  <li role="presentation" onclick="initReport.qiehuanHead(this);" name="reportCeshi"><a>报表测试</a></li>
+							</ul>
+							<div id="" class="ziyou" style="top: 40px;width: 100%;bottom:0px;overflow-y: auto;background-color: white;">
+								<!--
+                                	作者：wangpeng@foxmail.com
+                                	时间：2018-08-13
+                                	描述：报表搜索
+                                -->
+								<div id="reportSearch" class="mokuai" style="">
+									<div class="" style="padding:0;">
+				                        <center>
+				                            <div id="baowei" style=" border: 0px solid #e8e8e8 ;padding: 20px">
+				                            	<select name="" class="kandOfSql" id="" style="width: 120px">
+												</select>
+				                                <select id="nameType" onclick="" style="width: 120px">
+				                                    <option value="report_name">报表名称</option>
+				                                    <option value="kpi_name">指标名称</option>
+				                                </select>
+				                                <input id="seekReportName" type="text" placeholder="请输入报表名称" style="width: 290px;height: 34px;" onkeypress="if(event.keyCode==13){initReport.seekReport();}">
+				                                <input type="button" class="btn btn-primary" value="搜  索" style="margin-left: 20px;padding:3px 14px;height:34px; margin-bottom: 4px;" onclick="initReport.seekReport()">
+				                            </div>
+				                            <div id="resultSeekReportName" class="" style="border: 0px solid rgb(232, 232, 232); width: 960px;">
+				                            
+				                            </div>
+				                        </center>
+				                    </div>
+								</div>
+								<!--
+                                	作者：wangpeng@foxmail.com
+                                	时间：2018-08-13
+                                	描述：报表授权
+                                -->
+								<div id="reportShouquan" class="mokuai" style="display: none;">
+									<center>
+			                            <div id="" style=" border: 0px solid #e8e8e8 ;padding: 20px">
+			                            	<select name="" class="kandOfSql" id="" onchange="initReport.seekUserName()" style="width: 120px">
+											</select>
+			                                <select id="reportType" onclick="" style="width: 120px" onchange="initReport.seekUserName()">
+			                                    <option value="4">单报多户</option>
+			                                    <option value="3">多报多户</option>
+			                                </select>
+			                                <button class="btn btn-info" onclick="initReport.saveOfShouQuan()">保  存</button>
+			                            </div>
+			                        </center>
+		                            <div id="resultSeekUserName" class="hengCenter" style=" width: 100%;position: absolute;top:66px;bottom: 5px;min-height: 250px;">
+		                            	<div id="reportList" style="height: 100%;width: 33%;border: 1px solid rgb(232, 232, 232);top: 0;left: 0;" class="ziyou">
+		                            	</div>
+		                            	<div id="userNameList" class="easyui-accordion" style="position:absolute;height: 100%;border: 1px solid rgb(232, 232, 232);top: 0;left: 34%;right: 0;width: auto;">
+		                            	</div>
+		                            </div>
+								</div>
+								<!--
+                                	作者：wangpeng@foxmail.com
+                                	时间：2018-08-13
+                                	描述：报表配置
+                                -->
+								<div id="reportPeizhi" class="mokuai" style="display: none;">
+									<center>
+			                            <div id="" style=" border: 0px solid #e8e8e8 ;padding: 20px">
+			                            	<!--<select name="" class="kandOfSql" id="" onchange="initReport.seekUserName()" style="width: 120px">
+											</select>-->
+			                                <button class="btn btn-info" onclick="$('#peizhiTable').jqGrid('clearGridData')">清  空</button>
+			                                <button class="btn btn-info" onclick="initReport.saveOfpeizhi()">保  存</button>
+			                                <button class="btn btn-info" onclick="initReport.refrshTable(true);">刷  新</button>
+			                            </div>
+			                        </center>
+			                        <div id="resultSeekPeizhi" class="hengCenter" style=" width: 100%;position: absolute;top:66px;bottom: 25px;min-height: 250px;">
+		                            	<div id="" class="hengCenter" style="float: left;height: 100%;width:895px;">
+		                            		<table id="peizhiTable" style="">
+		                            		</table>
+		                            	</div>
+			                        </div>
+								</div>
+								<!--
+                                	作者：wangpeng@foxmail.com
+                                	时间：2018-09-27
+                                	描述：报表信息
+                                -->
+								<div id="reportInfo" class="mokuai" style="display: none;">
+									<center>
+			                            <div id="" style=" border: 0px solid #e8e8e8 ;padding: 20px">
+			                                <button class="btn btn-info" onclick="initReport.saveOfInfo()">保  存</button>
+			                                <button class="btn btn-info" onclick="initReport.refrshInfo();">刷  新</button>
+			                            	<input type="hidden" name="reportInfoId" id="reportInfoId" value="" />
+			                            	<input type="hidden" name="reportInfoKand" id="reportInfoKand" value="" />
+			                            </div>
+			                        </center>
+			                        <div id="" class="" style="padding: 0 20px; width: 100%;position: absolute;top:66px;bottom: 25px;min-height: 250px;">
+		                            	<div style="padding: 5px">
+											<span>报表名称<span style="color: red">*</span>:</span>
+											<input name="name_" type="text" style="width: 260px ;height: 34px;">
+											<input name="id_" type="hidden" style="width: 260px ;height: 34px;">
+											<input name="report_id" type="hidden" style="width: 260px ;height: 34px;">
+											<input name="qry_bd_info" type="hidden" style="width: 260px ;height: 34px;">
+											<input name="kand" type="hidden" style="width: 260px ;height: 34px;">
+											<span style="margin-left: 30px">数据源:
+												<span style="color: red">*</span>:</span>
+											<select id="dataPool" name="data_source_id" style="width: 100px ;height: 34px;">
+											</select>
+											<!-- 隐藏的条件, 最开始为了钻取用, 判断是 直接查询还是钻取查询 -->
+											<span style="margin-left: 30px;">隐藏参数:</span>
+											<input name="hide_param" type="text" style="width: 70px ;height: 34px;">
+											<span style="margin-left: 30px;">ID:</span>
+											<input id="updateId" type="text" style="width: 130px ;height: 34px;">
+		                            	</div>
+		                            	<div id="addTiaojiao_1" class="" style="border: 1px solid #e8e8e8;padding: 15px;line-height: 40px;margin: 10px 0;">
+											<select name="lianxuOrlisan">
+												<option value="lisan">离散时间</option>
+												<option value="lianxu">连续时间</option>
+											</select>
+											<span style="margin-left: 30px;">时间粒度:</span>
+											<input type="checkbox" id="" name="timeType" value="min">
+											<span id="labels_min" style="margin: 0 10px 0 5px">5分钟</span>
+											<input type="checkbox" id="" name="timeType" value="15min">
+											<span id="labels_15min" style="margin: 0 10px 0 5px">15分钟</span>
+											<input type="checkbox" id="" name="timeType" value="30min">
+											<span id="labels_30min" style="margin: 0 10px 0 5px">30分钟</span>
+											<input type="checkbox" id="" name="timeType" value="hour">
+											<span id="labels_hour" style="margin: 0 10px 0 5px">小时</span>
+											<input type="checkbox" id="" name="timeType" value="day">
+											<span id="labels_day" style="margin: 0 10px 0 5px" checked="checked">天</span>
+											<input type="checkbox" id="" name="timeType" value="dayconver">
+											<span id="labels_dayconvert" style="margin: 0 10px 0 5px">天（汇聚）</span>
+											<input type="checkbox" id="" name="timeType" value="week">
+											<span id="" style="margin: 0 10px 0 5px" checked="checked">周</span>
+											<div id="weekOfNationDiv_1" style="display:none">【
+												<input type="radio" name="weekOfNation_1" value="t" checked="" style="margin-left: 3px;">
+												<span>自然周(周一~周日)</span>
+												<input type="radio" name="weekOfNation_1" value="f">
+												<span>非自然周(上周四~本周三)</span>】
+											</div>
+											<input type="checkbox" id="" name="timeType" value="month">
+											<span id="labels_month" style="margin: 0 10px 0 5px">月</span>
+											<input type="checkbox" id="" name="timeType" value="checkbox_timeSelect">
+											<span id="labels_timeSelect" style="margin: 0 10px 0 5px">隐藏</span>
+										</div>
+										 <div id="" class="" style="border: 1px solid #e8e8e8;padding: 15px;line-height: 40px;margin: 10px 0;">
+				                        	<input type="text" style="width: 260px ;height: 34px;" name="create_time" id="" value="" disabled="disabled" />
+				                        	<input type="text" style="width: 260px ;height: 34px;" name="creator_" id="" value="" disabled="disabled" />
+				                        	<select name="enabled">
+				                        		<option value="0">已删除</option>
+				                        		<option value="1">只建表</option>
+				                        		<option value="2">已发布</option>
+				                        		<option value="3">已关注</option>
+				                        		<option value="4">没编辑</option>
+				                        		<option value="5">建好没上线</option>
+				                        	</select>
+				                        </div>
+										 <div id="" class="" style="border: 1px solid #e8e8e8;padding: 15px;line-height: 40px;margin: 10px 0;">
+				                        	<input type="text" style="width: 260px ;height: 34px;" name="update_time" id="" value="" disabled="disabled" />
+				                        	<input type="text" style="width: 260px ;height: 34px;" name="creator_" id="" value="" disabled="disabled" />
+				                        </div>
+			                        </div>
+								</div>
+								<!--
+                                	作者：wangpeng@foxmail.com
+                                	时间：2018-10-12
+                                	描述：报表测试
+                                -->
+                               	<div id="reportCeshi" class="mokuai" style="display: none;padding: 15px;">
+                               		<iframe id="reportCeshiIframe" name="reportCeshiIframe" frameborder="0" src="" width="100%" height="100%"></iframe>
+                               	</div>
+							</div>
+						</div>
+						<div class="cip" id="bpCtrl" data-toggle="popover" data-html="true" data-placement="bottom" data-trigger="hover" title="" data-trigger="" data-content="哈哈"  style="-webkit-user-select: none; cursor: pointer;color: white;text-align: center;right:0;top:35px;right:34px;border-radius: 10px;overflow: hidden; position: absolute;z-index: 20;" id="">
+							<div id="" class="fl btn btn-info" onclick="shouUls(1,this);" style="float: left;padding: 3px 5px;border-radius: 0px;">
+								编辑区
+							</div>
+							<div id="" class="fl btn btn-default" onclick="shouUls(2,this);" style="float: left;padding: 3px 5px;border-radius: 0px;">
+								配置区
+							</div>
+							<div id="" class="clear"></div>
+						</div>
+						<div id="searchs" class="easyui-layout" data-options="fit:true">
+							<div data-options="region:'center',onResize:function(){if(getSelectTabs()){setTimeout(function(){CodeMirrorEditor.refresh();getSelectTabs().codeM.refresh();},50)}}" style="border-width: 0;">
+								<div id="bianji" class="easyui-tabs" data-options="fit:true" style="">
+								</div>
+							</div>
+						    <div id="" data-options="region:'south',collapsible:false,collapsed:true" style="height: 80px;overflow: hidden;z-index: 4;border-width: 0;">
+						    	<div id="seach" style="height: 80px;overflow: hidden;position: relative;display: flex; bottom: 0px;width: 100%;z-index: 6;">
+									<div id="" style="flex: 1;position: relative;">
+										<textarea class="replaceText" id="reBefore"></textarea>
+										<textarea class="replaceText" id="reAfter" style="position: absolute;left: 50%;"></textarea>
+										<div id="" style="position: absolute;left:calc(50% - 44px);top: 7px;">
+											<img src="img/select.png" onclick="showSelect(1)"/>
+										</div>
+										<div id="" style="position: absolute;top: 7px;right: 0;">
+											<img src="img/select.png" onclick="showSelect(2)"/>
+										</div>
+									</div>
+									<div id="" style="width:232px;height: 83%;margin: 7px;font-size: 12.4px;">
+										<input type="button" name="" id="seach_one" value="查找" />
+										<input type="button" name="" id="replace_seach_one" value="替换/查找" />
+										<input type="button" name="" id="replace_one" value="替换" />
+										<input type="button" name="" id="replace_all" value="全部替换" />
+										<a href="javascript:;" class="tip caseFold" title="区分大小写" data-placement="top"><i class="fa fa-font"></i></a>
+										<a href="javascript:;" class="tip whole" title="whole word?" data-placement="top"><i class="fa fa-wikipedia-w"></i></a>
+										<a href="javascript:;" class="tip zhengze" title="正则表达式" data-placement="top"><i class="fa fa-usd"></i></a>
+										<a href="javascript:;" class="tip searchafter" title="向后搜索" data-placement="top"><i class="fa fa-backward"></i></a>
+										|
+										<select style="margin: 8px;">
+											<option value="1">当前文件</option>
+											<option value="2">打开文件</option>
+											<option value="3">当前项目</option>
+											<option value="4">所有项目</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+		
+		<div style="position: relative;top: -635px;left: 10px;z-index: -1;">
+			<input id="treeKeydown" type="text" style=""/>
+			<input type="text" name="" id="copyspan" style="display: block;" value="111" />
+		</div>
+		
+		<div id="mm2" class="easyui-menu" data-options="" style="width:150px;display: none;">
+		     <div onclick="nodeCtrl.openFolder('tree',youjian)" data-options="iconCls:'icon-open'">打开/关闭</div>
+		     <div onclick="nodeCtrl.addFile_before(youjian,2)" data-options="iconCls:'icon-add'">新增报表</div>
+		     <div onclick="nodeCtrl.addFile_before(youjian,1)" data-options="iconCls:'icon-add'">新增文件夹</div>
+		     <div onclick="nodeCtrl.updateName_before(youjian,1)" data-options="iconCls:'icon-xiugai'">修改名称</div>
+		     <div onclick="nodeCtrl.deleteFile(youjian)" data-options="iconCls:'icon-cancel'">删除文件夹(D)</div>
+		     <div onclick="nodeCtrl.addFiles_before(youjian,2)" data-options="iconCls:'icon-add'">批量新增报表</div>
+		     <div onclick="nodeCtrl.addFiles_before(youjian,1)" data-options="iconCls:'icon-add'">批量新增文件夹</div>
+		     <div onclick="nodeCtrl.updateFiles(youjian)" data-options="iconCls:'icon-gengxin'">从服务器更新</div>
+		     <div onclick="nodeCtrl.openFiles(youjian)" data-options="iconCls:'icon-open'">打开下属所有文件</div>
+		     <div onclick="nodeCtrl.fillFiles(youjian)" data-options="iconCls:'icon-open'">填充所有空文件夹</div>
+		     <div onclick="nodeCtrl.copyUrl(youjian)" class="copy" data-clipboard-target="#copyspan" data-placement="bottom" data-options="iconCls:'icon-url'">复制路径</div>
+		</div>
+		
+		<div id="mm3" class="easyui-menu" data-options="" style="width:150px;display: none;">
+		    <div onclick="ondblclick_func(youjian)" data-options="iconCls:'icon-open'">打开文件</div>
+		    <div onclick="nodeCtrl.updateName_before(youjian,2)" data-options="iconCls:'icon-xiugai'">修改名称</div>
+		    <div onclick="nodeCtrl.deleteFile(youjian)" data-options="iconCls:'icon-cancel'">删除文件(D)</div>
+		    <div onclick="nodeCtrl.openOnLoaction(youjian)" data-options="iconCls:'panel-openFile'">打开本地位置</div>
+		    <div onclick="nodeCtrl.copyUrl(youjian)" class="copy" data-clipboard-target="#copyspan" data-placement="bottom" data-options="iconCls:'icon-url'">复制路径</div>
+		</div>
+		
+		<div id="mm4" class="easyui-menu dropdown-menu" style="width:150px;display: none;">
+		    <div onclick="nodeMenu.save(youjian_off)" data-options="iconCls:'panel-tool-save'">保存</div>
+		    <div onclick="nodeMenu.saveAll(youjian_off)" data-options="iconCls:'panel-tool-save'">全部保存 ( 非离散 )</div>
+		    <div class="menu-sep"></div>
+		    <div onclick="nodeMenu.savetoServer(youjian_off)" data-options="iconCls:'panel-tool-submit'">保存至服务器</div>
+		    <div onclick="nodeMenu.saveAlltoServer(youjian_off)" data-options="iconCls:'panel-tool-submit'">全部保存至服务器</div>
+		    <div onclick="nodeMenu.file_off(youjian_off)" data-options="iconCls:'panel-tool-close'">关闭</div>
+		    <div onclick="nodeMenu.file_other_off(youjian_off)" data-options="iconCls:''">关闭其他</div>
+		    <div onclick="nodeMenu.file_left_off(youjian_off)" data-options="iconCls:'layout-button-left'">关闭左侧全部</div>
+		    <div onclick="nodeMenu.file_right_off(youjian_off)" data-options="iconCls:'layout-button-right'">关闭右侧全部</div>
+		    <div onclick="nodeMenu.file_all_off(youjian_off)" data-options="iconCls:'spinner-button-down'">全部关闭</div>
+		</div>
+		<div id="mm5" class="easyui-menu" style="width:150px;display: none;">
+		    <div data-options="iconCls:''">
+		    	<span>调用 select</span>
+		    	<div id="fuzhu_sele" class="mm5_childMenu" style="width:150px;">
+				</div>
+		    </div>
+		    <div onclick="menu.create();" data-options="">添加 select</div>
+		    <div onclick="" data-options="iconCls:''">
+		    	<span>添加 if</span>
+		    	<div id="fuzhu_AiTe" class="mm5_childMenu" style="width:150px;">
+				</div>
+		    </div>
+		    <div onclick="" data-options="iconCls:''">
+		    	<span>常用 Code 块</span>
+		    	<div id="fuzhu_Code" class="mm5_childMenu" style="width:150px;">
+				</div>
+		    </div>
+		    <div onclick="" data-options="iconCls:''">
+		    	<span>常用 Code</span>
+		    	<div id="fuzhu_All" class="mm5_childMenu" style="width:150px;">
+				</div>
+		    </div>
+		    <div onclick="menu.refresh();" data-options="">刷新</div>
+		</div>
+		
+		<div id="mm6" class="easyui-menu" data-options="onShow:showMM67" style="width:150px;display: none;">
+		</div>
+		<div id="mm7" class="easyui-menu dropdown-menu" style="width:150px;display: none;">
+		    <div onclick="selectMenu.file_off(youjian_offmodal)" data-options="iconCls:'panel-tool-close'">关闭</div>
+		    <div onclick="selectMenu.file_other_off(youjian_offmodal)" data-options="iconCls:''">关闭其他</div>
+		    <div onclick="selectMenu.file_left_off(youjian_offmodal)" data-options="iconCls:'layout-button-left'">关闭左侧全部</div>
+		    <div onclick="selectMenu.file_right_off(youjian_offmodal)" data-options="iconCls:'layout-button-right'">关闭右侧全部</div>
+		    <div onclick="selectMenu.file_all_off(youjian_offmodal)" data-options="iconCls:'spinner-button-down'">全部关闭</div>
+		</div>
+		<div  class="modal" id="queryTableInfo">
+          <div class="modal-dialog" style="margin-top: 20px;width: 95%;height: calc(100% - 50px);">   <!-- style="width: 900px;left: -50px" -->
+              <div class="modal-content" >
+                    <div class="modal-body " id="" style="height: calc(100% - 54px);padding: 15px 15px 0 15px;">
+                    	<div id="tab_select" class="easyui-tabs" data-options="fit:true" style="width:100%;height:100%">
+						</div>
+                    </div>
+                    <div class="modal-footer" style="border-style: none;">
+	                  <center>
+	                        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+	                  </center>      
+	                </div>
+              </div>
+         </div>
+      </div>
+		
+		<div  class="modal" id="saveFolder">
+          <div class="modal-dialog" style="margin-top: 100px;width: 500px;">   <!-- style="width: 900px;left: -50px" -->
+              <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="img/close.png"></span><span class="sr-only"></span></button>
+                        <h4 class="modal-title">选择文件夹</h4>
+                    </div>
+                    <div class="modal-body" id="modal-body" style="">
+                    		<input class="add_value" type="hidden" name="add_id" id="add_id" value="" />
+                    		<input class="add_value" type="hidden" name="add_text" id="add_text" value="" />
+                    		<input class="add_value" type="hidden" name="add_url" id="add_url" value="" />
+                    		<input class="add_value" type="hidden" name="add_type" id="add_type" value="" />
+                    		<input class="add_value" type="hidden" name="add_index" id="add_index" value="" />
+                    		<textarea class="add_value" id="add_node" style="display: none;" rows="" cols=""></textarea>
+                    		文件名：<input class="add_value" type="text" id="fileName" style="max-width: 160px;" /><br/>
+                           <ul id="tree1" onselectstart="return false;" style="-moz-user-select:none;margin-top: 15px;height: 400px;overflow: auto;" ></ul>
+                    </div>
+                    <div class="modal-footer">
+	                  <center>
+	                        <button type="button" class="btn btn-primary" onclick="nodeCtrl.addFile()" >保  存</button>
+	                        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+	                  </center>      
+	                </div>
+              </div>
+         </div>
+      </div>
+		<div  class="modal" id="saveFolders">
+          <div class="modal-dialog" style="margin-top: 100px;width: 700px;">   <!-- style="width: 900px;left: -50px" -->
+              <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="img/close.png"></span><span class="sr-only"></span></button>
+                        <h4 class="modal-title">选择文件夹</h4>
+                    </div>
+                    <div class="modal-body" id="modal-body" style="">
+                    		<input class="add_value" type="hidden" name="add_id" id="add_id_s" value="" />
+                    		<input class="add_value" type="hidden" name="add_text" id="add_text_s" value="" />
+                    		<input class="add_value" type="hidden" name="add_url" id="add_url_s" value="" />
+                    		<input class="add_value" type="hidden" name="add_type" id="add_type_s" value="" />
+                    		<input class="add_value" type="hidden" name="add_index" id="add_index_s" value="" />
+                    		<textarea class="add_value" id="add_node_s" style="display: none;" rows="" cols=""></textarea>
+							<input type="checkbox" name="isTongBu" id="isTongBu" value="" />   
+							是否同步至服务器&nbsp;&nbsp;
+							<input type="text" style="display: none;position: absolute;top: 2px;left: 178px;" name="tongBuId" id="tongBuId" value="" />
+							<div id="addTiaojiao" style="border: 1px solid #e8e8e8;padding: 10px 0 10px 0">
+								<input type="radio" id="lisan" name="lianxuOrlisan2" value="lisan" onchange="" checked="checked">
+								<span style="margin: 0 10px 0 5px">离散时间</span>
+								<input type="radio" id="lianxu" name="lianxuOrlisan2" value="lianxu" onchange="" style="margin-left: 10px">
+								<span style="margin: 0 10px 0 5px">连续时间</span>
+								<span style="margin-left: 30px;">时间粒度:</span>
+								<input type="checkbox" id="checkbox_min" name="timeType" value="min">
+								<span id="labels_min" style="margin: 0 10px 0 5px">5分钟</span>
+								<input type="checkbox" id="checkbox_15min" name="timeType" value="15min">
+								<span id="labels_15min" style="margin: 0 10px 0 5px">15分钟</span>
+								<input type="checkbox" id="checkbox_30min" name="timeType" value="30min">
+								<span id="labels_30min" style="margin: 0 10px 0 5px">30分钟</span>
+								<input type="checkbox" id="checkbox_hour" name="timeType" value="hour" checked="checked">
+								<span id="labels_hour" style="margin: 0 10px 0 5px" checked="checked">小时</span>
+								<input type="checkbox" id="checkbox_day" name="timeType" value="day">
+								<span id="labels_day" style="margin: 0 10px 0 5px" checked="checked">天</span>
+								<input type="checkbox" id="checkbox_dayconver" name="timeType" value="dayconver">
+								<span id="labels_dayconvert" style="margin: 0 10px 0 5px">天（汇聚）</span>
+								<input type="checkbox" id="checkbox_week" name="timeType" value="week">
+								<span id="labels_week" style="margin: 0 10px 0 5px" checked="checked">周</span>
+								<div id="weekOfNationDiv" style="display:none">【
+									<input type="radio" name="weekOfNation" value="t" checked="" style="margin-left: 3px;">
+									<span>自然周(周一~周日)</span>
+									<input type="radio" name="weekOfNation" value="f">
+									<span>非自然周(上周四~本周三)</span>】</div>
+								<input type="checkbox" id="checkbox_month" name="timeType" value="month">
+								<span id="labels_month" style="margin: 0 10px 0 5px">月</span>
+								<input type="checkbox" id="checkbox_timeSelect" name="timeType" value="checkbox_timeSelect">
+								<span id="labels_timeSelect" style="margin: 0 10px 0 5px">隐藏</span>
+							</div>
+                    		<br/>
+                    		文件名：&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                    		<textarea id="fileName_s" name="" rows="" cols="" style="margin: 0px; width: 100%; height: 126px;"></textarea><br/>
+                           <ul id="tree1_s" onselectstart="return false;" style="-moz-user-select:none;margin-top: 15px;height: 300px;overflow: auto;" ></ul>
+                    </div>
+                    <div class="modal-footer">
+	                  <center>
+	                        <button type="button" class="btn btn-primary" onclick="nodeCtrl.addFiles()" >保  存</button>
+	                        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+	                  </center>      
+	                </div>
+              </div>
+         </div>
+      </div>
+		<div  class="modal" id="saveName">
+	        <div class="modal-dialog" style="margin-top: 100px;width: 500px;">   <!-- style="width: 900px;left: -50px" -->
+	            <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="img/close.png"></span><span class="sr-only"></span></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body" id="modal-bodyd" style="">
+                    		<input class="uName_value" type="hidden" name="add_id" 		id="uName_id" value="" />
+                    		<input class="uName_value" type="hidden" name="add_text" 	id="uName_text" value="" />
+                    		<input class="uName_value" type="hidden" name="add_url" 	id="uName_url" value="" />
+                    		<input class="uName_value" type="hidden" name="add_type" 	id="uName_type" value="" />
+                    		<input class="uName_value" type="hidden" name="add_type" 	id="uName_hou" value="" />
+                    		<input class="uName_value" type="hidden" name="add_index" 	id="uName_idex" value="" />
+                    		新的文件名：<input class="uName_value" type="text" id="UfileName" /><br/>
+                    </div>
+                    <div class="modal-footer">
+	                  <center>
+	                        <button type="button" class="btn btn-primary"   onclick="nodeCtrl.updateName()" >保  存</button>
+	                        <button type="button" class="btn btn-default"   data-dismiss="modal">关 闭</button>
+	                  </center>      
+	                </div>
+               	</div>
+        	</div>
+     	</div>
+		<script type="text/javascript">
+					var codes=[];
+					var besa_url = [
+									"F:/BaoBiao",
+									"C:/Users/14185/Desktop/BaoBiao",
+									"C:/Users/hasee/Desktop/BaoBiao",
+									"C:/Users/Cat/Desktop/BaoBiaos",
+									"C:/Users/Wp/Desktop/BaoBiao",
+									"H:/H/格式--JSON数组/editOnline",
+									"H:/H/格式--JSON数组/font-awesome-4.7.0/less",
+									"G:/H/格式--JSON数组/echarts/dist/chart",
+									"自定义"
+									];
+					var codeNum=1;
+					var dropIndex = "";
+					var beforeYoujian=[{anchor:{ch:0,line:0},head:{ch:0,line:0}}];//编辑器右键前的光标位置
+					var search = {
+						"caseFold":false,
+						"whole":false,
+						"searchafter":false,
+						"zhengze":false,
+					}
+					var replaces = [
+						{"befor":"\\","after":"%1"},
+						{"befor":"/","after":"%2"},
+						{"befor":":","after":"%3"},
+						{"befor":"*","after":"%4"},
+						{"befor":"?","after":"%5"},
+						{"befor":"\"","after":"%6"},
+						{"befor":"<","after":"%7"},
+						{"befor":">","after":"%8"},
+						{"befor":"|","after":"%9"},
+					];
+					$(".cip").popover();
+					$('.cip').on('show.bs.popover', function () {
+					  // do something…
+					  var quanbu = codes.length;
+					  var saved = 0;
+					  var unsave = 0;
+					  var youli = 0;
+					  		for(var i=0;i<codes.length;i++){
+					  			if(ctrlSave(i)){
+					  				saved++;
+					  			}else if(!ctrlSave(i)&&codes[i].id){
+					  				unsave++;
+					  			}else{
+					  				youli++;
+					  			}
+					  		}
+					  		$(this).attr("data-content",'全部：'+quanbu+
+					  									'</br>已保存：<font style="color:#B5E2FA;">'+saved+
+					  									'</font></br>未保存：<font style="color:#FE87CE;">'+unsave+
+					  									'</font></br>游离态：<font style="color:red;">'+youli+"</font>")
+					})
+					function addPaneCode (node) {
+						var title = "";
+						//生成text
+						for(var i=1;i<10000;i++){
+							var titled = 'New Tab'+i+".BB";
+							for(var j=0;j<codes.length;j++){
+								if(titled == codes[j].text){
+									title = 3;
+									break;
+								}else{
+									title="";
+								}
+							}
+							if(title!=3){
+								title = titled;
+								break;
+							}
+						}
+						if(node.text){
+							title = node.text;
+						}else{
+							$($("#tree").find(".tree-node-selected")).removeClass("tree-node-selected");
+						}
+						var tile = checkTitle(title);
+						var afters = tile.substring(tile.lastIndexOf(".")+1,tile.length);
+						$('#bianji').tabs('add',{
+						    title:tile,
+						    content:'<textarea id="sql'+(codeNum+1)+'" name="" rows="" cols=""></textarea>',
+						    closable:true
+						});
+						var codeM=createPaneCode("sql"+(++codeNum),afters);
+						codes.push({
+							id:node.id, 
+							url:node.url,
+							text:title,
+							codeM:codeM
+						});
+						if(node.text){
+							codeM.setValue(node.node);
+							codeM.clearHistory();
+						}
+						ctrlSave(codes.length-1);
+						codeM.focus();
+					}
+					function ondblclick_func (node) {
+//						alert(node.node);
+						var url = node.url;
+						var index = -1;
+						for(var j=0;j<codes.length;j++){
+							if(url == codes[j].url){
+								index = j;
+							}
+						}
+						if(index==-1){
+							nodeCtrl.openFile(node);
+						}else{
+							$("#bianji").tabs("select",index);
+						}
+					}
+					$(document).ready(function () {
+						$("#rootUrl").append("<option>"+besa_url.join("</option><option>")+"</option>");
+						sqllite.init();
+						initClass();
+						loadTree("tree",$("#rootUrl").find("option:selected").text(),false);
+						$("#bianji").tabs({
+							onClose:function (title,index) {
+								codes.splice(index,1);
+								$($("#tree").find(".tree-node-selected")).removeClass("tree-node-selected");
+							},
+							onSelect:function (title,index) {
+								$("#fuzhu").hide();
+								setTimeout(function () {
+									var selectTab = codes[index];
+									if(selectTab&&selectTab.codeM){
+										selectTab.codeM.refresh();
+										selectTab.codeM.focus();
+										if(selectTab.id){
+											var id = selectTab.id;
+											var firstTreesd = eprnode("tree",id);
+											$('#tree').tree('select', firstTreesd.target);
+										}else{
+											$($("#tree").find(".tree-node-selected")).removeClass("tree-node-selected");
+										}
+									}
+								},100)
+							},
+							onBeforeClose:function(title,index){
+								return beforeClose(title,index);
+							},
+							onContextMenu:function (e,title,index) {
+								e.preventDefault();
+								$("#bianji").tabs("select",index);
+								youjian_off.e=e;
+								youjian_off.title=title;
+								youjian_off.index = index;
+								$('#mm4').menu('show', {
+                                 	left: e.pageX,
+                                 	top: e.pageY
+                               	});
+							},
+//							width:$("#floatRight").width(),
+//							height:$("#bianji").height()
+						})
+						addPaneCode({});
+						initReport.init();
+						//$("#zon").hide();
+//						updateLNAll(0,"C:/Users/Cat/Desktop/BaoBiaos");
+					})
+					
+					CodeMirrorEditor = CodeMirror.fromTextArea(document.getElementById("sql"), {
+						lineNumbers: true,
+						mode: {
+				        	name: "xml",
+						},
+						//设置主题
+				         theme:"default",
+						//绑定Vim
+//						keyMap:"vim",
+						//代码折叠
+//						lineWrapping: true,
+//						foldGutter: true,
+//						gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+						fullScreen: false,	//全屏模式
+						indentUnit:4,		//回车退格数（js为2，html为4）
+						indentWithTabs:true,//回车是否制表
+						matchBrackets: true,//括号匹配
+						matchTags: true,	//标签匹配
+						autoCloseTags:true,	//标签补全
+			//			cursorHeight:0.85,	//光标高度
+						extraKeys: {
+							"Alt-/": "autocomplete",//ctrl-/唤起智能提示
+							"Ctrl-S": function() {
+//								jicheng();
+							},
+							"Esc": function(){
+//								$("#full").click();
+							}
+						} 	
+					});
+					var st = null;
+					var sts = null;
+					function createPaneCode(id){
+						var mixedMode = {
+					        name: "htmlmixed",
+					        tags: {
+//					        	jdbctype: [
+//							    	[null, null, "javascript"],
+//							    ],
+							    select: [
+							    	["id", /resultMapping/i, "properties"],
+							    	["id", /field/i, "cypher"],//text/x-pgsql
+							    	["id", /file/i, "cypher"],
+							    	[null, null, "htmlmixed"],
+							    ],
+							}
+					    };
+					    var codeindex = codes.length;
+						var CodeMirrorEditor1 = CodeMirror.fromTextArea(document.getElementById(id), {
+							lineNumbers: true,
+							mode: mixedMode,
+							//设置主题
+							theme:"default",
+							//绑定Vim
+	//						keyMap:"vim",
+							//代码折叠
+//							lineWrapping: true,
+//							foldGutter: true,
+//							gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+							fullScreen: false,	//全屏模式
+							indentUnit:4,		//回车退格数
+							indentWithTabs:true,//回车是否制表
+							matchBrackets: true,//括号匹配
+							matchTags: true,	//标签匹配
+							undonum:0,			//自定义当前保存的可撤销数
+							autoCloseTags:true,	//标签补全
+							highlightSelectionMatches: {showToken: /\w/, annotateScrollbar: true},//高亮所选单词的所有实例
+				//			cursorHeight:0.85,	//光标高度
+		//					自定义属性
+							caseFold:false,		//是否区分大小写
+							zhengze:false,		//是否正则
+							searchafter:false,	//是否向后搜索
+							id:codeindex,	//是否向后搜索
+							extraKeys: {
+								"Alt-/": "autocomplete",//ctrl-/唤起智能提示
+								"Ctrl-S": function() {
+										var obj = getSelectTabs();
+										if(st){
+											clearTimeout(st);
+										}
+										st = setTimeout(function () {
+											var index = $('#bianji').tabs('getSelected');
+											index = $('#bianji').tabs('getTabIndex',index);
+											if(obj.id){
+												nodeCtrl.saveFile(obj);
+											}else{
+												nodeCtrl.addFile_before(obj,2,index);
+											}
+										},500);
+								},
+								"Esc": function(){
+									var dis = $("#zon").layout("panel","west").css("display");
+									if(dis == "none"){
+										$("#zon").layout('expand','west');
+									}else{
+										$("#zon").layout('collapse','west');
+									}
+								},
+								"Shift-Ctrl-R":function(a,b,c){
+									monitor["Shift-Ctrl-R"](a,b,c);
+								},
+								"Ctrl-F":function(){
+									var dis = $("#seach").css("display");
+									var srt = CodeMirrorEditor1.getSelection().trim();
+									var isFocus = CodeMirrorEditor1.hasFocus();
+									var dis = $("#searchs").layout("panel","south").css("display");
+									if(srt){
+										if(dis == "none"){
+											$("#searchs").layout('expand','south');
+										}
+										$("#reBefore").val(srt);
+										$("#reBefore").select();
+									}else{
+										if(dis == "none"){
+											$("#searchs").layout('expand','south');
+											$("#reBefore").select();
+										}else{
+											$("#searchs").layout('collapse','south');
+										}
+									}
+								}
+							}
+						});
+						
+						CodeMirrorEditor1.on("cursorActivity",function(){
+							var srt = CodeMirrorEditor1.getSelection();
+							if(srt.length>0){
+								doSearch(CodeMirrorEditor1,srt,1);
+							}else{
+								clearSearch(CodeMirrorEditor1);
+							}
+							if(event&&event.button==2){
+							}else{
+								beforeYoujian=[];
+								var listSelect = CodeMirrorEditor1.listSelections();
+								listSelect.map(function (num,index) {
+									beforeYoujian.push({
+										anchor:{line:num.anchor.line,ch:num.anchor.ch},
+										head:{line:num.head.line,ch:num.head.ch}
+									})
+								})
+//								beforeYoujian.from = CodeMirrorEditor1.getCursor("from");
+//								beforeYoujian.to = CodeMirrorEditor1.getCursor("to");
+							}
+						});
+						CodeMirrorEditor1.on("keyHandled",function(instance, name, event){
+							console.log(name);
+						});
+						CodeMirrorEditor1.on("change",function(){
+							var code_index = -1;
+							for(var i=0;i<codes.length;i++){
+								if(CodeMirrorEditor1.options.id==codes[i].codeM.options.id){
+									code_index=i;
+								}
+							}
+							ctrlSave(code_index);
+						});
+						CodeMirrorEditor1.on("focus",function(codeM,e){
+							for(var i=0;i<codes.length;i++){
+								if(codes[i].codeM==codeM){
+									if(codes[i].id){
+										var id = codes[i].id;
+										var firstTreesd = eprnode("tree",id);
+										$('#tree').tree('select', firstTreesd.target);
+									}else{
+										$($("#tree").find(".tree-node-selected")).removeClass("tree-node-selected");
+									}
+									break;
+								}
+							}
+						});
+						
+						var cideM = $("#zon").find(".CodeMirror:last");
+						cideM.bind("contextmenu",function(e){
+							event.stopPropagation();
+							e.preventDefault(); 
+							CodeMirrorEditor1.setSelections(beforeYoujian);
+//							$("#fuzhu").css("display","block");
+							var str = CodeMirrorEditor1.getValue();
+							var patt = /<select[^>]+id=['"]([^'"]+)['"]+/g;
+							var AiTe = ['isContinue','timeType','qry_??','','','','',''];
+							var Code = ['周查日Code','月查日Code','time混乱Code','连续时间条件'];
+							var All = ['\'@value\'','.substr(0 , )','ROUND(',',2)','','','',''];
+							var result = [], temp,Aites=[],Alls=[];
+							
+							while( (temp= patt.exec(str)) != null ) {
+							    result.push(temp[1]);
+							}
+							$(".mm5_childMenu").html("");
+							result.map(function (num,index) {
+								var item = $('#mm5').menu('findItem', '调用 select');  // find 'Open' item
+								$('#mm5').menu('appendItem', {
+									parent: item.target,  // the parent item element
+									text: num,
+									iconCls: '',
+									onclick: function () {
+										menu.selectIn(num);
+									}
+								});
+							});
+							
+							AiTe.map(function (num,index) {
+								var item = $('#mm5').menu('findItem', '添加 if');  // find 'Open' item
+								$('#mm5').menu('appendItem', {
+									parent: item.target,  // the parent item element
+									text: num,
+									iconCls: '',
+									onclick: function () {
+										menu.selectAiTe(num);
+									}
+								});
+							});
+							
+							Code.map(function (num,index) {
+								var item = $('#mm5').menu('findItem', '常用 Code 块');  // find 'Open' item
+								$('#mm5').menu('appendItem', {
+									parent: item.target,  // the parent item element
+									text: num,
+									iconCls: '',
+									onclick: function () {
+										menu.selectCode(index);
+									}
+								});
+							});
+							
+							All.map(function (num,index) {
+								var item = $('#mm5').menu('findItem', '常用 Code');  // find 'Open' item
+								$('#mm5').menu('appendItem', {
+									parent: item.target,  // the parent item element
+									text: num,
+									iconCls: '',
+									onclick: function () {
+										menu.selectAll(num);
+									}
+								});
+							});
+							
+							$('#mm5').menu('show', {
+                             	left: e.pageX,
+                             	top: e.pageY
+                           	});
+							return false;
+						});
+						cideM.click(function () {
+							$("#fuzhu").css("display","none");
+						})
+//						cideM.keydown(function (e) {
+//							e.preventDefault();
+//							event.stopPropagation();
+//							e.stopPropagation();
+//							if (event.keyCode == 9) {  //如果是其它键，换上相应在ascii 码即可。
+//				                return false; //非常重要
+//				            }
+//							return false;
+//						})
+						return CodeMirrorEditor1;
+					}
+			select_Tiao();
+			$(function(){
+			    //阻止浏览器默认行。 
+			    $(document).on({
+			        dragleave:function(e){		//拖离 
+			            e.preventDefault(); 
+			        }, 
+			        drop:function(e){			//拖后放 
+			            e.preventDefault(); 
+			        }, 
+			        dragenter:function(e){		//拖进 
+			            e.preventDefault(); 
+			        }, 
+			        dragover:function(e){		//拖来拖去 
+			            e.preventDefault(); 
+			        }
+			    }); 
+			    $("#table1Div").on({
+			    	drop:function(e){
+				        e.preventDefault(); //取消默认浏览器拖拽效果 
+				        var fileList = e.originalEvent.dataTransfer.files; //获取文件对象 
+//				        //检测是否是拖拽文件到页面的操作 
+				        if(fileList.length == 0){
+				            return false; 
+				        } 
+						exclCtrl(fileList[0]);
+			    	},
+			    	dragenter:function(e) {
+//			    		e.preventDefault();
+			    	},
+			    	dragleave:function(e) {
+//			    		e.preventDefault();
+			    	},
+			        dragover:function(e){    //拖来拖去 
+//			            e.preventDefault(); 
+			            var x=e.originalEvent.offsetX;
+			            var y=e.originalEvent.offsetY;
+//			            console.log(x+"\t\t"+y)
+			        } 
+			    });
+			}); 
+		</script>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+			var grid = new twaver.Grid();
+			grid.setLocation(20, 20);
+			grid.setSize(400, 300);
+			grid.setStyle("grid.border", 20);
+			grid.setStyle("grid.row.count", 2);
+			grid.setStyle("grid.column.count", 3);
+			grid.setStyle("grid.column.percents",[0.2,0.6,0.2]);
+			grid.setStyle("grid.deep", 8);

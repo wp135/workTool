@@ -1,0 +1,31 @@
+.wai-div-float{
+	position: absolute;
+	background-color: white;
+    padding: 4px;
+    border-radius: 5px;
+    right: 10px;
+    border: 0px solid #777;
+    width: 243px;
+    z-index: 6;
+    bottom: 155px;
+}
+.nei-span{
+	/* color: #fff; */
+	font-size: 17px;
+}
+.my-input-style{
+	margin-left: 0px !important;
+	margin-top: 0px !important;
+}
+
+.line-div-style{
+	height: 22px;
+}
+.info.legend.leaflet-control{
+	width: 243px;
+}
+
+.onmouseEvent{
+	          color: blue;
+	          text-decoration:underline;
+}

@@ -1,0 +1,22 @@
+.CodeMirror {
+	line-height: 1.4em;
+    font-size: 14px;
+    font-family: Inconsolata,Monaco,"Andale Mono","Lucida Console","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+    overflow: hidden;
+    height: 100%;
+    background: #F3F5F6;
+    color: #39464E;
+}
+.CodeMirror * {
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+.cm-s-default .cm-comment{
+	color:#95A3AB;
+}
+.cm-s-default .cm-atom{
+	color:#9B4ADB;
+}
+div.CodeMirror span.CodeMirror-matchingbracket {
+	color: #0b0;
+	border-bottom:1px #a11 solid;
+}

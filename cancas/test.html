@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<canvas id="canvas" width="" height=""></canvas>
+	</body>
+	<script type="text/javascript">
+        var document = window.document;
+        var clientW = 24;
+        var clientH = 24;
+        var canvas = document.getElementById('canvas');
+        canvas.width = clientW;
+        canvas.height = clientH;
+        var ctx = canvas.getContext('2d');
+		var grd = ctx.createRadialGradient(clientW/2, clientH/2, clientW*0.39, clientW/2, clientH/2, clientW/2);
+        grd.addColorStop(0, '#ffdb75');  
+    	grd.addColorStop(1, '#ffdb75');
+        ctx.fillStyle = grd;
+        ctx.strokeStyle = '#ffdb75';
+        ctx.beginPath();
+        ctx.arc(clientW/2, clientW/2, clientW/2, 0, Math.PI * 2, true);
+        ctx.stroke();
+		ctx.fill();
+		ctx.closePath();
+		 ctx.beginPath();
+		 ctx.fillStyle = "red";
+		ctx.font = " 22px 宋体";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top";
+        var txt = "F";
+        ctx.fillText(txt, 7,0);
+        ctx.stroke();
+		ctx.fill();
+        ctx.closePath();
+	</script>
+</html>

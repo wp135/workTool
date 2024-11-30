@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function init() {
+			/*创建网元容器*/
+			var box = new twaver.ElementBox();
+			/*创建单个节点*/
+			var node = new twaver.Node();
+			/*设置名称*/
+			node.setName("from");
+			/*设置位置*/
+			node.setLocation(100, 100);
+			/*将节点添加到网元容器*/
+			box.add(node);
+			var node2 = new twaver.Node();
+			node2.setName("to");
+			node2.setLocation(300, 300);
+			box.add(node2);
+			/*创建线段*/
+			var link = new twaver.Link(node, node2);
+			link.setName("Hello TWaver");
+			/*设置title*/
+			link.setToolTip("<b>Hello</b>");
+//			link.setStyleType({
+//				color:"red"
+//			});
+			box.add(link);
+			/*将box网元容器装到 拓扑组件，树图组件，表格组件中*/
+			var network = new twaver.network.Network(box);
+			var tree = new twaver.controls.Tree(box);
+			var table = new twaver.controls.Table(box);
+			
+			var tablePane = new twaver.controls.TablePane(table);
+			/*添加列*/
+			createColumn(table, 'Name', 'name', 'accessor', 'string');
+			createColumn(table, 'Id', 'id', 'accessor', 'string');
+			/*上下分割*/
+			var rightSplit = new twaver.controls.SplitPane(network, tablePane,
+			'vertical', 0.7);
+			/*左右分割*/
+			var mainSplitPane = new twaver.controls.SplitPane(tree, rightSplit,
+			'horizontal', 0.3);
+			/*设置属性*/
+			var networkDom = mainSplitPane.getView();
+			networkDom.style.width = "100%";
+			networkDom.style.height = "100%";
+			/*添加到网页*/
+			document.body.appendChild(networkDom);
+			network.getView().style.backgroundColor = "#f3f3f3";
+			/*设置属性*/
+			network.getView().style.cursor = "hand";
+			window.onresize = function() {
+			mainSplitPane.invalidate();
+			};
+		}
+		function createColumn(table, name, propertyName, propertyType, valueType) {
+			var column = new twaver.Column(name);
+			column.setName(name);
+			column.setPropertyName(propertyName);
+			column.setPropertyType(propertyType);
+			if (valueType)
+			column.setValueType(valueType);
+			table.getColumnBox().add(column);
+			return column;
+		}
+	</script>
+	<body onload="init()" style="margin:0;">
+		
+	</body>
+</html>

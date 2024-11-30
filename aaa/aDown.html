@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<a href="img/chosen-sprite.png" download="w3logo">
+round(AVG(BIT_ERROR_RATE), 2) as BIT_ERROR_RATE,
+round(AVG(BIT_ERROR_RATIO), 2) as BIT_ERROR_RATIO,
+round(SUM(UPLINKBYTES), 2) as UPLINKBYTES,
+round(SUM(DOWNLINKBYTES), 2) as DOWNLINKBYTES,
+round(AVG(UP_UTILIZATION_AVG), 2) as UP_UTILIZATION_AVG,
+round(AVG(DOWN_UTILIZATION_AVG), 2) as DOWN_UTILIZATION_AVG,
+round(MAX(UP_UTILIZATION_LIM), 2) as UP_UTILIZATION_LIM,
+round(MAX(DOWN_UTILIZATION_LIM), 2) as DOWN_UTILIZATION_LIM,
+round(AVG(LOWLIGHT), 2) as LOWLIGHT
+
+
+round(SUM(FAULT_PROC_DURATION)/
+ceil((To_date(#endTime# , 'yyyy-mm-dd hh24-mi-ss') - To_date(#startTime# , 'yyyy-mm-dd hh24-mi-ss')) * 24),2)
+
+		</a>
+	</body>
+</html>

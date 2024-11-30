@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TWaver HTML5 Demo</title>
+<script type="text/javascript" src="js/twaver.js"></script>
+<script type="text/javascript">
+function init() {
+var network = new twaver.network.Network();
+var box = network.getElementBox();
+
+var link=new twaver.Link(node,node2);
+var node=new twaver.Node();
+node.setName("node in subnetwork A");
+node.setLocation(100,50);
+
+var subNetworkA=new twaver.SubNetwork();
+subNetworkA.addChild(node);
+subNetworkA.setName("Subnetwork A");
+subNetworkA.setLocation(20,20);
+
+var node2=new twaver.Node();
+node2.setName("node in subnetwork B");
+node2.setLocation(100,50);
+
+var subNetworkB=new twaver.SubNetwork();
+subNetworkB.addChild(node2);
+
+subNetworkB.setName("Subnetwork B");
+subNetworkB.setLocation(120,20);
+
+box.add(node);
+box.add(subNetworkA);
+box.add(node2);
+box.add(subNetworkB);
+
+var shapeNode2 = new twaver.ShapeNode();
+shapeNode2.addPoint({
+x : 30,
+y : 10
+});
+shapeNode2.addPoint({
+x : 80,
+y : 10
+});
+shapeNode2.addPoint({
+x : 100,
+y : 90
+});
+shapeNode2.addPoint({
+x : 10,
+y : 90
+});
+shapeNode2.addPoint({
+x : 30,
+y : 10
+});
+shapeNode2.setStyle("vector.fill.color", "#00ff00");
+shapeNode2.setLocation(150, 10);
+var segments = new twaver.List();
+segments.add("moveto");
+segments.add("quadto");
+segments.add("quadto");
+shapeNode2.setSegments(segments);
+shapeNode2.setName("ShapeNode with Segments");
+box.add(shapeNode2)
+var networkDom = network.getView();
+networkDom.style.width = "100%";
+networkDom.style.height = "100%";
+document.body.appendChild(networkDom);
+}
+</script>
+</head>
+<body onload="init()" style="margin:0;"></body>
+</html>

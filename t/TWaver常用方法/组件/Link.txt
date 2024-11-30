@@ -1,0 +1,6 @@
+起始节点，结束节点和连线
+get/setFromNode: function (fromNode)
+get/setToNode: function (toNode)
+起始代理节点和结束代理节点
+getFromAgent: function ()
+getToAgent: function ()

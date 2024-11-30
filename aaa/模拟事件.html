@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../Vue/js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		let Profile = Vue.extend({
+			name:"test",
+			template:`<div style="background:#fff;"></div>`,
+			data(){
+				return {}
+			}
+		});
+		var divs1 = document.createElement("div");
+		document.body.appendChild(divs1);
+		divs1.style.height = "100%";
+		Profiles = new Profile();
+		Profiles.$mount(divs1)
+	</script>
+</html>

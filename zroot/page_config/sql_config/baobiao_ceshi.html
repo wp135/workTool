@@ -1,0 +1,883 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<!-- base -->
+<!--  
+
+
+
+-->
+
+
+
+<script type="text/javascript">
+	var serverName="http://10.221.235.17:8080";
+	var restUrl="http://10.221.247.7:8080/";
+	var CTX = "http://10.221.235.17:8080/INAS";
+	var JSLIB = "http://10.221.235.17:8080/INAS/static/jslibSelfReport";
+	serverName=serverName.replace("http://","").split(":")[0];
+	
+
+</script>
+<script src="http://10.221.235.17:8080/INAS/pages/reportManageSys/easyui/commonModule.js" type="text/javascript"></script>
+<!-- end base -->
+
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-validation/1.10.0/validate.css">
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-1.7.2/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-1.7.2/external/jquery.cookie.js" type="text/javascript"></script>
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-validation/1.10.0/jquery.validate.min.js" type="text/javascript"></script>
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-validation/1.10.0/messages_bs_zh.js" type="text/javascript"></script>
+
+
+
+
+<!-- base -->
+<!--  
+
+
+
+-->
+
+
+
+<script type="text/javascript">
+	var serverName="http://10.221.235.17:8080";
+	var restUrl="http://10.221.247.7:8080/";
+	var CTX = "http://10.221.235.17:8080/INAS";
+	var JSLIB = "http://10.221.235.17:8080/INAS/static/jslibSelfReport";
+	serverName=serverName.replace("http://","").split(":")[0];
+	
+
+</script>
+<script src="http://10.221.235.17:8080/INAS/pages/reportManageSys/easyui/commonModule.js" type="text/javascript"></script>
+<!-- end base -->
+
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+<!-- bootstrap -->
+
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/bootstrap-3.2.0/css/bootstrap.min.css">
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/bootstrap-3.2.0/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- end bootstrap -->
+
+
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.3.custom.css">
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+
+<!-- bootstrap-paginator -->
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/bootstrap-paginator/bootstrap-paginator.min.js" type="text/javascript"></script>
+
+<!-- jQuery-UI-Date-Range-Picker -->
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jQuery-UI-FileInput/css/enhanced.css">
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jQuery-UI-FileInput/js/enhance.min.js" type="text/javascript"></script>
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jQuery-UI-FileInput/js/fileinput.jquery.js" type="text/javascript"></script>
+
+
+
+
+<!-- jQuery-UI-jqgrid -->
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jqGrid/css/ui.jqgrid.css">
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jqGrid/css/addons/ui.multiselect.css">
+<script type="text/javascript">
+$(document).ready(function(){
+	  	 if(flag2017216143611 == "true"){
+	  	    var href2 = 'http://10.221.235.17:8080/INAS/pages/reportManageSys/themes/css/jqGrid.overrides.css'; 
+	  		var link2=document.createElement("link");  
+	  	    link2.setAttribute("rel", "stylesheet");  
+	  	    link2.setAttribute("type", "text/css");  
+	  	    link2.setAttribute("href", href2);   
+	  		var heads = document.getElementsByTagName("head");  
+	  		if(heads.length){
+	  	        heads[0].appendChild(link2);  
+	  	    }; 
+	  	    
+	  	 }else{
+	  	    var href2 = 'http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jqGrid/css/jqGrid.overrides.css'; 
+	  		var link2=document.createElement("link");  
+	  	    link2.setAttribute("rel", "stylesheet");  
+	  	    link2.setAttribute("type", "text/css");  
+	  	    link2.setAttribute("href", href2);   
+	  		var heads = document.getElementsByTagName("head");  
+	  		if(heads.length){
+	  	        heads[0].appendChild(link2);  
+	  	    }; 
+	  	 
+	  	 };
+});
+        
+</script>
+
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jqGrid/js/i18n/grid.locale-cn.js" type="text/javascript"></script>
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jqGrid/js/jquery.jqGrid.eui.js" type="text/javascript"></script>
+
+
+
+<!-- <link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/styles/default/icon.css" /> -->
+<script src="http://10.221.235.17:8080/INAS/scripts/commonUtils/Map.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">	
+
+	var ProjectConstants = {
+			PROVINCEID : 21,
+			PROVINCE_LOCALID : 21,
+			PROVINCENAME : "上海市",
+			CAPITAL_AREA_ID : 21,
+			CAPITAL_AREA_SIMP_NAME : '上海市',
+			AREAID : 21,//引入v3版端到端时用到
+			AREANAME : "上海市"
+			
+			
+			
+			
+	}
+
+	function formattime(time) {
+		var test = time.replace(/-/g, "");
+		test = test.replace(/\s/ig, '');
+		test = test.replace(/:/ig, '');
+		test = test.replace(/第/ig, '');
+		test = test.replace(/年/ig, '');
+		test = test.replace(/周/ig, '');
+		return test;
+	}	
+
+	//权限控制
+	function changeAreas(){
+		$.ajax({
+			type : 'POST',
+			async : false,
+			dataType : "json",
+			url : eastcom.baseURL + '/common/fecthCitiesByUser',//fecthCities
+			success : function(data) {
+				$("#areasSelect").find("option").remove();
+				for(var i =0;i<data.length;i++){
+					var item = data[i];
+					$("#areasSelect").append( "<option value='"+item.value+"' "+(i==0?"checked":"")+">"+item.text+"</option>" );
+				}
+			}
+		});
+	}
+	//权限不控制，默认上海市
+	function changeAreasNoRule(){
+		$.ajax({
+			type : 'POST',
+			async : false,
+			dataType : "json",
+			url : eastcom.baseURL + '/common/fecthCities',//fecthCities
+			success : function(data) {
+				$("#areasSelect").find("option").remove();
+				for(var i =0;i<data.length;i++){
+					var item = data[i];
+					$("#areasSelect").append( "<option value='"+item.value+"' "+(i==0?"checked":"")+">"+item.text+"</option>" );
+				}
+				$("#areasSelect").val(ProjectConstants.AREAID);
+			}
+		});
+	}
+	function changeCitysAnother(city){//目的让默认显示的无锡下面的区县一开始的时候加载出来
+		$.ajax({
+			type : 'POST',
+			async : false,
+			dataType : "json",
+			url : eastcom.baseURL + '/common/getCitysByAreaId',
+			data : {
+				area_id:city
+			},
+			success : function(data) {
+				$("#citysSelect").find("option").remove();
+				$("#citysSelect").append( "<option value=''>-区县-</option>" );
+				var data = data.data;
+				if(city!='21'){
+					for(var i =0;i<data.length;i++){
+						var item = data[i];
+						$("#citysSelect").append( "<option value='"+item.value+"'>"+item.text+"</option>" );
+					}
+				}
+				$("#citysSelect").css('width','90px');
+			}
+		});
+	}
+
+	function changeCitys(obj){
+		var city = obj.value;
+		$.ajax({
+			type : 'POST',
+			async : false,
+			dataType : "json",
+			url : eastcom.baseURL + '/common/getCitysByAreaId',
+			data : {
+				area_id:city
+			},
+			success : function(data) {
+				$("#citysSelect").find("option").remove();
+				$("#citysSelect").append( "<option value=''>-区县-</option>" );
+				var data = data.data;
+				if(city!='21'){
+					for(var i =0;i<data.length;i++){
+						var item = data[i];
+						$("#citysSelect").append( "<option value='"+item.value+"'>"+item.text+"</option>" );
+					}
+				}
+				$("#citysSelect").css('width','90px');
+			}
+		});
+	}
+
+	function getYearWeek(a, b, c) { 
+		/* 
+		date1是当前日期 
+		date2是当年第一天 
+		d是当前日期是今年第多少天 
+		用d + 当前年的第一天的周差距的和在除以7就是本年第几周 
+		*/
+		var date1 = new Date(a, parseInt(b) - 1, c), date2 = new Date(a, 0, 1), 
+		d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000); 
+		return Math.ceil((d + ((date2.getDay() + 1) - 1)) / 7); 
+	};
+	//求一年总共有多少周
+	function getNumOfWeeks(year){
+		var d=new Date(year,0,1);
+		var yt=( ( year%4==0 && year%100!=0) || year%400==0)? 366:365; 
+		return Math.ceil((yt-d.getDay())/7.0);
+	}
+
+	function initTime(){
+		var date = new Date(); 
+		var strHour = date.format("yyyy-MM-dd hh:00");
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var dataDay = date;
+		dataDay.setDate(dataDay.getDate()-1);
+		var strDay = dataDay.format("yyyy-MM-dd");
+		var dateMonth = new Date();
+		dateMonth.setDate(1);
+		dateMonth.setMonth(dateMonth.getMonth()-1);
+		$("#timeField_hour").val(strHour);
+		$("#timeField_day").val(strDay);//strDay
+		$("#timeField_month").val(dateMonth.format("yyyy-MM"));
+		//处理周的时间
+		var today = new Date();
+		var weekToday = new Date();//获取上周最大日期
+		if(today.getDay()==0){//星期日
+			weekToday.setDate(weekToday.getDate()-7);
+		}else{
+			weekToday.setDate(weekToday.getDate()-weekToday.getDay());
+		}
+		var tY = today.getFullYear();
+		var tM = today.getMonth()+1;
+		var tD = today.getDate()-1;
+		var week = getYearWeek(tY,tM,tD);
+		tM = tM<10?("0"+tM):tM;
+		tD = tD<10?("0"+tD):tD;
+		if(week=='01'){
+			tY = tY - 1;
+			week = getNumOfWeeks(tY);
+		}else{
+			week = week - 1;
+		}
+		week = week<10?("0"+week):week;
+		$("#timeField_week").val(tY+"-"+week);
+		$('#timeField_week').bind('focus',function(){
+			WdatePicker({isShowWeek:true,errDealMode:3,maxDate:weekToday.format("yyyy-MM-dd"),autoPickDate:true,firstDayOfWeek:1,
+			onpicked:function() {$dp.$('timeField_week').value=$dp.cal.getP('y')+'-'+$dp.cal.getP('W');}
+		})});
+	}
+
+	function changeTimeFiledType(a,none1,none2,none3){
+		$("#timeField_"+a).css('display','block');
+		$("#timeField_"+none1).css('display','none');
+		$("#timeField_"+none2).css('display','none');
+		$("#timeField_"+none3).css('display','none');
+	}
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/styles/product/default/common-all.css">
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/styles/product/default/common.css">
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/styles/product/default/homepage.css">
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/styles/product/default/style.css">
+<link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/styles/product/default/table.css">
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/inas/jquery/ux/jquery.ux.loadMask.js" type="text/javascript"></script>
+
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/My97DatePicker/WdatePicker.js" type="text/javascript"></script><link href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
+
+<!-- echarts -->
+<script src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/echarts/echarts.js"></script>
+<script type="text/javascript" src="http://10.221.235.17:8080/INAS/static/jslibSelfReport/requireJs/require.js" data-main=""></script>
+<script type="text/javascript">
+	require.config({
+		baseUrl : CTX + '/jssrc',
+		paths : {
+			'jquery' : JSLIB + '/jquery-1.12.2/jquery-1.12.2.min',
+			'echarts' : JSLIB + '/echarts',
+			'text' : JSLIB + '/requireJs/plugins/text'//text plugin
+		},
+		shim : {
+			echarts : {
+				exports : 'exports'//echarts.echarts and echarts.zrender
+			}
+		}
+	});
+</script>
+<!-- end echarts -->
+
+    <script src="easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="themes/icon.css">
+    <link href="easyui/style/css/statisticalforms.css" rel="stylesheet" type="text/css">
+    <!--自己的js-->
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/sql-formatter.min.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/jquery.json-2.4.min.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/commonAjax.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/previewReport.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/showLianxuTime.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/showLisanTime.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/componentSource.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/configUrl.js" type="text/javascript"></script>
+    <script src="http://10.221.235.17:8080/INAS/scripts/reportManageSys/selectEvent.js" type="text/javascript"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/reportManageSys/css/table.css">
+    <!--引用背景图片-->
+    
+<script type="text/javascript">
+var flag2017216143611 = 'trues';
+ $(document).ready(function(){
+	     
+	     console.log(flag2017216143611);
+	     console.log(typeof flag2017216143611);
+	  	 if(flag2017216143611 == "true"){
+	  	    var href = 'http://10.221.235.17:8080/INAS/static/reportManageSys/common/style.css'; 
+	  		var link=document.createElement("link");  
+	  	    link.setAttribute("rel", "stylesheet");  
+	  	    link.setAttribute("type", "text/css");  
+	  	    link.setAttribute("href", href);   
+	  		var heads = document.getElementsByTagName("head");  
+	  	    if(heads.length){
+	  	        heads[0].appendChild(link);  
+	  	      }  
+	  	  var oHead = document.getElementsByTagName('HEAD').item(0); 
+	      var oScript= document.createElement("script"); 
+	      oScript.type = "text/javascript"; 
+	      oScript.src="http://10.221.235.17:8080/INAS/static/reportManageSys/common/bootstrap-eui.js"; 
+	      oHead.appendChild( oScript);   
+	  	    
+	  	     	  		
+	  	 };
+	  	if(flag2017216143611 == "true"){
+		  	 $("button.close").find("img").attr("src","http://10.221.235.17:8080/INAS/static/reportManageSys/images/close_z.png");
+		};
+}); 
+        
+</script>
+
+<script type="text/javascript">
+    var updateReportId="20180413170448";
+    var contextPath = "http://10.221.235.17:8080/INAS";
+        $(document).ready(function () {
+            $("#curr_id_div").html(updateReportId);
+            publicReport.init();
+            var k = document.body.offsetWidth;
+            document.getElementById("cententDiv").style.width = k + "px";
+            document.getElementById("otherCondition").style.width = k + "px";
+            parent.mainE.refresh($("body")[0].scrollHeight);
+        });
+    </script><style type="text/css">
+        #list_left span, #list_left .on, #list_right span, #list_right .on {
+
+            border: 0px solid #ddd;
+            margin: 2px;
+            cursor: pointer;
+            display: block;
+        }
+
+        #list_left .on, #list_right .on {
+            border: 0px solid red;
+            background-color: #26a0da
+        }
+    </style><link rel="stylesheet" type="text/css" href="http://10.221.235.17:8080/INAS/static/jslibSelfReport/jquery-ui-bootstrap/third-party/jqGrid/css/jqGrid.overrides.css"></head>
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+
+<body style="overflow-x: hidden;">
+<div id="curr_id_div" style="display: none">20180413170448</div>    
+<div id="cententDiv" style="border: 0px solid pink; position: absolute; width: 944px;">
+    <div style="border: 0px solid #e8e8e8">
+        <div id="lianxuDiv" style="margin-top: 10px; display: none;">
+        	<input id="hide_param" type="hidden" value="">
+            <div style="border: 0px solid #e8e8e8 ; ">
+                <div id="lianxu_timetype" style="border: 1px solid #e8e8e8 ;margin-bottom: 10px;padding: 5px; ">
+                    <input name="timeType" type="radio" class="RadioStyle" id="min" value="min" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()"><span id="label_min" style="display: none; margin-right: 20px；">5分钟</span>
+                    <input name="timeType" type="radio" class="RadioStyle" id="_15min" value="15min" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()"><span id="label_15min" style="display: none; margin-right: 20px">15分钟</span>
+                    <input name="timeType" type="radio" class="RadioStyle" id="_30min" value="30min" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()"><span id="label_30min" style="display: none; margin-right: 20px">30分钟</span>                                                                            
+
+                    <input name="timeType" type="radio" class="RadioStyle" id="hour" value="hour" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()"><span id="label_hour" style="display: none; margin-right: 20px">小时</span>
+
+                    <input name="timeType" type="radio" class="RadioStyle" id="day" value="day" style="margin-left: 0px;margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()" checked="checked"><span id="label_day" style="display: none;margin-right: 20px">日</span>
+                    <input name="timeType" type="radio" class="RadioStyle" id="dayconver" value="dayconver" style="margin-left: 0px;margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()" checked="checked"><span id="label_dayconver" style="display: none;margin-right: 20px">日（汇聚）</span>                                                                          
+
+                    <input name="timeType" type="radio" class="RadioStyle" id="week" value="week" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()"><span id="label_week" style="display: none;margin-right: 20px">周</span>
+
+                    <input name="timeType" type="radio" class="RadioStyle" id="month" value="month" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLianxuTime.changeTimeType()"><span id="label_month" style="margin-right: 20px; display: none;margin-right: 20px">月</span>
+                </div>
+                <div id="time"></div>
+
+            </div>
+            <!-- <iframe src="showLianxuTime.jsp" style="width: 100%; height: 100% ; border: 0px;" ></iframe> -->
+        </div>
+        <div id="lisanDiv" style="margin-top: 10px; height: 340px; display: none;">
+            <div style="border: 0px solid #e8e8e8 ; ">
+                <div id="lisan_timetype" style="border: 1px solid #e8e8e8 ;margin-bottom: 10px;padding: 5px; ">
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Qmin" value="min" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()" checked="checked"><span id="label_Qmin" style="display: none;margin-right: 20px;">5分钟</span>
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Q15min" value="15min" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()"><span id="label_Q15min" style="display: none; margin-right: 20px">15分钟</span>
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Q30min" value="30min" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()"><span id="label_Q30min" style="display: none; margin-right: 20px">30分钟</span>
+
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Qhour" value="hour" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()"><span id="label_Qhour" style="display: none; margin-right: 20px">小时</span>
+
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Qday" value="day" style="margin-left: 0px;margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()" checked="checked"><span id="label_Qday" style="display: none;margin-right: 20px">日</span>
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Qdayconver" value="dayconver" style="margin-left: 0px;margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()" checked="checked"><span id="label_Qdayconver" style="display: none;margin-right: 20px">日（汇聚）</span>                                                                         
+
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Qweek" value="week" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()"><span id="label_Qweek" style="display: none;margin-right: 20px">周</span>
+
+                    <input name="timeType2" type="radio" class="RadioStyle" id="Qmonth" value="month" style="margin-left: 0px; margin-right: 5px; display: none;" onclick="showLisanTime.changeTimeType()"><span id="label_Qmonth" style="margin-right: 20px; display: none;margin-right: 20px">月</span>
+                </div>
+
+                <!--年模块-->
+                <div style="padding-top: 10px;height: 290px">
+                    <div style="float: left; width: 100px;height: 275px; border: 1px solid #99bbe8;margin-right: 5px">
+                        <ul id="yearUl"><li><input type="checkbox" name="year" value="2018" onclick="showLisanTime.changeYear('2018')" checked="checked">2018年</li><li><input type="checkbox" name="year" value="2017" onclick="showLisanTime.changeYear('2017')">2017年</li><li><input type="checkbox" name="year" value="2016" onclick="showLisanTime.changeYear('2016')">2016年</li><li><input type="checkbox" name="year" value="2015" onclick="showLisanTime.changeYear('2015')">2015年</li><li><input type="checkbox" name="year" value="2014" onclick="showLisanTime.changeYear('2014')">2014年</li><li><input type="checkbox" name="year" value="2013" onclick="showLisanTime.changeYear('2013')">2013年</li><li><input type="checkbox" name="year" value="2012" onclick="showLisanTime.changeYear('2012')">2012年</li><li><input type="checkbox" name="year" value="2011" onclick="showLisanTime.changeYear('2011')">2011年</li></ul>
+                    </div>
+                    <!--月模块-->
+                    <div id="monthDiv" style="float: left; width: 100px; height: 275px; border: 1px solid rgb(153, 187, 232); margin-right: 5px; display: none;">
+                        <ul id="monthUl">
+                            <li><input type="checkbox" name="month" values="00" value="01">1月</li>
+                            <li><input type="checkbox" name="month" values="01" value="02">2月</li>
+                            <li><input type="checkbox" name="month" values="02" value="03">3月</li>
+                            <li><input type="checkbox" name="month" values="03" value="04">4月</li>
+                            <li><input type="checkbox" name="month" values="04" value="05">5月</li>
+                            <li><input type="checkbox" name="month" values="05" value="06">6月</li>
+                            <li><input type="checkbox" name="month" values="06" value="07">7月</li>
+                            <li><input type="checkbox" name="month" values="07" value="08">8月</li>
+                            <li><input type="checkbox" name="month" values="08" value="09">9月</li>
+                            <li><input type="checkbox" name="month" values="09" value="10" checked="checked">10月</li>
+                            <li><input type="checkbox" name="month" values="10" value="11">11月</li>
+                            <li><input type="checkbox" name="month" values="11" value="12">12月</li>
+                        </ul>
+                    </div>
+                    <!--日模块-->
+                    <div id="dayDiv" style="float: left; width: 120px; height: 275px; border: 1px solid rgb(153, 187, 232); margin-right: 5px; display: none;">
+                        <div style="height: 25px ;"><input type="checkbox" id="dayAll" onchange="showLisanTime.dayAll()">全选
+                        </div>
+                        <div style="height: 248px;overflow:auto; margin-left: 15px">
+                            <ul id="dayUl">
+                                <li><input type="checkbox" name="day" value="01">1日</li>
+                                <li><input type="checkbox" name="day" value="02">2日</li>
+                                <li><input type="checkbox" name="day" value="03">3日</li>
+                                <li><input type="checkbox" name="day" value="04">4日</li>
+                                <li><input type="checkbox" name="day" value="05">5日</li>
+                                <li><input type="checkbox" name="day" value="06">6日</li>
+                                <li><input type="checkbox" name="day" value="07">7日</li>
+                                <li><input type="checkbox" name="day" value="08">8日</li>
+                                <li><input type="checkbox" name="day" value="09">9日</li>
+                                <li><input type="checkbox" name="day" value="10">10日</li>
+                                <li><input type="checkbox" name="day" value="11">11日</li>
+                                <li><input type="checkbox" name="day" value="12" checked="checked">12日</li>
+                                <li><input type="checkbox" name="day" value="13">13日</li>
+                                <li><input type="checkbox" name="day" value="14">14日</li>
+                                <li><input type="checkbox" name="day" value="15">15日</li>
+                                <li><input type="checkbox" name="day" value="16">16日</li>
+                                <li><input type="checkbox" name="day" value="17">17日</li>
+                                <li><input type="checkbox" name="day" value="18">18日</li>
+                                <li><input type="checkbox" name="day" value="19">19日</li>
+                                <li><input type="checkbox" name="day" value="20">20日</li>
+                                <li><input type="checkbox" name="day" value="21">21日</li>
+                                <li><input type="checkbox" name="day" value="22">22日</li>
+                                <li><input type="checkbox" name="day" value="23">23日</li>
+                                <li><input type="checkbox" name="day" value="24">24日</li>
+                                <li><input type="checkbox" name="day" value="25">25日</li>
+                                <li><input type="checkbox" name="day" value="26">26日</li>
+                                <li><input type="checkbox" name="day" value="27">27日</li>
+                                <li><input type="checkbox" name="day" value="28">28日</li>
+                                <li><input type="checkbox" name="day" value="29">29日</li>
+                                <li><input type="checkbox" name="day" value="30">30日</li>
+                                <li><input type="checkbox" name="day" value="31">31日</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--小时模块-->
+                    <div id="hourDiv" style="float: left; width: 120px; height: 275px; border: 1px solid rgb(153, 187, 232); margin-right: 5px; display: none;">
+                        <div style="height: 25px ;"><input type="checkbox" id="hourAll" onchange="showLisanTime.hourAll()">全选
+                        </div>
+                        <div style="height: 248px;overflow:auto; margin-left: 15px">
+                            <ul id="hourUl">
+                                <li><input type="checkbox" name="hour" value="00">0时</li>
+                                <li><input type="checkbox" name="hour" value="01">1时</li>
+                                <li><input type="checkbox" name="hour" value="02">2时</li>
+                                <li><input type="checkbox" name="hour" value="03">3时</li>
+                                <li><input type="checkbox" name="hour" value="04">4时</li>
+                                <li><input type="checkbox" name="hour" value="05">5时</li>
+                                <li><input type="checkbox" name="hour" value="06">6时</li>
+                                <li><input type="checkbox" name="hour" value="07">7时</li>
+                                <li><input type="checkbox" name="hour" value="08">8时</li>
+                                <li><input type="checkbox" name="hour" value="09">9时</li>
+                                <li><input type="checkbox" name="hour" value="10">10时</li>
+                                <li><input type="checkbox" name="hour" value="11">11时</li>
+                                <li><input type="checkbox" name="hour" value="12">12时</li>
+                                <li><input type="checkbox" name="hour" value="13">13时</li>
+                                <li><input type="checkbox" name="hour" value="14">14时</li>
+                                <li><input type="checkbox" name="hour" value="15" checked="checked">15时</li>
+                                <li><input type="checkbox" name="hour" value="16">16时</li>
+                                <li><input type="checkbox" name="hour" value="17">17时</li>
+                                <li><input type="checkbox" name="hour" value="18">18时</li>
+                                <li><input type="checkbox" name="hour" value="19">19时</li>
+                                <li><input type="checkbox" name="hour" value="20">20时</li>
+                                <li><input type="checkbox" name="hour" value="21">21时</li>
+                                <li><input type="checkbox" name="hour" value="22">22时</li>
+                                <li><input type="checkbox" name="hour" value="23">23时</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!--分钟模块-->
+                    <div id="minDiv" style="float: left; width: 120px; height: 275px; border: 1px solid rgb(153, 187, 232); margin-right: 5px; display: none;">
+                        <div style="height: 25px ;"><input type="checkbox" id="minAll" onchange="showLisanTime.minAll()">全选
+                        </div>
+                        <div style="height: 248px;overflow:auto; margin-left: 15px">
+                            <ul id="minUl">
+                                <li><input type="checkbox" name="min" value="00">00分</li>
+                                <!-- <li><input type="checkbox" name="min" value="01" />01分</li>
+                                <li><input type="checkbox" name="min" value="02" />02分</li>
+                                <li><input type="checkbox" name="min" value="03" />03分</li>
+                                <li><input type="checkbox" name="min" value="04" />04分</li> -->
+                                <li><input type="checkbox" name="min" value="05">05分</li>
+                                <!-- <li><input type="checkbox" name="min" value="06" />06分</li>
+                                <li><input type="checkbox" name="min" value="07" />07分</li>
+                                <li><input type="checkbox" name="min" value="08" />08分</li>
+                                <li><input type="checkbox" name="min" value="09" />09分</li> -->
+                                <li><input type="checkbox" name="min" value="10">10分</li>
+                                <!-- <li><input type="checkbox" name="min" value="11" />11分</li>
+                                <li><input type="checkbox" name="min" value="12" />12分</li>
+                                <li><input type="checkbox" name="min" value="13" />13分</li>
+                                <li><input type="checkbox" name="min" value="14" />14分</li> -->
+                                <li><input type="checkbox" name="min" value="15">15分</li>
+                                <!-- <li><input type="checkbox" name="min" value="16" />16分</li>
+                                <li><input type="checkbox" name="min" value="17" />17分</li>
+                                <li><input type="checkbox" name="min" value="18" />18分</li>
+                                <li><input type="checkbox" name="min" value="19" />19分</li> -->
+                                <li><input type="checkbox" name="min" value="20">20分</li>
+                                <!-- <li><input type="checkbox" name="min" value="21" />21分</li>
+                                <li><input type="checkbox" name="min" value="22" />22分</li>
+                                <li><input type="checkbox" name="min" value="23" />23分</li>
+                                <li><input type="checkbox" name="min" value="24" />24分</li> -->
+                                <li><input type="checkbox" name="min" value="25">25分</li>
+                                <!-- <li><input type="checkbox" name="min" value="26" />26分</li>
+                                <li><input type="checkbox" name="min" value="27" />27分</li>
+                                <li><input type="checkbox" name="min" value="28" />28分</li>
+                                <li><input type="checkbox" name="min" value="29" />29分</li> -->
+                                <li><input type="checkbox" name="min" value="30">30分</li>
+                                <!-- <li><input type="checkbox" name="min" value="31" />31分</li>
+                                <li><input type="checkbox" name="min" value="32" />32分</li>
+                                <li><input type="checkbox" name="min" value="33" />33分</li>
+                                <li><input type="checkbox" name="min" value="34" />34分</li> -->
+                                <li><input type="checkbox" name="min" value="35">35分</li>
+                                <!-- <li><input type="checkbox" name="min" value="36" />36分</li>
+                                <li><input type="checkbox" name="min" value="37" />37分</li>
+                                <li><input type="checkbox" name="min" value="38" />38分</li>
+                                <li><input type="checkbox" name="min" value="39" />39分</li> -->
+                                <li><input type="checkbox" name="min" value="40">40分</li>
+                                <!-- <li><input type="checkbox" name="min" value="41" />41分</li>
+                                <li><input type="checkbox" name="min" value="42" />42分</li>
+                                <li><input type="checkbox" name="min" value="43" />43分</li>
+                                <li><input type="checkbox" name="min" value="44" />44分</li> -->
+                                <li><input type="checkbox" name="min" value="45">45分</li>
+                                <!-- <li><input type="checkbox" name="min" value="46" />46分</li>
+                                <li><input type="checkbox" name="min" value="47" />47分</li>
+                                <li><input type="checkbox" name="min" value="48" />48分</li>
+                                <li><input type="checkbox" name="min" value="49" />49分</li> -->
+                                <li><input type="checkbox" name="min" value="50" checked="checked">50分</li>
+                                <!-- <li><input type="checkbox" name="min" value="51" />51分</li>
+                                <li><input type="checkbox" name="min" value="52" />52分</li>
+                                <li><input type="checkbox" name="min" value="53" />53分</li>
+                                <li><input type="checkbox" name="min" value="54" />54分</li> -->
+                                <li><input type="checkbox" name="min" value="55">55分</li>
+                                <!-- <li><input type="checkbox" name="min" value="56" />56分</li>
+                                <li><input type="checkbox" name="min" value="57" />57分</li>
+                                <li><input type="checkbox" name="min" value="58" />58分</li>
+                                <li><input type="checkbox" name="min" value="59" />59分</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <!--15分钟模块-->
+                    <div id="_15minDiv" class="line7890" style="float: left; width: 120px; height: 275px; border: 1px solid rgb(153, 187, 232); margin-right: 5px; display: none;">
+                         <div style="height: 25px ;"><input type="checkbox" id="_15minAll" onchange="showLisanTime._15minAll()">全选</div>
+                         <div style="height: 248px;overflow:auto; margin-left: 15px">
+                             <ul id="_15minUl">
+                                 <li><input type="checkbox" name="15min" value="00">00分</li>
+                                 
+                                 <li><input type="checkbox" name="15min" value="15">15分</li>
+                                 
+                                 <li><input type="checkbox" name="15min" value="30">30分</li>
+                                 
+                                 <li><input type="checkbox" name="15min" value="45" checked="checked">45分</li>
+                                 
+                             </ul>                 
+                             </div>
+                    </div>
+                    <!--30分钟模块-->
+                    <div id="_30minDiv" class="line7890" style="float: left; width: 120px; height: 275px; border: 1px solid rgb(153, 187, 232); margin-right: 5px; display: none;">
+                         <div style="height: 25px ;"><input type="checkbox" id="_30minAll" onchange="showLisanTime._30minAll()">全选</div>
+                         <div style="height: 248px;overflow:auto; margin-left: 15px">
+                             <ul id="_30minUl">
+                                 <li><input type="checkbox" name="30min" value="00">00分</li>
+                                 <li><input type="checkbox" name="30min" value="30" checked="checked">30分</li>
+                             </ul>                 
+                             </div>
+                    </div>
+                    <!--周模块-->
+                    <div id="weekDiv" style="display: none; float: left; width: 370px; height: 275px; border: 1px solid #99bbe8;margin-right: 5px;overflow:auto">
+                        <ul id="weekUl"><li><input type="checkbox" name="week" value="1">2018年第1周（01/01 - 01/07）</li><li><input type="checkbox" name="week" value="2">2018年第2周（01/08 - 01/14）</li><li><input type="checkbox" name="week" value="3">2018年第3周（01/15 - 01/21）</li><li><input type="checkbox" name="week" value="4">2018年第4周（01/22 - 01/28）</li><li><input type="checkbox" name="week" value="5">2018年第5周（01/29 - 02/04）</li><li><input type="checkbox" name="week" value="6">2018年第6周（02/05 - 02/11）</li><li><input type="checkbox" name="week" value="7">2018年第7周（02/12 - 02/18）</li><li><input type="checkbox" name="week" value="8">2018年第8周（02/19 - 02/25）</li><li><input type="checkbox" name="week" value="9">2018年第9周（02/26 - 03/04）</li><li><input type="checkbox" name="week" value="10">2018年第10周（03/05 - 03/11）</li><li><input type="checkbox" name="week" value="11">2018年第11周（03/12 - 03/18）</li><li><input type="checkbox" name="week" value="12">2018年第12周（03/19 - 03/25）</li><li><input type="checkbox" name="week" value="13">2018年第13周（03/26 - 04/01）</li><li><input type="checkbox" name="week" value="14">2018年第14周（04/02 - 04/08）</li><li><input type="checkbox" name="week" value="15">2018年第15周（04/09 - 04/15）</li><li><input type="checkbox" name="week" value="16">2018年第16周（04/16 - 04/22）</li><li><input type="checkbox" name="week" value="17">2018年第17周（04/23 - 04/29）</li><li><input type="checkbox" name="week" value="18">2018年第18周（04/30 - 05/06）</li><li><input type="checkbox" name="week" value="19">2018年第19周（05/07 - 05/13）</li><li><input type="checkbox" name="week" value="20">2018年第20周（05/14 - 05/20）</li><li><input type="checkbox" name="week" value="21">2018年第21周（05/21 - 05/27）</li><li><input type="checkbox" name="week" value="22">2018年第22周（05/28 - 06/03）</li><li><input type="checkbox" name="week" value="23">2018年第23周（06/04 - 06/10）</li><li><input type="checkbox" name="week" value="24">2018年第24周（06/11 - 06/17）</li><li><input type="checkbox" name="week" value="25">2018年第25周（06/18 - 06/24）</li><li><input type="checkbox" name="week" value="26">2018年第26周（06/25 - 07/01）</li><li><input type="checkbox" name="week" value="27">2018年第27周（07/02 - 07/08）</li><li><input type="checkbox" name="week" value="28">2018年第28周（07/09 - 07/15）</li><li><input type="checkbox" name="week" value="29">2018年第29周（07/16 - 07/22）</li><li><input type="checkbox" name="week" value="30">2018年第30周（07/23 - 07/29）</li><li><input type="checkbox" name="week" value="31">2018年第31周（07/30 - 08/05）</li><li><input type="checkbox" name="week" value="32">2018年第32周（08/06 - 08/12）</li><li><input type="checkbox" name="week" value="33">2018年第33周（08/13 - 08/19）</li><li><input type="checkbox" name="week" value="34">2018年第34周（08/20 - 08/26）</li><li><input type="checkbox" name="week" value="35">2018年第35周（08/27 - 09/02）</li><li><input type="checkbox" name="week" value="36">2018年第36周（09/03 - 09/09）</li><li><input type="checkbox" name="week" value="37">2018年第37周（09/10 - 09/16）</li><li><input type="checkbox" name="week" value="38">2018年第38周（09/17 - 09/23）</li><li><input type="checkbox" name="week" value="39">2018年第39周（09/24 - 09/30）</li><li><input type="checkbox" name="week" value="40" checked="checked">2018年第40周（10/01 - 10/07）</li><li><input type="checkbox" name="week" value="41">2018年第41周（10/08 - 10/14）</li><li><input type="checkbox" name="week" value="42">2018年第42周（10/15 - 10/21）</li><li><input type="checkbox" name="week" value="43">2018年第43周（10/22 - 10/28）</li><li><input type="checkbox" name="week" value="44">2018年第44周（10/29 - 11/04）</li><li><input type="checkbox" name="week" value="45">2018年第45周（11/05 - 11/11）</li><li><input type="checkbox" name="week" value="46">2018年第46周（11/12 - 11/18）</li><li><input type="checkbox" name="week" value="47">2018年第47周（11/19 - 11/25）</li><li><input type="checkbox" name="week" value="48">2018年第48周（11/26 - 12/02）</li><li><input type="checkbox" name="week" value="49">2018年第49周（12/03 - 12/09）</li><li><input type="checkbox" name="week" value="50">2018年第50周（12/10 - 12/16）</li><li><input type="checkbox" name="week" value="51">2018年第51周（12/17 - 12/23）</li><li><input type="checkbox" name="week" value="52">2018年第52周（12/24 - 12/30）</li></ul>
+                    </div>
+                    <!--按钮模块-->
+                    <div style="float: left; width: 80px; height: 275px;border: 0px solid #99bbe8;margin-right: 5px;padding-top: 70px;">
+                        <center>
+                            <button class="btn btn-success btn-sm" href="#" onclick="showLisanTime.addTime()">增加
+                            </button>
+                            <br><br>
+                            <button class="btn btn-success btn-sm" href="#" onclick="showLisanTime.deleTime()">删除
+                            </button>
+                            <br><br>
+                            <button class="btn btn-success btn-sm" href="#" onclick="showLisanTime.deleAllTime()">全删
+                            </button>
+                        </center>
+                    </div>
+                    <!--结果模块-->
+                    <div style="float: left; min-width: 200px; height: 275px;border: 1px solid #99bbe8;margin-right: 5px;overflow:hidden;">
+                    	<div id="workday_area" style="width:250px;display:none;border-bottom: 1px solid #e8e8e8;">
+                   			<input id="workday_radio_all" type="radio" name="workday_radio" checked="checked" onclick="showLisanTime.changeWorkday('all');">
+                   			<label for="workday_radio_all" style="font-weight: normal;">全部</label>
+                   			<input id="workday_radio_work" type="radio" name="workday_radio" style="margin-left:5px;" onclick="showLisanTime.changeWorkday('work');">
+                   			<label for="workday_radio_work" style="font-weight: normal;">工作日</label>
+                   			<input id="workday_radio_rest" type="radio" name="workday_radio" style="margin-left:5px;" onclick="showLisanTime.changeWorkday('rest');">
+                   			<label for="workday_radio_rest" style="font-weight: normal;">非工作日</label>
+                   		</div>
+                        <ul id="resUl" style="height:273px;overflow-y:auto;"><li><input type="checkbox" name="res" value="201810121550">2018-10-12 15:50:00</li></ul>
+                    </div>
+                    <!-- 
+               			加了个备份的, 选工作日时候用, 
+               			在showLisanTime.addTime()、deleTime()、deleAllTime() 末尾有应用
+               		 -->
+                   <ul id="resUl_hide" style="height:275px;display:none;overflow:auto;"><li><input type="checkbox" name="res" value="201810121550">2018-10-12 15:50:00</li></ul>
+
+                </div>
+
+            </div>
+
+            <!-- <iframe src="showLisanTime.jsp" style="width: 100%; height: 100% ; border: 0px" ></iframe> -->
+        </div>
+
+
+    </div>
+    <div id="otherConWai" style="border: 1px solid #e8e8e8 ; margin-top: 20px;padding: 20px 20px; position: relative; display: none">
+        <!-- <div style="position: absolute;top: -10px;left: 15px;padding-right: 10px;padding-left: 10px;;background: #fff">其他条件</div> -->
+        <div id="otherCondition" style="border: 0px solid pink; width: 944px;"><table></table></div>
+    </div>
+
+
+    <div id="baocunDiv" style="border: 0px solid #e8e8e8 ; margin-top: 20px;padding: 20px 20px; position: relative; height: 100px ">
+                 <span id="showRadiodemoselectNew" style="display:none;">
+                     <input type="radio" name="_seekQueryType" value="shebei" style="margin-left:0" checked=""><span>根据设备查询</span>
+                     <input type="radio" name="_seekQueryType" value="duankou" style="margin-left:10px"><span>根据端口查询</span>
+                 </span>
+        <input type="button" class="btn btn-primary" onclick="publicReport.query()" value="查   询" style="margin-right: 20px;padding:3px 14px;height:34px; color:#fff ;float:right; ">
+        <input type="button" class="btn btn-primary" onclick="publicReport.sqlModal.show();" value="查看sql" style="margin-right: 20px;padding:3px 14px;height:34px; color:#fff ;float:right; ">
+
+    </div>
+
+
+</div>
+
+
+<div class="modal fade" id="sqlModal" tabindex="-1" role="dialog" aria-labelledby="sqlModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="sqlModalLabel">报表sql展示</h4>
+            </div>
+            <div class="modal-body">
+                <textarea style="width: 670px;height: 370px;" id="sqlArea"></textarea>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+ 
+
+<!---------------------------------------------------------------------------->
+   <div class="modal" id="addAndAlterDemo">
+     <div class="modal-dialog" style="margin-top: 5px;width: 800px;">   <!-- style="width: 900px;left: -50px" -->
+         <div class="modal-content modalContent">
+               <div id="addAlterDemo_header" class="modal-header modalTOP">
+                   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="../../static/reportManageSys/images/close.png"></span><span class="sr-only"></span></button>
+                   <h4 id="addAlterDemo_title" class="modal-title">详细信息</h4>
+               </div>
+               <div class="modal-body" id="modal-body">
+
+                         <div style="border: 1px solid #e8e8e8">
+                             <!--  <h5>查询条件</h5> -->
+                              <table style="margin: 10px">
+                                  <tbody><tr style="height: 40px">
+                                      <td width="120px">设备名称或别名:</td>
+                                      <td style="padding-right: 20px"><input id="device_name" type="text"></td>
+                                      <!-- <td width="80px">设备机房:</td>
+                                      <td style="padding-right: 20px"><input id="device_room" type="text"  /></td> -->
+                                      <td width="80px">设备IP地址:</td>
+                                      <td style="padding-right: 20px"><input id="device_ipAdress" type="text"></td>
+                                      <td width="110px">业务系统:</td>
+                                      <td><input id="business_system" type="text"></td>
+                                      <td></td>
+                                  </tr>
+                                  <tr style="height: 40px">
+                                      <td width="160px">端口名称或别名或描述:</td>
+                                      <td style="padding-right: 20px"><input id="port_cname" type="text"></td>
+                                      <td>端口IP地址:</td>
+                                      <td style="padding-right: 20px"><input id="port_ipAdress" type="text"></td>
+                                      <td>类型<span style="color: red">*</span>:</td>
+                                      <td>
+                                           <select id="port_type" style="width: 100%" onchange="demoselectNew.alterTitle()">
+                                                <!-- <option value="">---请选择---</option> -->
+                                                <option value="duankou">端口</option>
+                                                <option value="shebei">设备</option>
+                                           </select>
+                                      </td>
+                                      <td colspan="2" style="padding-left: 20px">
+                                           <button id="domoQueryConfig" type="button" class="btn btn-primary" onclick="demoselectNew.doQuery()">查询</button>
+                                           <!-- <button type="button" class="btn btn-primary" onclick="demoselectNew.doClear()" style="margin-left: 20px">重置</button> -->
+                                      </td>
+                                  </tr>
+                              </tbody></table>
+                         </div>
+              </div>                
+               
+
+
+               
+                           <div style="padding-left: 10px;">
+                                     <div style="width: 200px;margin-bottom: 6px;">
+                                       <h5 id="left_title">&nbsp;待选择端口列表</h5>
+                                     </div>
+                                     <div style="float: left; border :1px solid #e8e8e8 ;height: 220px;width: 42%;">
+                                          <!-- <h5>&nbsp;待选择设备端口</h5> -->
+                                          <div id="tree_left_new_div" style="position: relative;overflow: auto;height: 218px">
+                                              <ul id="tree_left_new"></ul>
+                                          </div>
+                                     </div>
+                                     <div style="float: left; border :0px solid #e8e8e8 ;height: 220px;width: 100px;padding: 65px 0 0 2.5%;">
+                                           <button type="button" class="btn btn-success" onclick="demoselectNew.addRightMove()">右移</button><br><br>
+                                           <button type="button" class="btn btn-success" onclick="demoselectNew.delRightMove()">删除</button>
+                                     </div>
+                                     
+                                     <div style="float: left;width: 42%;">
+                                         <h5 id="right_title" style="margin-top:-21px;">&nbsp;已选择端口列表</h5>
+                                         <span style="float: right;margin-top: -20px;">
+                                             <a href="javascript:demoselectNew.clearRightTree_larji()"><i class="fa fa-trash-o ecom_icons ecom_icons2" onclick="" title="清空"></i></a>
+                                         </span>
+                                     </div>
+                                     <div style="float: left; border :1px solid #e8e8e8 ;height: 220px;width: 42%;">
+                                          <div id="tree_right_new_div" style="position: relative;overflow: auto;height: 218px">
+                                              <ul id="tree_right_new"></ul>
+                                          </div>
+                                     </div>
+                               <div style="clear: both"></div>  
+                           </div>
+
+
+                           <div style="padding: 10px;">
+                                <table style="margin-left: 10px">
+                                    <tbody><tr style="height: 40px">
+                                        <td width="70px">模板名称<span style="color: red">*</span>:</td>
+                                        <td style="padding-right: 10px"><input id="tpl_name" type="text"></td>
+                                        <td width="37px">备注:</td>
+                                        <td style="padding-right: 10px"><input id="descr" type="text"></td>
+                                        <td width="60px">带宽(M):</td>
+                                        <td style="padding-right: 10px"><input id="bandwidth" type="text"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" onclick="demoselectNew.addDemoSave()">保存</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                           </div>
+         </div>
+    </div>
+    <span id="sys_user" style="display: none;"></span>
+    <span id="currDemoId" style="display: none;"></span>
+    <span style="display: none;"></span>
+ </div> 
+ <!---------------------------------------------------------------------------->
+    <div class="modal" id="seekDemoInfo">
+      <div class="modal-dialog" style="width:700px;margin-top: 5px;">   <!-- style="width: 900px;left: -50px" -->
+          <div class="modal-content modalContent">
+                <div class="modal-header modalTOP">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="../../static/reportManageSys/images/close.png"></span><span class="sr-only"></span></button>
+                    <h4 id="addAlterDemo_title" class="modal-title">模板信息查看</h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                          <div style="padding: 0 0 9px 0;">
+                               <table style="margin-left: 10px">
+                                   <tbody><tr style="height: 40px">
+                                       <td width="70px">模板名称<span style="color: red">*</span>:</td>
+                                       <td style="padding-right: 10px"><input id="tpl_name_seek" type="text" disabled="disabled"></td>
+                                       <td width="37px">备注:</td>
+                                       <td style="padding-right: 10px"><input id="descr_seek" type="text" disabled="disabled"></td>
+                                       <td width="60px">带宽(M):</td>
+                                       <td style="padding-right: 10px"><input id="bandwidth_seek" type="text" disabled="disabled"></td>
+                                   </tr>
+                               </tbody></table>
+                          </div>
+                          <div style="border :1px solid #e8e8e8 ;height: 220px;width:100%;">
+                               <div id="tree_seekDemo_div" style="position: relative;overflow: auto;height: 218px">
+                                   <ul id="tree_seekDemo"></ul>
+                               </div>
+                          </div>
+                         
+               </div>                
+          </div>
+     </div>
+     <span id="sys_user" style="display: none;"></span>
+     <span id="currDemoId" style="display: none;"></span>
+     <span style="display: none;"></span>
+  </div> 
+
+<div id="mmDemoRightDiv_sys" class="easyui-menu menu-top menu" style="width: 165px; display: none; left: 0px; top: 0px;"><div class="menu-line"></div>
+    <div onclick="demoselectNew.seekDemoInfoR('sys')" data-options="iconCls:'icon-xinjianbaobiao'" class="menu-item" style="height: 22px;"><div class="menu-text">查看模板信息</div><div class="menu-icon icon-xinjianbaobiao"></div></div>
+    <div onclick="demoselectNew.alterDemo('sys')" data-options="iconCls:'icon-xiugaimulu'" class="menu-item" style="height: 22px;"><div class="menu-text">修改模板信息</div><div class="menu-icon icon-xiugaimulu"></div></div>
+    <div id="mmDemoRightDivTtr_sys" style="display: none; height: 22px;" class="menu-item"><div class="menu-text" style=""></div></div>
+    <div id="mmmmDemoRightDiv_sys_text" style="display: none; height: 22px;" class="menu-item"><div class="menu-text" style=""></div></div>
+</div><div id="mmDemoRightDiv_user" class="easyui-menu menu-top menu" style="width: 165px; display: none; left: 0px; top: 0px;"><div class="menu-line"></div>
+    <div onclick="demoselectNew.seekDemoInfoR('user')" data-options="iconCls:'icon-xinjianbaobiao'" class="menu-item" style="height: 22px;"><div class="menu-text">查看模板信息</div><div class="menu-icon icon-xinjianbaobiao"></div></div>
+    <div onclick="demoselectNew.alterDemo('user')" data-options="iconCls:'icon-xiugaimulu'" class="menu-item" style="height: 22px;"><div class="menu-text">修改模板信息</div><div class="menu-icon icon-xiugaimulu"></div></div>
+    <div onclick="demoselectNew.delDemo()" data-options="iconCls:'icon-shanchumulu'" class="menu-item" style="height: 22px;"><div class="menu-text">删除此模板</div><div class="menu-icon icon-shanchumulu"></div></div>
+    <div id="mmDemoRightDivTtr_user" style="display: none; height: 22px;" class="menu-item"><div class="menu-text" style=""></div></div>
+    <div id="mmmmDemoRightDiv_user_text" style="display: none; height: 22px;" class="menu-item"><div class="menu-text" style=""></div></div>
+</div></body></html>

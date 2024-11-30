@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TWaver HTML5 Demo</title>
+<script type="text/javascript" src="js/twaver.js"></script>
+<script type="text/javascript">
+var network = new twaver.network.Network();
+var model=[];
+var oldColor="";
+network.getElementBox().getSelectionModel().addSelectionChangeListener(function(e){
+	var b=network.getElementBox().getSelectionModel().get;
+	
+////	oldColor=model[i].getStyle("inner.color");
+//	for(var i=0;i<b.size();i++){
+//		
+//		alert(b.size())
+//		b.getDataAt(i).setStyle("inner.color", oldColor);
+//	}
+//	model=[];
+//	for(var i=0;i<a1.size();){
+//		model.push(a1.getFirstData());
+//		a1.removeSelection(a1.getFirstData());
+//	}
+//	
+//	for(var i=0;i<model.length;i++){
+//		model[i].setStyle("inner.color", "#FF0000");
+//	}
+//	for(var i=0;i<model.length;i++){
+//		model[i].setStyle("inner.color", "#FF0000");
+//	}
+});
+function init(){
+var box = network.getElementBox();
+var node = new twaver.Node();
+node.setName("from");
+node.setLocation(100, 100);
+box.add(node);
+var node2 = new twaver.Node();
+node2.setName("to");
+node2.setLocation(300, 300);
+box.add(node2);
+var link = new twaver.Link(node, node2);
+link.setName("Hello TWaver");
+link.setToolTip("<b>Hello TWaver</b>");
+box.add(link);
+var networkDom = network.getView();
+networkDom.style.width = "100%";
+networkDom.style.height = "400px";
+document.getElementById("network").appendChild(networkDom);
+}
+function setMagnifyInteraction(){
+network.setInteractions([
+new twaver.network.interaction.SelectInteraction(network),
+new twaver.network.interaction.MoveInteraction(network),
+new twaver.network.interaction.MagnifyInteraction(network),
+new twaver.network.interaction.DefaultInteraction(network)]);
+}
+function duiqi(network1,algin){
+	var a1=network1.getElementBox().getSelectionModel();
+	var node_1=a1.getFirstData().getY();
+	var zong=[];
+	for(var i=0;i<a1.size();){
+		zong.push(a1.getFirstData());
+		a1.removeSelection(a1.getFirstData());
+	}
+	var minx=zong[0].getX();
+	var miny=zong[0].getY();
+	var maxx=zong[0].getX();
+	var maxy=zong[0].getY();
+	for(var i=0;i<zong.length;i++){
+		var x=zong[i].getX();
+		var y=zong[i].getY()
+		if(zong[i].getX()>maxx){
+			maxx=x;
+		}
+		if(zong[i].getX()<minx){
+			minx=x;
+		}
+		if(zong[i].getY()>maxy){
+			maxy=y;
+		}
+		if(zong[i].getY()<maxy){
+			miny=y;
+		}
+		a1.appendSelection(zong[i]);
+	}
+		switch (algin){
+			case 'left':
+			for(var i=0;i<zong.length;i++){
+				zong[i].setX(minx);
+			}
+				break;
+			case 'right':
+			for(var i=0;i<zong.length;i++){
+				zong[i].setX(maxx);
+			}
+				break;
+			case 'top':
+			for(var i=0;i<zong.length;i++){
+				zong[i].setY(miny);
+			}
+				break;
+			case 'bottom':
+			for(var i=0;i<zong.length;i++){
+				zong[i].setY(maxy);
+			}
+				break;
+			default:
+				break;
+		}
+}
+</script>
+</head>
+<body onload="init()" style="margin:0px;">
+<div style="width: 100%;" >
+<button onclick="network.setDefaultInteractions();">Default</button>
+<button onclick="network.setPanInteractions();">Pan</button>
+<button onclick="network.setEditInteractions();">Edit</button>
+<button onclick="network.setCreateElementInteractions();">Create Element</button>
+<button onclick="network.setCreateLinkInteractions();">Create Link</button>
+<button onclick="network.setCreateShapeLinkInteractions();">Create ShapeLink</button>
+<button onclick="network.setCreateShapeNodeInteractions();">Create ShapeNode</button>
+<button onclick="setMagnifyInteraction();">Magnify</button><br />
+<button onclick="duiqi(network,'left');">duiqiL</button>
+<button onclick="duiqi(network,'right');">duiqiR</button>
+<button onclick="duiqi(network,'top');">duiqiT</button>
+<button onclick="duiqi(network,'bottom');">duiqiB</button>
+</div>
+<div id="network" />
+</body>
+</html>

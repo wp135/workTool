@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/sass/sass.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/getVueCom.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.a{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<test-com1></test-com1>
+			<test-com2></test-com2>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let newData = new Date().getTime();
+		createVueComByUrl([{
+			url:"comVue/test.vue",
+			name:"test-com1",
+		},{
+			url:"comVue/test1.vue",
+			name:"test-com2",
+			selfClass:"testClass"
+		},
+		...new Array(10).fill(1).map(
+			(num,index)=>(
+				{url:"comVue/test1 - 副本 ("+(index+2)+").vue",name:"test-com"+(index+4)}
+			)
+		)
+		],function () {
+			console.log(new Date().getTime() - newData)
+			new Vue({
+				el:"#app",
+				data(){
+					return {
+						aaa:"sss"
+					}
+				}
+			})
+		})
+	</script>
+</html>

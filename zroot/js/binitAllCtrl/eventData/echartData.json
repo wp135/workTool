@@ -1,0 +1,133 @@
+{
+	"$schema": "http://echarts.baidu.com/doc/json-schem",
+	"definitions": {
+		"option": {
+			"type": "Object",
+			"properties": {
+				"鼠标事件":{
+					"type":"Object",
+					"descriptionCN":"关于鼠标事件",
+					"properties":{
+						"click":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"鼠标的单击事件。"
+						},
+						"dbclick":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"鼠标的双击事件。"
+						},
+						"mouseout":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"鼠标的离开事件。"
+						},
+						"hover":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"鼠标的悬浮事件。"
+						}
+					}
+				},
+				"基础事件":{
+					"type":"Object",
+					"descriptionCN":"关于一些基础的事件",
+					"properties":{
+						"refresh":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"图表刷新事件。"
+						},
+						"restore":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"图标还原事件。"
+						},
+						"resize":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"显示空间变化。"
+						}
+					}
+				},
+				"交互事件":{
+					"type":"Object",
+					"descriptionCN":"交互逻辑事件",
+					"properties":{
+						"data_changed":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"数据修改，如拖拽重计算。"
+						},
+						"data_view_changed":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"数据视图修改。"
+						},
+						"magic_type_changed":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"动态类型切换。"
+						},
+						"timeline_changed":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"时间轴变化。"
+						},
+						"data_zoom":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"数据区域缩放。"
+						},
+						"data_range":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"值域漫游。"
+						},
+						"data_range_selected":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"值域开关选择。"
+						},
+						"data_range_hoverlink":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"值域漫游hover。"
+						},
+						"legend_selected":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"图例开关选择。"
+						},
+						"legend_hoverlink":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"图例hover。"
+						},
+						"map_roam":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"地图漫游。"
+						},
+						"map_selected":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"地图选择。"
+						},
+						"pie_selected":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"饼图选择。"
+						},
+						"force_layout_end":{
+							"param":"",
+							"type": ["Event"],
+							"descriptionCN":"力导向布局结束。"
+						}
+					}
+				}
+			}
+		}
+	}
+}

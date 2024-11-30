@@ -1,0 +1,29 @@
+过滤器的使用
+tree.setVisibleFunction(function(data){
+	return data.getName().length < 10;
+});
+
+
+<script type="text/javascript">
+	function init(){
+		var tree = new twaver.controls.Tree();
+		var box = tree.getDataBox();
+		var root = new twaver.Data();
+		root.setIcon("group_icon");
+		root.setName('Root');
+		box.add(root);
+		var data = new twaver.Data();
+		data.setParent(root);
+		data.setName("Hello");
+		box.add(data);
+		data = new twaver.Data();
+		data.setName("TWaver");
+		data.setParent(root);
+		box.add(data);
+		var treeDom = tree.getView();
+		treeDom.style.width = "100%";
+		treeDom.style.height = "100%";
+		document.body.appendChild(treeDom);
+		tree.expandAll();
+	}
+</script>

@@ -1,0 +1,32 @@
+twaver.LayerBox = function (elementBox)  构造方法
+getElementBox: function ()				获取box
+getDefaultLayer: function ()		获取默认图层
+getLayerByElement: function (element)	通过element获取图层
+
+getVisible : function()		是否可见
+setVisible : function(value)
+
+getMovable : function()		是否可移动
+setMovable : function(value)
+
+getEditable : function()	是否可编辑
+setEditable : function(value)
+
+使用
+var layer1 = new twaver.Layer("unmovable", "unmovable layer");
+layer1.setMovable(false);
+createNode(layer1, "circle", 10, 40, 100, 100, "#ff0000");
+
+function createNode(layer, shape, x, y, width, height, fillColor) {
+	var node = new twaver.Node();
+	node.setLayerId(layer.getId());
+	node.setName("layer-" + layer.getId());
+	node.setStyle("body.type", "vector");
+	node.setStyle("vector.fill.alpha", 0.7);
+	node.setStyle("vector.shape", shape);
+	node.setSize(width, height);
+	node.setLocation(x, y);
+	node.setStyle("vector.fill.color", fillColor);
+	box.add(node);
+	return node;
+}

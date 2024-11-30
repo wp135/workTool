@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="js/ctrlFile.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/binitFTP/main.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/binitFTP/ftpCtrl.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/binitAllCtrl/ThresAjax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/binitFTP/sqlCtrl.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/formatTime.js" type="text/javascript" charset="utf-8"></script>
+	
+	<link rel="stylesheet" type="text/css" href="js/binitFTP/css/main.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	<script src="elementUi/index.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="elementUi/theme-chalk/index.css"/>
+	
+	<script type="text/javascript">
+		$(document).ready(function () {
+			main.init();
+		})
+	</script>
+	<body>
+		<div class="" id="main" ref="main" style="height: 100%;">
+			<el-container style="border: 1px solid #eee;height: 100%;">
+  				<el-aside width="350px" style="background-color: rgb(238, 241, 246)">
+  					 <el-tabs v-model="leftTabsactiveName">
+  					 	<div class="tabsBackGround" @contextmenu.prevent="menuType='0';projectMenuFun('projectMenu')"></div>
+  					 	<el-tab-pane label="项目管理" name="first">
+  					 		<span slot="label"><i class="el-icon-notebook-1"></i>项目管理</span>
+						    <el-tree
+						   	  ref="fTree"
+						   	  :expand-on-click-node="false"
+							  :props="xmProp"
+							  :data="locaData"
+							  node-key="id"
+							  lazy
+							  :default-expanded-keys="defaultExpandKeys"
+							  @node-expand="locatreeExpand"
+							  @node-collapse="locatreeCollapse"
+							  @node-contextmenu="leftTreeRi1"
+							  @node-click="leftTreeCl1"
+							  :render-content="renderContent"
+							  >
+							</el-tree>
+						</el-tab-pane>
+					</el-tabs>
+  				</el-aside>
+  				<el-main>
+			      <el-tabs v-model="rightTabsactiveName">
+				    <el-tab-pane label="ftp管理" name="first">
+				    	
+				    </el-tab-pane>
+				  </el-tabs>
+			    </el-main>
+  			</el-container>
+  			<div id="" v-show="allMenu" @click="closeAllMenu()" @contextmenu.prevent="" style="position: absolute;z-index: 99;width: 100%;height: 100%;top: 0;left: 0;"></div>
+  			<!--
+              	作者：wangpeng@eastcom-sw.com
+              	时间：2019-09-07
+              	描述：菜单、modal
+              -->
+			<el-menu 
+			  ref="projectMenu"
+			  v-show = "projectMenu"
+			  :style="{left:menuLeft+'px',top:menuTop+'px'}"
+			  @select="importProjectmenuCtrl"
+		      class="el-menu-vertical-demo"
+		      background-color="#545c64"
+		      text-color="#ffd04b"
+		      active-text-color="#ffd04b">
+		      <el-menu-item index="1" v-show="menuType==1">
+		        <i class="el-icon-folder-add"></i>
+		        <span slot="title">展开</span>
+		      </el-menu-item>
+		      <el-menu-item index="2" v-show="menuType==2">
+		        <i class="el-icon-folder-add"></i>
+		        <span slot="title">打开</span>
+		      </el-menu-item>
+		      <el-menu-item index="5" v-show="menuType<3">
+		        <i class="el-icon-folder-add"></i>
+		        <span slot="title">导入本地项目</span>
+		      </el-menu-item>
+		      <el-menu-item index="6" v-show="menuType==3">
+		        <i class="el-icon-folder-add"></i>
+		        <span slot="title">管理远程连接</span>
+		      </el-menu-item>
+		      <el-menu-item index="8" v-show="menuType<3">
+		        <i class="el-icon-folder-add"></i>
+		        <span slot="title">上传服务器</span>
+		      </el-menu-item>
+		    </el-menu>
+			<el-dialog title="导入本地项目" :visible.sync="importProjectModal">
+			  <el-form v-model="importProjectFrom">
+			    <el-form-item label="项目路径" :label-width="120">
+			      <el-input v-model.trim="importProjectFrom.url" autocomplete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="项目名称" :label-width="120">
+			      <el-input v-model.trim="importProjectFrom.name" autocomplete="off"></el-input>
+			    </el-form-item>
+			  </el-form>
+			  <div slot="footer" class="dialog-footer">
+			    <el-button @click="importProjectModal = false">取 消</el-button>
+			    <el-button type="primary" @click="saveImportProject">确 定</el-button>
+			  </div>
+			</el-dialog>
+			<el-dialog title="新建ftp实例" :visible.sync="importFtptModal">
+			  <el-form v-model="importFtpFrom" label-width="55px">
+			    <el-form-item label="名称">
+			      <el-input v-model.trim="importFtpFrom.name" autocomplete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="账号">
+			      <el-input v-model.trim="importFtpFrom.account" autocomplete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="密码">
+			      <el-input v-model.trim="importFtpFrom.passWord" autocomplete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="端口">
+			      <el-input v-model.trim="importFtpFrom.port" autocomplete="off"></el-input>
+			    </el-form-item>
+			    <el-form-item label="方式">
+			    	<el-select v-model="importFtpFrom.portType">
+					    <el-option :key="'ss1'" label="sftp" value="sftp"> </el-option>
+					    <el-option :key="'ss2'" label="ftp" value="ftp"> </el-option>
+					</el-select>
+			    </el-form-item>
+			  </el-form>
+			  <div slot="footer" class="dialog-footer">
+			    <el-button @click="importFtptModal = false">取 消</el-button>
+			    <el-button type="primary" @click="saveImportFtp">确 定</el-button>
+			  </div>
+			</el-dialog>
+			<el-dialog title="连接管理器" :visible.sync="ftpModal">
+				<el-container style="height: 406px; border: 1px solid #eee">
+  					<el-aside width="150px" style="background-color: rgb(238, 241, 246)">
+  						<div class="" style="height: 40px;">
+  							<el-select v-model="proIdFitter" placeholder="请选择">
+							    <el-option
+							      :key="'ss'"
+							      :label="'请选择'"
+							      :value="''">
+							    </el-option>
+							    <el-option
+							      v-for="item in projectRootInfo"
+							      :key="item.id"
+							      :label="item.name"
+							      :value="item.id">
+							    </el-option>
+							</el-select>
+  						</div>
+	  					<div id="" style="height: calc(100% - 76px);overflow: auto;margin-top: 1px;">
+	  						<el-menu
+						      :default-active="fitterChange()"
+						      @select="selectleftList"
+						      style="width:calc(100% - 1px);">
+						      	<template  v-for="(num,index) in ftpFromList">
+						      		<el-menu-item :index="index" v-if="proIdFitter===''||num.proId == proIdFitter">
+								        <span slot="title">{{num.ljName}}</span>
+								    </el-menu-item>
+						      	</template>
+					   		</el-menu>
+	  					</div>
+	  					<div id="" style="line-height: 35px;">
+	  						<el-button size="mini" @click="addLJFromList()" type="primary">新增</el-button>
+	  						<el-button size="mini" type="danger" @click="deleteLJFromList()">删除</el-button>
+	  					</div>
+  					</el-aside>
+  					<el-main>
+						<template  v-for="(num,index) in ftpFromList">
+							<el-form label-width="55px" v-show="index == ftpModalSelect&&(proIdFitter===''||num.proId == proIdFitter)">
+							    <el-form-item label="名称：">
+							      <el-input v-model.trim="num.ljName" autocomplete="off"></el-input>
+							    </el-form-item>
+							    <el-divider content-position="left">本地来源</el-divider>
+							    <el-form-item label="本地：">
+							    	<el-select v-model="num.proId" placeholder="请选择">
+									    <el-option
+									      v-for="item in projectRootInfo"
+									      :key="item.id"
+									      :label="item.name"
+									      :value="item.id">
+									    </el-option>
+									</el-select>
+									<el-button type="success" @click="importProjectmenuCtrl(5)">导 入</el-button>
+							    </el-form-item>
+							    <el-form-item label="路径：">
+							      <el-input v-model.trim="num.proUrl" autocomplete="off"></el-input>
+							    </el-form-item>
+							    <el-divider content-position="left">服务器目标</el-divider>
+							    <el-form-item label="目标：">
+							      	<el-select v-model="num.ftpId" placeholder="请选择">
+									    <el-option
+									      v-for="item in ftpRootInfo"
+									      :key="item.id"
+									      :label="item.name"
+									      :value="item.id">
+									    </el-option>
+									</el-select>
+									<el-button type="success" @click="importProjectmenuCtrl(7,'add')">新 建</el-button>
+							    </el-form-item>
+							    <el-form-item label="路径：">
+							      <el-input v-model.trim="num.ftpUrl" autocomplete="off"></el-input>
+							    </el-form-item>
+							</el-form>
+						</template>
+					</el-main>
+  				</el-container>
+  				<div slot="footer" class="dialog-footer">
+				    <el-button @click="ftpModal = false">取 消</el-button>
+				    <el-button type="primary" @click="saveLJFrom">确 定</el-button>
+				</div>
+			</el-dialog>
+			<!--上传多个时选择-->
+			<el-dialog
+			  title="提示"
+			  :visible.sync="ftpSelect.show"
+			  width="30%"
+			  >
+			  <span>准备将<span style="color: cornflowerblue;">{{ftpSelect.selectUrl}}</span>上传至</span>
+			  <div>
+			  	<el-select v-model="ftpSelect.updateSelectId">
+			  		<el-option v-for="num in ftpSelect.updateSelectConfig" :label="num.ljName" :value="num.ftpId"></el-option>
+			  	</el-select>
+			  </div>
+			  <span slot="footer" class="dialog-footer">
+			    <el-button @click="ftpSelect.show = false">取 消</el-button>
+			    <el-button type="primary" @click="importProjectmenuCtrl(8,'select')">确 定</el-button>
+			  </span>
+			</el-dialog>
+		</div>
+	</body>
+</html>

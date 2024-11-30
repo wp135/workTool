@@ -1,0 +1,147 @@
+{
+	"$schema": "http://echarts.baidu.com/doc/json-schem",
+	"definitions": {
+		"option": {
+			"type": "Object",
+			"properties": {
+				"echarts":{
+					"type": "Object",
+					"descriptionCN": "<p>全局 echarts 对象，在 script 标签引入 <code>echarts.js</code> 文件后获得，或者在 AMD 环境中通过 <code>require(&#39;echarts&#39;)</code> 获得。</p>\n",
+					"properties": {
+						"init":{
+							"param":"( dom , theme )",
+							"type": ["Function"],
+							"descriptionCN":"初始化接口，返回ECharts实例，其中dom为图表所在节点，theme为可选的主题，内置主题（'macarons', 'infographic'）直接传入名称，自定义扩展主题可传入主题对象。如：\n <br>var myCharts = echarts.init(document.getElementById('main'), 'macarons');"
+						}
+					}
+				},
+				"init实例":{
+					"type": ["Object"],
+					"descriptionCN":"实例指的就是接口init()返回的对象，即上述代码中的“myChart”，非get接口均返回自身self支持链式调用",
+					"properties":{
+						"setOption":{
+							"param":"( dom , theme )",
+							"type": ["Function"],
+							"descriptionCN":"万能接口，配置图表实例任何可配置选项（详见<a href=\"#Option\" title=\"\">option</a>），多次调用时option选项默认是合并（merge）的，merge的设计可以让setOption很方便的成为更新任何属性的万能方法，比如你仅需要改title文字，则仅需要：<br>&nbsp;&nbsp;&nbsp;&nbsp;setOption({title : {text : '新标题'}}); <br>如果不需要，可以通过notMerger参数为true阻止与上次option的合并，如多次setOption间数据改变、长度不一致等的场景。\n                            <br><br>2.0.0起支持timeline组件，option中包含timeline（详见<a href=\"#Timeline\" title=\"\">timeline</a>）时每一个独立的option应该放置到命名为options的数组内，如\n                            <pre>myCharts.setOption({\n    timeline : {...},\n    options : [\n        {                // option1\n            title : {...},\n            series : [...]\n        },\n        {...},           // option2\n        ...\n    ]\n});</pre>"
+						},
+						"getOption":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"返回内部持有的当前显示option克隆（拷贝）。"
+						},
+						"getSeries":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"返回内部持有的当前显示series克隆（拷贝），效果同 getOption().series"
+						},
+						"setSeries":{
+							"param":"( series , notMerge )",
+							"type": ["Function"],
+							"descriptionCN":"数据接口，驱动图表生成的数据内容（详见series），效果等同调用 setOption({series : {...}}, notMerge)"
+						},
+						"addData":{
+							"param":"(seriesIdx, data, isHead, dataGrow, additionData)",
+							"type": ["Function"],
+							"descriptionCN":"动态数据接口，<a href=\"example/dynamicLineBar.html\" target=\"_blank\">try this (Line &amp; Bar) »</a> <a href=\"example/dynamicScatterK.html\" target=\"_blank\">try this (Scatter &amp; K) »</a> <a href=\"example/dynamicPieRadar.html\" target=\"_blank\">try this (Pie &amp; Radar) »</a>\n                                <br>seriesIdx 系列索引\n                                <br>data 增加数据\n                                <br>isHead 是否队头加入，默认，不指定或false时为队尾插入\n                                <br>dataGrow 是否增长数据队列长度，默认，不指定或false时移出目标数组对位数据\n                                <br>additionData 是否增加类目轴(饼图为图例)数据，附加操作同isHead和dataGrow\n                                <br>多组数据添加时参数为：\n                                <br>params == [[seriesIdx, data, isHead, dataGrow, additionData], [...]]"
+						},
+						"addMarkPoint":{
+							"param":"(seriesIdx, markData)",
+							"type": ["Function"],
+							"descriptionCN":"新增标注接口，其中\n                                <br>seriesIdx 系列索引\n                                <br>markData [标注]对象，同<a href=\"#SeriesMarkPoint\" title=\"\">series.markPoint</a>，支持多个"
+						},
+						"addMarkLine":{
+							"param":"(seriesIdx, markData)",
+							"type": ["Function"],
+							"descriptionCN":"<td>新增标线接口，其中\n                                <br>seriesIdx 系列索引\n                                <br>markData [标线]对象，同<a href=\"#SeriesMarkLine\" title=\"\">series.markLine</a>，支持多个\n                            </td>"
+						},
+						"delMarkPoint":{
+							"param":"(seriesIdx, markData)",
+							"type": ["Function"],
+							"descriptionCN":"<td>删除单个标注接口，其中\n                                <br>seriesIdx 系列索引\n                                <br>markName [标注]名称\n                            </td>"
+						},
+						"delMarkLine":{
+							"param":"(seriesIdx, markData)",
+							"type": ["Function"],
+							"descriptionCN":"<td>删除单个标线接口，其中\n                                <br>seriesIdx 系列索引\n                                <br>markName [标线]名称，已构建的标线名称默认为markLine数据中起始点的name，如果同时终点也有name属性，如地图标线，则标线名称等于“nameStart &gt; nameEnd”，如markLine的data为\n                                <br>[{name:'北京', value:100}, {name:'上海'}]\n                                <br>则删除该标线时传入的markName为 \"北京 &gt; 上海\"\n                            </td>"
+						},
+						"on":{
+							"param":"(eventName, eventListener)",
+							"type": ["Function"],
+							"descriptionCN":"<td>事件绑定，事件命名统一挂载到require('echarts/config').EVENT（非模块化为echarts.config.EVENT）命名空间下，建议使用此命名空间作为事件名引用，当前版本支持事件有：\n                                <br>-----------------------基础事件-----------------------\n                                <br>REFRESH（刷新），\n                                <br>RESTORE（还原），\n                                <br>RESIZE（显示空间变化），\n                                <br>CLICK（点击），\n                                <br>DBLCLICK（双击），\n                                <br>HOVER（悬浮），\n                                <br>MOUSEOUT（鼠标离开数据图形），\n                                <br>---------------------交互逻辑事件--------------------\n                                <br>DATA_CHANGED（数据修改，如拖拽重计算），\n                                <br>DATA_VIEW_CHANGED（数据视图修改），\n                                <br>MAGIC_TYPE_CHANGED（动态类型切换），\n                                <br>TIMELINE_CHANGED（时间轴变化），\n                                <br>DATA_ZOOM（数据区域缩放），\n                                <br>DATA_RANGE（值域漫游），\n                                <br>DATA_RANGE_SELECTED（值域开关选择），\n                                <br>DATA_RANGE_HOVERLINK（值域漫游hover），\n                                <br>LEGEND_SELECTED（图例开关选择），\n                                <br>LEGEND_HOVERLINK（图例hover），\n                                <br>MAP_ROAM（地图漫游），\n                                <br>MAP_SELECTED（地图选择），\n                                <br>PIE_SELECTED（饼图选择），\n                                <br>FORCE_LAYOUT_END（力导向布局结束）\n                                <br><a href=\"./example/event.html\" target=\"_blank\">事件调试 » </a>\n                            </td>"
+						},
+						"un":{
+							"param":"(eventName, eventListener)",
+							"type": ["Function"],
+							"descriptionCN":"事件解绑定"
+						},
+						"setTheme":{
+							"param":"(theme )",
+							"type": ["Function"],
+							"descriptionCN":"设置主题，内置主题（'macarons', 'infographic'）直接传入名称，自定义扩展主题可传入主题对象"
+						},
+						"connect":{
+							"param":"(connectTarget )",
+							"type": ["Function"],
+							"descriptionCN":"<td>多图联动，传入联动目标为EChart实例，支持数组。多图联动支持直角系下tooltip联动，保存图片的自动拼接，同时支持的联动事件有：\n                                <br>REFRESH，RESTORE，MAGIC_TYPE_CHANGED\n                                <br>DATA_ZOOM，DATA_RANGE，LEGEND_SELECTED\n                                <br><a href=\"./example/mix8.html\" target=\"_blank\">多图联动 »</a>\n                            </td>"
+						},
+						"disConnect":{
+							"param":"(connectTarget )",
+							"type": ["Function"],
+							"descriptionCN":"解除已连结的多图联动"
+						},
+						"showLoading":{
+							"param":"( loadingOption )",
+							"type": ["Function"],
+							"descriptionCN":"<td> 过渡控制（详见<a href=\"#Loadingoption\" title=\"\">loadingOption</a>），显示loading（读取中） <a href=\"example/loading.html\" target=\"_blank\">try this »</a></td>"
+						},
+						"hideLoading":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"过渡控制，隐藏loading（读取中）"
+						},
+						"getZrender":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"获取当前图表所用ZRender实例，可用于添加额外图形或进行深度定制，"
+						},
+						"getDataURL":{
+							"param":"( imgType )",
+							"type": ["Function"],
+							"descriptionCN":"获取当前图表的Base64图片dataURL，IE8-不支持，imgType 图片类型，支持png|jpeg，默认为png"
+						},
+						"getImage":{
+							"param":"( imgType )",
+							"type": ["Function"],
+							"descriptionCN":"获取一个当前图表的img，imgType 图片类型，支持png|jpeg，默认为png"
+						},
+						"resize":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"ECharts没有绑定resize事件，显示区域大小发生改变内部并不知道，使用方可以根据自己的需求绑定关心的事件，主动调用resize达到自适应的效果，常见如window.onresize = myChart.resize。"
+						},
+						"refresh":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"刷新图表，图例选择、数据区域缩放，拖拽状态均保持。"
+						},
+						"restore":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"还原图表，各种状态均被清除，还原为最初展现时的状态"
+						},
+						"clear":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"清空绘画内容，清空后实例可用"
+						},
+						"dispose":{
+							"param":"",
+							"type": ["Function"],
+							"descriptionCN":"释放图表实例，释放后实例不再可用"
+						}
+					}
+				}
+			}
+		}
+	}
+}

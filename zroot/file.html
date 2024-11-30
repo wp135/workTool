@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<!--头部图标-->
+	<link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+	<link rel="icon" href="img/ftp.png" type="image/x-icon"/>
+	<!--下面两个是使用Code Mirror必须引入的-->
+	<link rel=stylesheet href="editOnline/lib/codemirror.css">
+	<script src="editOnline/lib/codemirror.js"></script>
+	<!--引入css文件，用以支持主题-->
+	<link rel="stylesheet" href="editOnline/theme/mdn-like.css">
+	<!--全屏模式-->
+	<link rel="stylesheet" href="editOnline/addon/display/fullscreen.css">
+	<script src="editOnline/addon/display/fullscreen.js"></script>
+	<!--括号匹配-->
+	<script src="editOnline/addon/edit/matchbrackets.js"></script>
+	<!--Html标签匹配-->
+	<script src="editOnline/addon/fold/xml-fold.js" type="text/javascript" charset="utf-8"></script>
+	<script src="editOnline/addon/edit/matchtags.js"></script>
+	<script src="editOnline/addon/edit/closetag.js" type="text/javascript" charset="utf-8"></script>
+	<!--自动补全-->
+	<link rel="stylesheet" href="editOnline/addon/hint/show-hint.css">
+	<script src="editOnline/addon/hint/show-hint.js"></script>
+	<script src="editOnline/addon/hint/javascript-hint.js"></script>
+	<script src="editOnline/addon/hint/html-hint.js"></script>
+	<script src="editOnline/addon/hint/css-hint.js"></script>
+	<!--搜索功能-->
+	<script src="editOnline/addon/search/searchcursor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="editOnline/addon/search/search.js" type="text/javascript" charset="utf-8"></script>
+	
+	<link rel=stylesheet href="editOnline/doc/docs.css">
+	<!--代码高亮-->
+	<script src="editOnline/mode/xml/xml.js"></script>
+	<script src="editOnline/mode/javascript/javascript.js"></script>
+	<script src="editOnline/mode/css/css.js"></script>
+	<script src="editOnline/mode/properties/properties.js"></script>
+	<script src="editOnline/mode/clike/clike.js"></script>
+	<script src="editOnline/mode/markdown/markdown.js"></script>
+	<script src="editOnline/mode/sql/sql.js"></script>
+	<script src="editOnline/mode/htmlmixed/htmlmixed.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	
+	<script src="elementUi/index.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="elementUi/theme-chalk/index.css"/>
+
+	<style type="text/css">
+		html,body{
+			height: 100%;
+			width: 100%;
+			border-style: none;
+			margin: 0;
+			padding: 0;
+			position: relative;
+		}
+		li{
+		    display: list-item;
+   	 		text-align: -webkit-match-parent;
+   	 		list-style: none;
+   	 		-webkit-user-select:none;
+		    -moz-user-select:none;
+		    -ms-user-select:none;
+		    user-select:none;
+		}
+		ul {
+		    list-style-type: none;
+		    margin: 0;
+		    padding: 0;
+		}
+		.node-select{
+			background-color: #0078D7;
+			color: white;
+		}
+		.tree-node {
+		    height: 22px;
+		    white-space: nowrap;
+	        display: inline-flex;
+		    cursor: pointer;
+		}
+		.tree-expanded, .tree-collapsed, .tree-folder, .tree-file, .tree-checkbox, .tree-indent {
+		    display: inline-block;
+		    width: 16px;
+		    height: 18px;
+		    vertical-align: top;
+		    overflow: hidden;
+		}
+		.tree-line {
+		    background: url(img/tree_icons.png) no-repeat -176px 0;
+		}
+		.tree-lastOpen {
+	        background: url(img/tree_icons.png) no-repeat -80px 0;
+		}
+		.tree-lastClose {
+       		background: url(img/tree_icons.png) no-repeat -64px 0;
+		}
+		.tree-expanded {
+		    background: url(img/tree_icons.png) no-repeat -144px 0;
+		}
+		.tree-title {
+		    font-size: 14px;
+		    display: inline-block;
+		    vertical-align: top;
+		    white-space: nowrap;
+		    height: 18px;
+		    line-height: 18px;
+		    font-family: 微软雅黑;
+		    text-decoration: none;
+		    padding: 0px 2px;
+		}
+		
+		.tree-collapsed {
+		    background: url(img/tree_icons.png) no-repeat -128px 0;
+		}
+		.tree-folder {
+		    background: url(img/tree_icons.png) no-repeat -208px 0;
+		}
+		
+		.tree-folder-open {
+		    background: url(img/tree_icons.png) no-repeat -224px 0;
+		}
+		.tree-file {
+		    background: url(img/tree_icons.png) no-repeat -240px 0;
+		}
+		
+		/*.tree-join {
+		    background: url(img/tree_icons.png) no-repeat -192px 0;
+		}
+		.tree-joinbottom {
+		    background: url(img/tree_icons.png) no-repeat -160px 0;
+		}*/
+		
+		input[type=text]{
+			height: 30px;font-size: 16px;border: 1px solid #e8e8e8;margin-top: 7px;
+		}
+		.topCtrl{
+			height: 50px;
+			padding-left: 5px;
+		}
+		.body-left{
+			position: absolute;
+		    padding-left: 5px;
+			top: 50px;
+			left: 0;
+			height: calc(100% - 50px);
+			border-right: 2px #e8e8e8 solid;
+			width: 300px;
+		}
+		.body-center{
+			position: absolute;
+			top: 50px;
+			left: 307px;
+			height: calc(100% - 50px);
+			width: calc(100% - 307px);
+		}
+		.tree-body{
+			position: absolute;
+			top: 0px;
+			left: 5px;
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+		}
+		.tr-drop{
+			position: absolute;
+			width: 1px;
+			border: #e8e8e8 solid 0.5px;
+			height: 20px;
+			top: 0;
+		}
+		.clear{
+			clear: both;
+		}
+		.context-tr{
+			height:32px;
+			line-height: 32px;
+			border-top: 1px #e8e8e8 solid;
+		}
+		.context-td{
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+		    height: 25px;
+    		line-height: 24px;
+    		position: relative;
+    		top: 50%;
+    		transform: translateY(-50%);
+		}
+		.tables{
+			overflow: auto;
+			height: calc(100% - 42px);
+		}
+		.tables a{
+			color: #0000FF;
+			cursor: pointer;
+		}
+		.ctrlB{
+			
+		}
+		/*按钮*/
+		.btn {
+		    display: inline-block;
+		    margin-bottom: 0px;
+		    font-size: 14px;
+		    font-weight: 400;
+		    line-height: 1.42857;
+		    text-align: center;
+		    white-space: nowrap;
+		    vertical-align: middle;
+		    cursor: pointer;
+		    user-select: none;
+		    background-image: none;
+		    padding: 6px 12px;
+		    border-width: 1px;
+		    border-style: solid;
+		    border-color: transparent;
+		    border-image: initial;
+		    border-radius: 4px;
+		}
+		.btn:focus,.btn:active:focus,.btn.active:focus {
+			outline: thin dotted;
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px
+		}
+		
+		.btn:hover,.btn:focus {
+			color: #333;
+			text-decoration: none
+		}
+		
+		.btn:active,.btn.active {
+			background-image: none;
+			outline: 0;
+			-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+			box-shadow: inset 0 3px 5px rgba(0,0,0,.125)
+		}
+		
+		.btn.disabled,.btn[disabled],fieldset[disabled] .btn {
+			pointer-events: none;
+			cursor: not-allowed;
+			filter: alpha(opacity=65);
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			opacity: .65
+		}
+		.btn-d {
+			color: #484848;
+			background-color: #f5f5f5;
+			border-color: #ddd
+		}
+		
+		.btn-d:hover,.btn-d:focus,.btn-d:active,.active.btn-d,.open>.btn-d.dropdown-toggle {
+			color: #484848;
+			background-color: #e9e9e9;
+			border-color: #ddd
+		}
+		.btn-p {
+		    color: rgb(255, 255, 255);
+		    background-color: rgb(92, 189, 244);
+		    border-color: rgb(92, 189, 244);
+		}
+		.btn-p:hover, .btn-p:focus, .btn-p:active, .active.btn-p, .open > .btn-p.dropdown-toggle {
+		    color: rgb(255, 255, 255);
+		    background-color: rgb(121, 203, 249);
+		    border-color: rgb(121, 203, 249);
+		}
+		.btn-s {
+		    color: rgb(255, 255, 255);
+		    background-color: rgb(92, 184, 92);
+		    border-color: rgb(76, 174, 76);
+		}
+		.btn-s:hover,.btn-s:focus,.btn-s:active,.btn-s.active,.open>.dropdown-toggle.btn-s {
+			color: #fff;
+			background-color: #449d44;
+			border-color: #398439
+		}
+		
+		.btn-s:active,.btn-s.active,.open>.dropdown-toggle.btn-s {
+			background-image: none
+		}
+		
+		.btn-info {
+			color: #fff;
+			background-color: #5bc0de;
+			border-color: #46b8da
+		}
+		
+		.btn-info:hover,.btn-info:focus,.btn-info:active,.btn-info.active,.open>.dropdown-toggle.btn-info {
+			color: #fff;
+			background-color: #31b0d5;
+			border-color: #269abc
+		}
+		
+		.btn-info:active,.btn-info.active,.open>.dropdown-toggle.btn-info {
+			background-image: none
+		}
+		.btn-danger {
+			color: #fff;
+			background-color: #d9534f;
+			border-color: #d43f3a
+		}
+		
+		.btn-danger:hover,.btn-danger:focus,.btn-danger:active,.btn-danger.active,.open>.dropdown-toggle.btn-danger {
+			color: #fff;
+			background-color: #c9302c;
+			border-color: #ac2925
+		}
+		
+		.btn-danger:active,.btn-danger.active,.open>.dropdown-toggle.btn-danger {
+			background-image: none
+		}
+		.btn-down{
+	        line-height: 10px;
+    		margin: -1px 1px;
+    		padding: 5px;
+		}
+		
+		.tableIcon{
+			font-size: 22px;
+		    color: cadetblue;
+		    position: relative;
+		    top: 2px;
+		}
+	</style>
+	<script type="text/javascript">
+		var href = window.location.href;
+		var host = "";
+		try{
+			host = href.split("host=")[1];
+			host = host;
+		}catch(e){
+			//TODO handle the exception
+		}
+	</script>
+	<body>
+		<div id="topCtrl" class="topCtrl" style="display: inline-flex;">
+			<span style="padding-top: 13px;width: 80px;">服务器ip：</span>
+			<input type="text" v-model="serviceUrl" style="float: right; width: 220px;" />
+			<span style="padding-top: 13px;width: 50px;">路径：</span>
+			<input type="text" v-model="contUrlModal" style="float: right; width: 500px;" @keydown.13="findFolor()" />
+			<select name="" v-model="seRight" @change="findFolor('right')" style="height: 34px;margin-top: 7px;width: 23px;">
+				<option v-for="(num,index) in selectedurl" :value="num">{{num}}</option>
+			</select>
+		</div>
+		<div id="leftTree" class="body-left">
+			<div class="tree-body">
+				<tree-list :datas="getdata()" :getdata="getdata"  
+					@targets="targets" :targetes="targets" 
+					@selected="selected" :selected="selected"
+					:selecturl="selectUrl">
+				</tree-list>
+			</div>
+		</div>
+		<div id="rightTable" class="body-center">
+			<div id="" class="tablas-ctrl" style="height: 40px;padding: 0 9px;line-height: 40px;border: solid 1px #e8e8e8;border-left-style: none;">
+				<button class="btn btn-p" @click="back"><i class="fa fa-skyatlas" style="margin-right: 4px;"></i>上一级</button>
+				<button class="btn btn-s" @click="getDatas"><i class="fa fa-refresh" style="margin-right: 4px;"></i>刷    新</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="file" style="border: 1px solid darkkhaki;    padding: 4px;" id="fileBox" multiple="multiple" value="" />
+				<button class="btn btn-danger" @click="updateFile">上 传</button>
+			</div>
+			<div class="tables" style="padding: 0 5px;">
+				<el-table
+				    :data="datas"
+				    v-loading="loading"
+				    stripe
+				    border
+				    style="width: 100%">
+				    <el-table-column
+				      prop="filename"
+				      label="文件名"
+				      width="300">
+				     	<template scope="scope">
+				     		<div style="margin-top:2px;" class="tableIcon" :class="scope.row.fileType=='dir'?'el-icon-notebook-1':'el-icon-notebook-2'"></div>
+				     		<a v-if="scope.row.fileType=='dir'" @click="open(scope.row.filepath)">{{scope.row.filename}}</a>
+				     		<span v-else>scope.row.filename</span>
+					    </template>
+				    </el-table-column>
+				    <el-table-column
+				      prop="length"
+				      label="大小(Byte)"
+				      width="150">
+				    </el-table-column>
+				    <el-table-column
+				      prop="fileType"
+				      label="文件类型"
+				      width="100">
+				    </el-table-column>
+				    <el-table-column
+				      prop="lasttime"
+				      label="修改时间"
+				      width="250">
+				    </el-table-column>
+				    <el-table-column
+				      prop=""
+				      label="操作"
+				      width="150">
+				    	<template scope="scope">
+				    		<el-button v-if="scope.row.fileType!='dir'&&isShow(scope.row.filepath)" type="primary" @click="show(scope.row.filepath)" icon="el-icon-search" size="small" title="查看" circle></el-button>
+				    		<el-button v-if="scope.row.fileType!='dir'" type="success" @click="down(scope.row.filepath)" icon="el-icon-download" size="small" title="下载" circle></el-button>
+				    		<el-button v-if="scope.row.fileType!='dir'" type="danger" @click="remove(scope.row.filepath)" icon="el-icon-delete" size="small" title="删除" circle></el-button>
+					    </template>
+				    </el-table-column>
+				</el-table>
+			</div>
+		</div>
+		<div class="showFile" id="showFile" style="display: none; position: absolute;top: 20px;left: 320px;width: 900px; height: calc(100% - 75px);background: white;box-shadow: 0px 0px 50px #888888;">
+			<h3>
+				展示
+				<input type="button" onclick="$('#showFile').hide()" value="x" style="float: right;margin-right: 20px;" />
+			</h3>
+			<div class="" style="height: calc(100% - 61px);">
+				<textarea id="showFileText" style="width: calc(100% - 6px);height: calc(100% - 6px);white-space: nowrap;font-size: 15px;font-family: sans-serif;"></textarea>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		Vue.component('tree-list', {
+			props: ['datas','getdata','targetes','deel','selecturl','selected','islast'],
+			template: '<ul>'+
+'					<li  v-for="(dataOne,indexs) in datas">'+
+'						<div class="tree-node">'+
+'							<span v-for="(num,index) in deels" class="tree-indent" :class="getClassOfLink(index)"></span>'+
+'							<span class="tree-indent" :class="getClassOfOpen(dataOne,indexs==datas.length-1)" @click="targets(dataOne)"></span>'+
+'							<span class="tree-hit" :class="getClassOfDir(dataOne)"></span>'+
+'							<span class="tree-title" @click="select(dataOne)" :class="selecturl== dataOne.url ? \'node-select\':\'\'"> {{ dataOne.name }} </span>'+
+'						</div>'+
+						'<tree-list  v-if="dataOne.isOpen&&getdata(dataOne.url)"'+
+'							:datas="getdata(dataOne.url)" :getdata="getdata"  '+
+'							@targets="targetes" :targetes="targetes" '+
+'							@selected="selected" :selected="selected" '+
+'							:deel="deels" :selecturl="selecturl" :islast="(islast?islast:[]).concat([indexs==datas.length-1])">'+
+'						</tree-list>'+
+'					</li>'+
+'				</ul>',
+			computed:{
+				deels:function () {
+					var d = (this.deel!==undefined?this.deel:-1)+1;
+					return d
+				}
+			},
+	        methods: {
+	        	getClassOfLink:function(index,deels){
+	        		var islasts = this.islast[index];
+	        		return islasts?"":"tree-line"
+	        	},
+	        	getClassOfOpen:function(node,isLast){
+	        		if(node.type == "dir"){
+	        			if(node.isOpen){
+	        				if(isLast){
+		        				return "tree-lastOpen";
+		        			}else{
+		        				return "tree-expanded";
+		        			}
+	        			}else{
+	        				if(isLast){
+	        					return "tree-lastClose";
+		        			}else{
+		        				return "tree-collapsed";
+		        			}
+	        			}
+	        		}else{
+	        			if(isLast){
+	        				return "tree-joinbottom";
+	        			}else{
+	        				return "tree-join";
+	        			}
+	        		}
+	        	},
+	        	getClassOfDir:function(node){
+	        		if(node.type == "dir"){
+	        			if(node.isOpen){
+	        				return "tree-folder tree-folder-open";
+	        			}else{
+	        				return "tree-folder";
+	        			}
+	        		}else{
+        				return "tree-file";
+	        		}
+	        	},
+	        	targets:function (node) {
+	        		if(node.type == "dir"){
+        				this.$emit('targets',node.url)
+	        		}
+	        	},
+	        	select:function (node) {
+	        		if(node.type == "dir"){
+        				this.$emit('selected',node.url)
+	        		}
+	        	},
+	        }
+		})
+		var topCtrl = new Vue({
+			el:"#topCtrl",
+			data:{
+				serviceUrl:host,
+	            rootUrl: "/",
+	            rootLength:2,
+	            selectUrl: "/webapps",
+	            contUrlModal: "",
+	            contUrl: "",
+	            selectedurl:[],	//缓存已经搜索
+	            seRight:"",	//缓存已经搜索
+			},
+			mounted:function () {
+			},
+			watch:{
+				selectUrl:function (val) {
+					if(val.indexOf("/")!=0){
+						this.selectUrl = "/"+val;
+						return;
+					}
+					if(val.indexOf("//")==0){
+						this.selectUrl = val.substr(1);
+						return;
+					}
+					val = this.getEndResult(val).url
+					this.contUrlModal = val;
+					var seleIndex = this.selectedurl.indexOf(this.contUrlModal);
+					if(seleIndex == -1){
+						this.selectedurl.push(this.contUrlModal)
+						this.seRight = this.contUrlModal;
+					}
+					lefttree.findFolor(0,function () {
+	        			rightTable.getDatas()
+	        		})
+				}
+			},
+			computed:{
+			},
+			methods:{
+				refresh:function () {
+					//获取根目录
+					lefttree.getDatasByService("..",function (datas) {
+						var filePath = datas[0].filepath;
+						this.selectUrl =this.rootUrl+ this.getEndResult(filePath.split("..")[0]+"..").url + this.selectUrl;
+					}.bind(this))
+				},
+				findFolor:function (type) {
+					if(type){
+						this.contUrlModal = this.seRight
+					}
+	        		if(this.contUrlModal){
+	        			this.contUrl = this.getEndResult(this.contUrlModal).url;
+	        		}else{
+	        			this.contUrl = "";
+	        		}
+	        		var selectObj = this.getEndResult(this.contUrl)
+	        		this.contUrlModal = this.contUrl;
+//	        		lefttree.datas[0].name = selectObj.name;
+//	        		lefttree.datas[0].url = selectObj.url;
+//	        		lefttree.datas[0].parent = selectObj.parent;
+	        		this.rootLength = selectObj.number;
+	        		this.selectUrl = selectObj.url;
+	        	},
+	        	getEndResult:function(urls){
+	        		var dians = [];
+	        		var dianIndex = -1;
+	        		var name = "";
+	        		var parent = [];
+	        		urls = urls.split("/");
+	        		for(var i=0;i<urls.length;i++){
+	        			if(urls[i]==="")continue;
+						if(urls[i]==".."){
+							if(dianIndex == -1 || dians[dianIndex]==".."){
+								dians.push(urls[i]);
+								dianIndex++;
+							}else{
+								dians.splice(dianIndex,1);
+								dianIndex--;
+							}
+						}else{
+							dians.push(urls[i]);
+							dianIndex++;
+						}
+	        		}
+	        		for(var i=0;i<dians.length;i++){
+	        			if(dians[i] == ".."){
+	        				parent.push("..")
+	        			}else{
+	        				name = dians[i];
+	        				break;
+	        			}
+	        		}
+	        		return {
+	        			url:"/"+dians.join("/"),
+	        			name:parent.join("/")+"/"+name,
+	        			number:dians.length,
+	        			parent:parent.join("/")
+	        		}
+        		}
+			}
+		})
+		 var lefttree = new Vue({
+	        el: '#leftTree',
+	        data: {
+	            datas:[
+	            	{
+	            		name: "/",
+	            		type:"dir",
+	            		parent:"root",
+	            		isOpen:false,
+	            		url: "/",
+	            	},
+	            ]
+	        },
+	        computed: {
+	        	selectUrl:function () {
+	        		return topCtrl.selectUrl
+	        	},
+	        	rootUrl:function () {
+	        		return topCtrl.rootUrl
+	        	},
+			},
+	        methods:{
+	        	findFolor:function (index, backfun) {
+	        		index = index?index:2;
+	        		var urls = this.selectUrl.split("/")
+	        		var url = [];
+	        		var nextUrl = [];
+	        		urls.map(function (num,indexs) {
+	        			if(indexs<index)url.push(num)
+	        			if(indexs<=index)nextUrl.push(num)
+	        		});
+	        		if(index>urls.length-1){
+	        			if(backfun)backfun()
+	        			return
+	        		}
+	        		url = url.join("/");
+	        		nextUrl = nextUrl.join("/");
+//	        		url = url ===""?nextUrl:url
+	        		var node = this.getnode(url);
+	        		var backFuns = function () {
+	        			if(this.getnode(nextUrl)){
+	        				this.findFolor(++index,backfun)
+	        			}else{
+	        			}
+	        		}.bind(this)
+	        		if(!node){
+	        			if(backfun)backfun()
+	        			return;
+	        		}
+	        		if(!node.isOpen){
+	        			this.targets(url,backFuns)
+	        		}else{
+	        			backFuns()
+	        		}
+	        	},
+	        	targets:function (url,backFun) {
+		        	for(var i=0;i<this.datas.length;i++){
+		        		if(this.datas[i].url == url){
+		        			var node = this.datas[i];
+		        			this.datas[i].isOpen = !node.isOpen;
+		        			this.removeChild(url);
+		        			if(node.isOpen){
+		        				this.getDatasByService(url,function (data) {
+		        					for(var j=0;j<data.length;j++){
+		        						var ones = data[j];
+		        						if(ones.fileType != "dir")continue
+		        						url = url == "/"?"":url;
+		        						var urls = url+"/"+ones.filename;
+		        						this.datas.push({
+		        							name: ones.filename,
+						            		type: ones.fileType,
+						            		parent: url == ""?"/":url,
+						            		isOpen: false,
+						            		url: urls,
+		        						})
+		        					}
+		        					if(backFun){
+		        						backFun(data)
+		        					}
+		        				}.bind(this))
+		        			}
+		        			return;
+		        		}
+		        	}
+	        	},
+	        	getDatasByService:function (url,backFun,errFun) {
+	        		$.ajax({
+	        			type:"get",
+	        			url:topCtrl.serviceUrl+"/sml/web/file/ls?orderName=filename&orderType=asc&filepath="+url,
+	        			async:true,
+	        			dataType:"json",
+	        			success:function (data) {
+	        				backFun(data)
+	        			},
+	        			error:function () {
+	        				if(errFun)errFun()
+	        			}
+	        		});
+	        	},
+	        	removeChild:function (parent) {
+	        		for(var i=0;i<this.datas.length;){
+		        		if(this.datas[i].parent == parent){
+		        			this.datas.splice(i,1)
+		        		}else{
+		        			i++
+		        		}
+		        	}
+	        	},
+	        	selected:function (url) {
+        			topCtrl.selectUrl = url
+	        	},
+	        	getnode: function (url) {
+			    	var retu = this.datas.findIndex(function (num) {
+			    		return num.url == url
+			    	})
+			    	if(retu == -1){
+			    		return false
+			    	}else{
+			    		return this.datas[retu]
+			    	}
+			    },
+	        	getdata: function (url) {
+			    	var retu = [];
+			    	url = url?url:"root";
+			    	for(var i=0;i<this.datas.length;i++){
+		        		if(this.datas[i].parent == url){
+		        			retu.push(this.datas[i])
+		        		}
+		        	}
+			    	return retu
+			    }
+	        }
+	    })
+		 
+		 var rightTable = new Vue({
+			el:"#rightTable",
+			data:{
+				loading:false,
+				datas:[
+				],
+				isShowEnd:[
+					{
+						endName:"txt",fileType:"text",showType:"",
+					},{
+						endName:"js",fileType:"text",showType:"text/javascript",
+					},{
+						endName:"jsp",fileType:"text",showType:"text/html",
+					},{
+						endName:"html",fileType:"text",showType:"text/html",
+					},{
+						endName:"css",fileType:"text",showType:"text/x-scss",
+					},{
+						endName:"svg",fileType:"text",showType:"text/x-scss",
+					},{
+						endName:"xml",fileType:"text",showType:"text/xml",
+					},{
+						endName:"properties",fileType:"text",showType:"text/x-properties",
+					},{
+						endName:"md",fileType:"text",showType:"text/markdown",
+					},{
+						endName:"java",fileType:"text",showType:"text/x-java",
+					},{
+						endName:"sql",fileType:"text",showType:"text/x-sql",
+					},{
+						endName:"json",fileType:"text",showType:"application/json",
+					},{
+						endName:"png",fileType:"show",showType:"",
+					},{
+						endName:"gif",fileType:"show",showType:"",
+					},{
+						endName:"ico",fileType:"show",showType:"",
+					},
+				],
+			},
+			methods:{
+				getDropBydata:function (index) {
+					var left = 0;
+					for(var i=0;i<this.modalInfo.length;i++){
+						var info = this.modalInfo[i];
+						if(i <= index){
+							left+= Math.floor(info.width)+10
+						}
+					}
+					return {"left":left+"px"}
+				},
+				getDatas:function () {
+					this.loading = true
+					this.datas = [];
+					lefttree.getDatasByService(topCtrl.selectUrl,function (data) {
+						for(var j=0;j<data.length;j++){
+    						var ones = data[j];
+    						this.datas.push(ones)
+    					}
+						this.$nextTick(function () {
+							this.loading = false
+						})
+					}.bind(this),()=>{
+						this.loading=false;
+						this.$notify({
+				          title: '失败',
+				          message: '查看目录文件失败！',
+				          type: 'error'
+				        });
+					});
+				},
+				getTdValue:function (dataOnes,indexs) {
+					var info = this.modalInfo[indexs];
+					var value = dataOnes[info.index];
+					if(info.format){
+						value = info.format(value,dataOnes)
+					}
+					return value
+				},
+				getHouZhui:function(fileName){
+					var lastName = fileName.substr(fileName.lastIndexOf(".")+1);
+					if(lastName ==="")return false;
+					if(/^\d+$/.test(lastName)){
+						fileName = fileName.substring(0,fileName.length - lastName.length-1);
+						lastName = fileName.substr(fileName.lastIndexOf(".")+1);
+					}
+					return lastName
+				},
+				isShow:function (fileName) {
+					var lastName = this.getHouZhui(fileName)
+					var node = this.isShowEnd.find(function (num) {
+						return num.endName == lastName;
+					})
+					if(!node){
+						return false
+					}
+					return true;
+				},
+				show:function (url) {
+					var lastName = this.getHouZhui(url)
+					var node = this.isShowEnd.find(function (num) {
+						return num.endName == lastName;
+					})
+					if(!node){
+						return;
+					}
+					if(node.fileType =="text"){
+						$('#showFile').show();
+						showFileEditor.refresh();
+						showFileEditor.setOption("mode",{name:node.showType});
+						showFileEditor.setValue("");
+						$.ajax({
+		        			type:"get",
+		        			url:topCtrl.serviceUrl+"/sml/web/file/show?filepath="+url,
+		        			async:true,
+		        			success:function (data) {
+		        				showFileEditor.setValue(data);
+		        			},
+		        			error:function () {
+		        				this.$notify({
+						          title: '失败',
+						          message: '查看文件失败！',
+						          type: 'error'
+						        });
+		        			}
+		        		});
+					}else{
+						var hostss = topCtrl.serviceUrl.substring(0,topCtrl.serviceUrl.lastIndexOf("/"))
+						url = url.replace(new RegExp("^"+topCtrl.rootUrl),"")
+						window.open(hostss+url)
+					}
+				},
+				open:function (url) {
+					topCtrl.selectUrl = url;
+				},
+				down:function (url) {
+					window.open(topCtrl.serviceUrl+"/sml/web/file/export?filepath="+url)
+				},
+				remove:function (url) {
+					window.open(topCtrl.serviceUrl+"/sml/web/file/export?filepath="+url)
+				},
+				back:function () {
+					if(topCtrl.selectUrl == topCtrl.rootUrl){
+						return ;
+					}
+					var url = topCtrl.selectUrl.substr(0,topCtrl.selectUrl.lastIndexOf('/'));
+					topCtrl.selectUrl = url
+				},
+				updateFile:function () {
+					var files = document.getElementById("fileBox").files;
+					if(files&&files.length>0){
+						this.update(files)
+					}
+				},
+				update:function (files) {
+					var num = 0;
+					for(var i=0;i<files.length;i++){
+						var formFile = new FormData();
+						formFile.append("filepath", topCtrl.selectUrl); //文件类型
+	        			formFile.append("file", files[i]); //加入文件对象
+						$.ajax({
+					        url :topCtrl.serviceUrl+"/sml/web/file/upload" ,
+					        type : "post",
+					        async : true,
+					        cache: false,//上传文件无需缓存
+					        processData: false,
+					        contentType :false,
+					        data:formFile,
+					        dataType:"text",
+					        success : function(data) {
+					        	num++;
+					        	if(num == files.length){
+					        		rightTable.getDatas()
+					        		this.$notify({
+							          title: '成功',
+							          message: '成功上传 '+files.length+" 个文件",
+							          type: 'success'
+							        });
+					        	}
+					        },
+					        error:function ($1,$2,$3) {
+					        	this.$notify({
+						          title: '失败',
+						          message: '上传失败！',
+						          type: 'error'
+						        });
+					        	console.log(1)
+					        }
+						});
+					}
+				}
+			},
+			computed:{
+				rowStyle:function () {
+					var rowStyle = [];
+					for(var i=0;i<this.modalInfo.length;i++){
+						var info = this.modalInfo[i];
+						var newInfo = $.extend(true, {
+							width:100,
+							align:"left",
+						}, info);
+						rowStyle.push({
+							"width": newInfo.width +"px",
+							"text-align": newInfo.align,
+							"padding":"0 5px 0 5px"
+						})
+					}
+					return rowStyle;
+				}
+			}
+		})
+		 var showFileEditor = CodeMirror.fromTextArea(document.getElementById("showFileText"), {
+			lineNumbers: true,
+			mode: {
+	        	name: "text/html",
+			},
+			//设置主题
+	         theme:"mdn-like",
+			//绑定Vim
+//			keyMap:"vim",
+//			代码折叠
+			lineWrapping: false,
+			foldGutter: true,
+			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			fullScreen: false,	//全屏模式
+			indentUnit:4,		//回车退格数（js为2，html为4）
+			indentWithTabs:true,//回车是否制表
+			matchBrackets: true,//括号匹配
+			matchTags: true,	//标签匹配
+			autoCloseTags:true,	//标签补全
+//			cursorHeight:0.85,	//光标高度
+			extraKeys: {
+				"Alt-/": "autocomplete",//ctrl-/唤起智能提示
+				"Ctrl-S": function() {
+				},
+				"Esc": function(){
+					showFileEditor.setOption("fullScreen",!showFileEditor.getOption("fullScreen"));
+				}
+			} 	
+		});
+		showFileEditor.setSize("100%","100%")
+		topCtrl.refresh();
+		//阻止浏览器默认行为。 
+        $(document).on({ 
+            dragleave:function(e){    //拖离 
+                e.preventDefault(); 
+            }, 
+            drop:function(e){  //拖后放 
+                e.preventDefault(); 
+            }, 
+            dragenter:function(e){    //拖进 
+                e.preventDefault(); 
+            }, 
+            dragover:function(e){    //拖来拖去 
+                e.preventDefault(); 
+            } 
+        }); 
+		 $(".tables")[0].addEventListener("drop",function(e){ 
+            e.preventDefault(); //取消默认浏览器拖拽效果 
+            var fileList = e.dataTransfer.files; //获取文件对象 
+            //检测是否是拖拽文件到页面的操作 
+            if(fileList.length == 0){ 
+                return false; 
+            } 
+            rightTable.update(fileList)
+        },false); 
+        
+	</script>
+</html>
+

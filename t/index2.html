@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<title>TWaver HTML5 Demo</title>
+<script type="text/javascript" src="js/twaver.js"></script>
+<script type="text/javascript">
+function init(){
+var network = new twaver.network.Network();
+var box = network.getElementBox();
+var node = new twaver.Node();
+node.setName("from");
+node.setLocation(100, 100);
+box.add(node);
+var node2 = new twaver.Node();
+node2.setName("to");
+node2.setLocation(300, 300);
+box.add(node2);
+var link = new twaver.Link(node, node2);
+link.setName("Hello TWaver");
+link.setToolTip("<b>Hello TWaver</b>");
+box.add(link);
+var xmlSerializer = new twaver.XMLSerializer(box);
+xmlSerializer.settings.registerProperty("id",null);
+alert(xmlSerializer.serialize());
+var networkDom = network.getView();
+networkDom.style.width = "100%";
+networkDom.style.height = "100%";
+document.body.appendChild(networkDom);
+}
+</script>
+</head>
+<body onload="init()" style="margin:0;"></body>
+</html>

@@ -1,0 +1,248 @@
+{
+	"$schema": "http://echarts.baidu.com/doc/json-schem",
+	"definitions": {
+		"option": {
+			"type": "Object",
+			"properties": {
+				"jqueryUi实例Table":{
+					"type": "Object",
+					"descriptionCN": "jqGrid的方法，从3.6开始已经完全兼容jQuery UI库。 \n\njQuery(\"#grid_id\").jqGridMethod( parameter1,...parameterN ); \n\njQuery(\"#grid_id\").setGridParam({...}).hideCol(\"somecol\").trigger(\"reloadGrid\"); \n\n如果使用新的API： \n\njQuery(\"#grid_id\").jqGrid('method', parameter1,...parameterN ); \n\njQuery(\"#grid_id\").jqGrid('setGridParam',{...}).jqGrid('hideCol',\"somecol\").trigger(\"reloadGrid\"); ",
+					"properties": {
+						"addJSONData": {
+							"param": "(data )",
+							"type": ["Function"],
+							"descriptionCN": "使用传来的data数据填充表格。使用方法： var mygrid = jQuery(”#”+grid_id)[0]; var myjsongrid = eval(”(”+jsonresponse.responseText+”)”); mygrid.addJSONData(myjsongrid); myjsongrid = null; jsonresponse =null;"
+						},
+						"addRowData": {
+							"param": "(rowid, data, position, srcrowid )",
+							"type": ["Function"],
+							"descriptionCN": "根据参数插入一行新的数据，rowid为新行的id，data为新行的数据，position为新增行的位置，srcrowid为新增行的参考位置。data数据格式：{name1:value1,name2: value2…} name为在colModel中指定的名称"
+						},
+						"addXMLData": {
+							"param": "(data )",
+							"type": ["Function"],
+							"descriptionCN": "根据传来的数据填充表格。用法：var mygrid = jQuery(”#”+grid_id)[0]; mygrid.addXmlData(xmlresponse.responseXML);"
+						},
+						"clearGridData": {
+							"param": "(clearfooter )",
+							"type": ["Function"],
+							"descriptionCN": "清除表格当前加载的数据。如果clearfooter为true时则此方法删除表格最后一行的数据"
+						},
+						"delRowData": {
+							"param": "(rowid )",
+							"type": ["Function"],
+							"descriptionCN": "根据rowid删除行，但不会从服务器端删除数据"
+						},
+						"footerData": {
+							"param": "(action, data, format )",
+							"type": ["Function"],
+							"descriptionCN": "设置或者取得底部数据。action：“get”或者“set”，默认为“get”，如果为“get”返回值为name:value，name为colModel中名称。如果为“set”则值为name：value，name是colModel中的名称。format：默认为true，当为 true时，在设置新值时会调用formatter格式化数值"
+						},
+						"getCell": {
+							"param": "(rowid,  iCol )",
+							"type": ["Function"],
+							"descriptionCN": "返回指定rowid，iCol的单元格内容，iCol既可以是当前列在colModel中的位置索引也可以是name值。注意：在编辑行或者单元格时不能使用此方法，此时返回的并不是改变的值，而是原始值"
+						},
+						"getCol": {
+							"param": "(colname,  returntype, mathoperation )",
+							"type": ["Function"],
+							"descriptionCN": "返回列的值。colname既可以是当前列在colModel中的位置索引也可以是name值。returntype指定返回数据的类型，默认为false。当为false时，返回的数组中只包含列的值，当为true时返回数组是对象数组，具体格式 {id:rowid, value:cellvalue} ，id为行的id，value为列的值。如： [{id:1,value:1},{id:2,value:2}…]。mathoperation 可选值为'sum, 'avg', 'count'"
+						},
+						"getDataIDs": {
+							"param": "(none )",
+							"type": ["Function"],
+							"descriptionCN": "返回当前grid里所有数据的id"
+						},
+						"getGridParam": {
+							"param": "(name )",
+							"type": ["Function"],
+							"descriptionCN": "返回请求的参数信息"
+						},
+						"getInd": {
+							"param": "(rowid, rowcontent )",
+							"type": ["Function"],
+							"descriptionCN": "如果rowcontent为false，返回行所在的索引位置，id为行id。rowcontent默认为false。如果rowconent为ture则返回的为行对象，如果找不到行则返回false"
+						},
+						"getRowData": {
+							"param": "(rowid or none )",
+							"type": ["Function"],
+							"descriptionCN": "返回指定行的数据，返回数据类型为name:value，name为colModel中的名称，value为所在行的列的值，如果根据rowid找不到则返回空。在编辑模式下不能用此方法来获取数据，它得到的并不是编辑后的值"
+						},
+						"hideCol": {
+							"param": "(colnameor[colnames] )",
+							"type": ["Function"],
+							"descriptionCN": "如果参数为一个列名则隐藏此列，如果给定的是数组则隐藏指定的所有列。格式： [“name1”,”name2”]"
+						},
+						"remapColumns": {
+							"param": "(permutation,  updateCells, keepHeader )",
+							"type": ["Function"],
+							"descriptionCN": "调整表格列的显示顺序,permutation为当前列的顺序，假如值是[1,0,2]，那么第一列就会在第二位显示。如果updateCells为ture则是对单元格数据进行重新排序，如果keepHeader为true则对header数据显示位置进行调整"
+						},
+						"resetSelection": {
+							"param": "(none )",
+							"type": ["Function"],
+							"descriptionCN": "选择或者反选行数据，在多选模式下也同样起作用"
+						},
+						"setCaption": {
+							"param": "(caption )",
+							"type": ["Function"],
+							"descriptionCN": "设置表格的标题"
+						},
+						"setCell": {
+							"param": "(rowid, colname, data, class, properties )",
+							"type": ["Function"],
+							"descriptionCN": "改变单元格的值。rowid：当前行id；colname：列名称，也可以是列的位置索引，从0开始；data：改变单元格的内容，如果为空则不更 新；class：如果是string则会使用addClass方法将其加入到单元格的css中，如果是array则会直接加到style属性中；properties：设置单元格属性"
+						},
+						"setGridParam": {
+							"param": "(object )",
+							"type": ["Function"],
+							"descriptionCN": "设置grid的参数。有些参数的修改必须要重新加载grid才可以生效，这个方法可以覆盖事件"
+						},
+						"setGridHeight": {
+							"param": "(new_height )",
+							"type": ["Function"],
+							"descriptionCN": "动态改变grid的高度，只能对单元格的高度进行设置而不能对表格的高度进行动态修改。new_height：可以是象素值，百分比或者\"auto\""
+						},
+						"setGridWidth": {
+							"param": "(new_width, shrink )",
+							"type": ["Function"],
+							"descriptionCN": "动态改变表格的宽度。new_width:表格宽度，象素值；shrink：true或者false，作用同shrinkToFit"
+						},
+						"setLabel": {
+							"param": "(colname,  data, class, properties )",
+							"type": ["Function"],
+							"descriptionCN": "给指定列设置一个新的显示名称。colname：列名称，也可以是列的位置索引，从0开始；data：列显示名称，如果为空则不修改；class：如果是 string则会使用addClass方法将其加入到单元格的css中，如果是array则会直接加到style属性中；properties：设置 label的属性"
+						},
+						"setRowData": {
+							"param": "(rowid, data, cssprop )",
+							"type": ["Function"],
+							"descriptionCN": "更新行的值，rowid为行id。data值格式：{name1:value1,name2: value2…} name为colModel中名称；cssprop：如果是string则会使用addClass方法将其加入到行的css中，如果是array或者对象 则会直接加到style属性中"
+						},
+						"setSelection": {
+							"param": "(rowid, onselectrow )",
+							"type": ["Function"],
+							"descriptionCN": "选择或反选指定行。如果onselectrow为ture则会触发事件onSelectRow，onselectrow默认为ture"
+						},
+						"showCol": {
+							"param": "(colname )",
+							"type": ["Function"],
+							"descriptionCN": "显示列。colname可以是数组[“name1”,”name2”],但是name1或者name2必须是colModel中的name"
+						},
+						"trigger(“reloadGrid”)": {
+							"param": "(none )",
+							"type": ["Function"],
+							"descriptionCN": "重新加载当前表格，也会向服务器发起新的请求"
+						},
+						"updateColumns": {
+							"param": "(none )",
+							"type": ["Function"],
+							"descriptionCN": "同步表格的宽度，用在表格拖拽时，用法：var mygrid=jQuery(”#grid_id”)[0];mygrid.updateColumns();"
+						}
+					}
+				},
+				"通用方法和设置":{
+					"type": ["Object"],
+					"descriptionCN": "jqGrid的通用方法和设置 \n\n这些方法并不和jqGrid对象绑定，可以随意使用： \n\njQuery.jqGridFunction( parameter1,...parameterN );",
+					"properties":{
+						"ajaxOptions": {
+							"param": "(空对象 )",
+							"type": ["Function"],
+							"descriptionCN": "这个函数可以改变jqgrid中用到的ajax请求参数，这个函数可以覆盖当前所有ajax请求设置。从3.6版本开始起有3个级别的ajax设置：第一 个级别就是在模块中设置ajax请求；第二个级别就是通过此函数设置；第三级别的设置是控制全局ajax请求的设置：jQuery.extend(jQuery.ajax({method specific options}, ajaxOptions, ThirdLevelajaxSettinds)); 当然我们也可以单独设置ajax的参数"
+						},
+						"jqID": {
+							"param": "(string )",
+							"type": ["Function"],
+							"descriptionCN": "转义字符串，把两个反斜杠(\\\\)转化为单个反斜杠(\\)"
+						},
+						"htmlDecode": {
+							"param": "(string )",
+							"type": ["Function"],
+							"descriptionCN": "把转码后的字符串还原"
+						},
+						"htmlEncode": {
+							"param": "(string )",
+							"type": ["Function"],
+							"descriptionCN": "把字符串编码"
+						},
+						"format": {
+							"param": "(string )",
+							"type": ["Function"],
+							"descriptionCN": "简单字符串模板。用法：Example jQuery.jqgformat(“Please enter a value between {0} and {1}.”, 4,result : “Please enter a value between 4 and 8.”"
+						},
+						"getCellIndex": {
+							"param": "(cell )",
+							"type": ["Function"],
+							"descriptionCN": "这个方法是用来修复在ie7里的一个bug"
+						},
+						"stringToDoc": {
+							"param": "(xmlstring )",
+							"type": ["Function"],
+							"descriptionCN": "把xmlstring转换为dom对象"
+						},
+						"stripHtml": {
+							"param": "(content )",
+							"type": ["Function"],
+							"descriptionCN": "去掉html标签返回标签中内容"
+						},
+						"parse": {
+							"param": "(jsonstring )",
+							"type": ["Function"],
+							"descriptionCN": "把一个jsonstring转换为json对象"
+						}
+					}
+				},
+				"其他方法":{
+					"type": ["Object"],
+					"descriptionCN": "jqGrid的通用方法和设置 \n\n这些方法并不和jqGrid对象绑定，可以随意使用： \n\njQuery.jqGridFunction( parameter1,...parameterN );",
+					"properties":{
+						"filterGrid": {
+							"param": "(grid_id, params )",
+							"type": ["Function"],
+							"descriptionCN": "构造jqGrid的查询界面。grid_id:表格id；params：参数"
+						},
+						"filterToolbar": {
+							"param": "(params )",
+							"type": ["Function"],
+							"descriptionCN": "同上。不同的是搜索输入框在header层下方"
+						},
+						"getColProp": {
+							"param": "(colname )",
+							"type": ["Function"],
+							"descriptionCN": "返回指定列的属性集合。name为colModel中名称"
+						},
+						"GridDestroy": {
+							"param": "(grid_id )",
+							"type": ["Function"],
+							"descriptionCN": "从dom上删除此grid"
+						},
+						"GridUnload": {
+							"param": "(grid_id )",
+							"type": ["Function"],
+							"descriptionCN": "跟GridDestroy不同的是table对象跟pager对象并不会被删除，以便下次使用"
+						},
+						"setGridState": {
+							"param": "(state )",
+							"type": ["Function"],
+							"descriptionCN": "设置grid的状态，显示或者隐藏。这个方法不会触发onHeaderClick 事件。"
+						},
+						"setColProp": {
+							"param": "(colname,  properties )",
+							"type": ["Function"],
+							"descriptionCN": "设置新的属性，对于动态改变列属性是非常有用的，但是有些属性的修改并不会起效。用法：jQuery(”#grid_id”).setColProp('colname',{editoptions:{value:“True:False”}});"
+						},
+						"sortGrid": {
+							"param": "(colname,  reload )",
+							"type": ["Function"],
+							"descriptionCN": "按指定列进行排序。效果同setGridParam({sortname:'myname'}).trigger('reloadGrid'). 如果reload为true则会重新加载数据"
+						},
+						"updateGridRows": {
+							"param": "(data, rowidname,jsonreader )",
+							"type": ["Function"],
+							"descriptionCN": "修改表格中某行的数据，data数据格式：[{name:value,name1:value1…}, {name:value,name2:value2…}]，name为colModel中的名称；rowidname某行的名称。 jsonreader：boolean值，默认false。如果为true则是定义数据的格式，data的值并不是name：value形式而只是 value"
+						}
+					}
+				}
+			}
+		}
+	}
+}

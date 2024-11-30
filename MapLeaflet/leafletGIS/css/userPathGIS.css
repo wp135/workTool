@@ -1,0 +1,74 @@
+body {
+	overflow: auto; font-family: Microsoft Yahei;
+}
+table {
+	font-family: Microsoft Yahei;
+}
+}
+table th {
+	text-align: left; 
+}
+#map {
+	position: absolute; left: 0; right: 0; bottom: 0; top: 0;
+}
+#indexTrend {
+	display: none; background-color: #fff;
+}
+#indexTrend span {
+	line-height: 30px; font-size: 18px; padding-left:10px; font-weight: bold;
+}
+#custom-condition-wx {
+	position: absolute; top: 10px; right: 200px;
+	display: none; background-color: #fff; border-radius: 5px;
+}
+#custom-condition-wx span {
+	margin-left: 10px;
+}
+#conditionSelect {
+	border: none;
+}
+.dist-marker {
+	font-size: 0px;
+	border: 1px solid #777;
+	border-radius: 10px;
+	text-align: center;
+	color: #000;
+	background: #fff;
+}
+.leaflet-control-layers-selector {
+	top: 3px;
+}
+.leaflet-control-layers-group-name {
+	color: #6CA6CD; font-size: 18px;
+}
+.leaflet-popup-content {
+	text-align: center;
+}
+.popup-custom-wx {
+	width: 300px;
+}
+.popup-head-wx {
+	width: 100%; border-bottom: 1px solid #e8e8e8; line-height: 30px; font-size: 24px; text-align: left;
+	padding: 0 0 5px 10px;
+}
+.popup-content-wx {
+	font-size: 16px; margin-top: 10px; line-height: 24px; padding-left: 10px;
+}
+.sweet-deal-label {
+	background: none; color: #ff9609; font-size: 14px; border-radius: none; font-weight: bold;
+}
+.legend {
+	line-height: 18px;
+	color: #555;
+	background-color: #fff;
+	border-radius: 5px;
+	padding-top: 2px;
+}
+.legend i {
+	width: 24px;
+	height: 16px;
+	float: left;
+	margin-left: 2px;
+	margin-right: 5px;
+	opacity: 0.8;
+}

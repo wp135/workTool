@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TWaver HTML5 Demo</title>
+<script type="text/javascript" src="ja/twaver.js"></script>
+<script type="text/javascript">
+var network= new twaver.network.Network();;
+var node = new twaver.Node();
+function init(){
+var box = network.getElementBox();
+node.setName("from");
+node.setLocation(100, 100);
+box.add(node);
+var node2 = new twaver.Node();
+node2.setName("to");
+node2.setLocation(300, 300);
+box.add(node2);
+var link = new twaver.Link(node, node2);
+link.setName("Hello TWaver");
+link.setToolTip("<b>Hello TWaver</b>");
+box.add(link);
+var networkDom = network.getView();
+networkDom.style.width = "100%";
+networkDom.style.height = "400px";
+document.getElementById("network").appendChild(networkDom);
+}
+function setMagnifyInteraction(){
+network.setInteractions([
+new twaver.network.interaction.SelectInteraction(network),
+new twaver.network.interaction.MoveInteraction(network),
+new highlightInteraction(network),
+new twaver.network.interaction.DefaultInteraction(network)]);
+}
+	s=network.getElementBox().getSelectionModel();
+var oldcolor=null;
+oldcolor=node.getStyle("inner.color");
+s.addSelectionChangeListener(function(e){
+	var ss=s.getSelection()._as;
+	var kid=e.kind;
+	for(var i=0;i<ss.length;i++){
+		if(kid=="clear"){
+			ss[i].setStyle("inner.color",null);
+		}
+		if(kid=="set"){
+			ss[i].setStyle("inner.color","#FF0000");
+		}
+	}
+});
+
+
+function highlightInteraction(network) {
+twaver.network.interaction.MoveInteraction.superClass.constructor.call(
+this, network);
+}
+twaver.Util.ext('highlightInteraction', twaver.network.interaction.BaseInteraction,
+{
+setUp : function() {
+this.addListener('mousemove');
+},
+tearDown : function() {
+this.removeListener('mousemove');
+this.end();
+},
+handle_mousemove : function(e) {
+var element = this.network.getElementAt(e);
+if (element) {
+this.highlight(element);
+} else {
+this.reset();
+}
+},
+highlightElement : null,
+highlightColor : "#FF0000",
+oldColor : null,
+highlight : function(element) {
+this.reset();
+this.oldColor = element.getStyle("inner.color");
+this.highlightElement = element;
+element.setStyle("inner.color", this.highlightColor);
+},
+reset : function() {
+if (this.highlightElement) {
+this.highlightElement
+.setStyle('inner.color', this.oldColor);
+}
+}
+});
+</script>
+</head>
+<body onload="init()" style="margin:0px;">
+<div style="width: 100%;" >
+<button onclick="network.setDefaultInteractions();">Default</button>
+<button onclick="network.setPanInteractions();">Pan</button>
+<button onclick="network.setEditInteractions();">Edit</button>
+<button onclick="network.setCreateElementInteractions();">Create Element</button>
+<button onclick="network.setCreateLinkInteractions();">Create Link</button>
+<button onclick="network.setCreateShapeLinkInteractions();">Create ShapeLink</button>
+<button onclick="network.setCreateShapeNodeInteractions();">Create ShapeNode</button>
+<button onclick="setMagnifyInteraction();">Magnify</button>
+<br>
+<button onclick="sss();">sss</button>
+</div>
+<div id="network" />
+</body>
+</html>

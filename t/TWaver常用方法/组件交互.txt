@@ -1,0 +1,16 @@
+默认模式，
+setDefaultInteractions: function (lazyMode)
+
+setPanInteractions: function ()
+编辑
+setEditInteractions: function (lazyMode)
+创建节点
+setCreateElementInteractions: function (type)
+创建连线模式 
+setCreateLinkInteractions: function (type)
+创建多点连线
+setCreateShapeLinkInteractions: function (type)
+多边形节点
+setCreateShapeNodeInteractions: function (type)
+放大镜
+setTouchInteractions: function ()

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/divTuoXuan/jquery-resize.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/divTuoXuan/initCanvas.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/jquery-resize.css"/>
+	</head>
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<body>
+		<div id="ceshi" style="margin: 0px;height: 800px;">
+		</div>
+	</body>
+	<script type="text/javascript">
+//		var shili = $("#tuozhuai").initResize();
+		initCan1 = initCanvas(document.getElementById("ceshi"),{
+			rulerWidth:20,
+			beishu:0.87,
+			onBeforeSelect:function (node) {
+//				console.log(node);
+			},
+			onSelected:function (node) {
+//				console.log(node);
+			},
+			onMove:function (node) {
+//				console.log(node);
+			}
+		});
+//		$(window).resize(function () {
+//			initCan1.reSize();
+//		})
+		initCan1.addElement({
+			id:"123",
+			postion:{	//节点定位信息
+				w:150,
+				h:90,
+				t:200,
+				l:150,
+			},
+			elements:'<div style="background-color:red;height:100%;width:100%;"><div>'
+		});
+		initCan1.addElement({
+			postion:{	//节点定位信息
+				w:150,
+				h:90,
+				t:200,
+				l:350,
+			},
+			elements:'<div style="background-color:red;height:100%;width:100%;"><div>'
+		});
+		initCan1.addElement({
+			postion:{	//节点定位信息
+				w:150,
+				h:90,
+				t:500,
+				l:350,
+			},
+			elements:'<div style="background-color:red;height:100%;width:100%;"><div>'
+		});
+	</script>
+</html>

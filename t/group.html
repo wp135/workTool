@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/dome.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function init () {
+				var network = new twaver.network.Network();
+				var box= network.getElementBox();
+				
+				var node = new twaver.Node();
+				node.setLocation(20,20);
+				var node4 = new twaver.Node();
+				node4.setLocation(30,30);
+				var node2 = new twaver.Node();
+				node2.setLocation(150,150);
+				var link = new twaver.Link(node,node2);
+				
+				var group = new twaver.Group();
+				group.addChild(node);
+				group.addChild(node2);
+				group.addChild(link);
+				group.setName("Child group");
+				group.setExpanded(true);
+				
+				var group1 = new twaver.Group();
+				group1.addChild(group);
+				group1.setName("Group");
+				var tree = new twaver.controls.Tree();
+				box.add(node);
+				box.add(node4);
+				box.add(node2);
+				box.add(link);
+				box.add(group);
+				box.add(group1);
+				//拖拽进组
+				network.getView().addEventListener('dragover', function (e) {
+		            if (e.preventDefault) {
+		                e.preventDefault();
+		            } else {
+		                e.returnValue = false;
+		            }
+		            e.dataTransfer.dropEffect = 'copy';
+		            return false;
+		        }, false);
+		        network.getView().addEventListener('drop', function (e) {
+		            if (e.stopPropagation) {
+		                e.stopPropagation();
+		            }
+		            if (e.preventDefault) {
+		                e.preventDefault();
+		            } else {
+		                e.returnValue = false;
+		            }
+		            var text = e.dataTransfer.getData('Text');
+		            if (!text) {
+		                return false;
+		            }
+		            if (text && text.indexOf('className:') == 0) {
+		                demo.Util._createElement(network, text.substr(10, text.length), network.getLogicalPoint(e));
+		            }
+		            return false;
+		        }, false);
+        
+        
+        		var network1 = new twaver.network.Network();
+				var box1= network1.getElementBox();
+				
+				var node = new twaver.Node();
+				node.setLocation(100,10);
+				node.setName("test");
+				box1.add(node)
+				var networkDom = network.getView();
+				var networkDom1 = network.getView();
+				networkDom.style.width = "100%";
+				networkDom.style.height = "100%";
+				networkDom1.style.width = "100%";
+				networkDom1.style.height = "100%";
+				document.body.appendChild(networkDom);
+				document.body.appendChild(networkDom1);
+			}
+		</script>
+	</head>
+	<body onload="init()">
+	</body>
+</html>

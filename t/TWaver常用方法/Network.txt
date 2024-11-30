@@ -1,0 +1,86 @@
+Network
+-> rootDiv //根容器面板
+-> topDiv //顶层面板
+-> attachmentDiv //附件面板
+-> layerDiv //网元视图面板，用于放置ElementUI,
+-> layer n //ElementUI的层次关系由ElementBox.layerBox来管理
+-> layer ...
+-> layer 0
+-> bottomDiv //底层容器面板
+-> backgroundDiv //背景层面板
+getElementUI : function(element)
+
+Attachment组件     twaver.network.ui.Attachment
+视图组件
+//Attachment构造函数
+twaver.network.Attachment = function (elementUI, showInAttachmentDiv)
+twaver.network.Network#
+//network中的附件层画布，附件组件可以添加到ElementUI组件下，
+//也可以与ElementUI组件分离，直接添加在拓扑图的附件层画布中，这样可以保证附件置顶显示
+getAttachmentDiv: function ()
+twaver.network.ui.ElementUI
+//ElementUI中可以获取网元附件的集合
+getAttachments: function ()
+
+
+切换交互模式
+//切换到为默认交互模式
+setDefaultInteractions: function (lazyMode)
+//切换到编辑模式
+setEditInteractions: function (lazyMode)
+//切换到创建节点交互模式
+setCreateElementInteractions: function (type)
+//切换到创建连线的交互模式
+setCreateLinkInteractions: function (type)
+//切换到创建ShapeNode交互模式
+setCreateShapeNodeInteractions: function (type)
+
+过滤器的使用
+network.visibleFunction = function(node){
+	retrun node.getChildrenCount() > 0;
+};
+//可见过滤器
+get/setVisibleFunction : function(filter)
+//可移动过滤器
+get/setMovableFunction : function(filter)
+//可编辑过滤器
+get/setEditableFunction : function(filter)
+
+getCurrentSubNetwork: function ()
+//设置当前子网
+setCurrentSubNetwork: function (currentSubNetwork, animate, finishFunction)
+//进入上级子网
+upSubNetwork: function (animate, finishFunction)
+//添加/删除交互（鼠标键盘）监听器
+addInteractionListener = function (listener, scope, ahead)
+removeInteractionListener = function (listener)
+//刷新网元视图
+invalidateElementUI: function (element, checkAttachments)
+invalidateElementUIs: function (checkAttachments)
+//获得网元视图
+getElementUI: function (element)
+//缩放操作
+getZoom = function ()
+setZoom = function (value, animate)
+zoomIn = function (animate)
+zoomOut = function (animate)
+zoomReset = function (animate)
+//获得拓扑图组件中的面板容器
+getRootDiv: function ()
+getTopDiv: function ()
+getAttachmentDiv: function ()
+getLayerDiv: function ()
+getBottomDiv: function ()
+getBackgroundDiv: function ()
+//获取拓扑图的DIV元素
+getView: function ()
+
+Network中的样式规则：
+getLabel：网元文本标签函数，用于设置网元的标签
+getToolTip：工具条提示
+getInnerColor：网元内渲染色函数
+getOuterColor：网元边框颜色
+getSelectColor：网元选中颜色
+getAlarmFillColor：告警冒泡颜色
+getAlarmLabel：告警冒泡文本
+getLinkHandlerLabel：绑定连线文本

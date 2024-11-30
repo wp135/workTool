@@ -1,0 +1,156 @@
+oneOf
+applicable
+setApplicable
+$ref
+properties
+descriptionCN			中文描述
+default					默认值
+checkTo					更改默认值为
+
+var s = eval("("+$1+")");
+var zong={};
+for(var i=0;i<s.length;i++){
+	var rowData = s[i];
+	var param = rowData["参数"];
+	zong[rowData["方法名"]] = {
+		"param":param?"("+param.replace(",",", ")+" )":"",
+		"type": ["Function"],
+		descriptionCN:rowData["说明"]
+	}
+}
+return JSON.stringify(zong);
+//引入jquery
+var jquery = document.createElement('script');      
+jquery.src = "https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js";    
+document.getElementsByTagName('head')[0].appendChild(jquery);
+//展开所有折叠
+$(".accordion").addClass("expanded")
+//leftJson规则
+var tocM = $("#toc").find(".toc-col");
+var propertiess = {};
+var trsZ = function(dataObj,obj){
+	for(var s=0;s<obj.length;s++){
+		var trss = obj.eq(s).find("tbody").find("tr");
+		var tidai = dataObj;
+		var oneselfAcc = obj.eq(s); 
+		if(s!=0){
+			var key = oneselfAcc.find("h4").text().trim();
+			dataObj[key] = {
+				"type": "info",
+				"descriptionCN": key,
+				"properties": {
+					
+				}
+			};
+			tidai = dataObj[key].properties;
+		}
+		for(var i=0;i<trss.length;i++){
+			var trs = trss.eq(i);
+			var td1 =  trs.children("td").eq(0).text().trim();
+			var td2 =  trs.children("td").eq(1).text().trim();
+			var td3 =  trs.children("td").eq(2).text().replace(/\n/g,"<br>");
+			var td4 =  trs.children("td").eq(3).text().replace(/\n/g,"<br>");
+			tidai[td1] = {
+				type:td2,
+				default:td3,
+				descriptionCN:td4
+			}
+		}
+	}
+}
+var zhuan = function (id,defaults) {
+	var pB = $("#"+id).next()[0];
+	var pBs = pB.localName=="p"?pB.outerHTML:"";
+	var shili = $("#"+id+"-example")[0];
+	var shilis = shili?shili.parentElement.outerHTML:"";
+	var chuanjian = $("#"+id+"-factory")[0];
+	var chuanjians = chuanjian?chuanjian.parentElement.outerHTML:"";
+	var option = $("#"+id+"-option")[0];
+	if(!option){
+		var firstNode = $("#"+id);
+		for(var i=0;i<10;i++){
+			firstNode = firstNode.next();
+			if(firstNode[0]&&firstNode[0].localName=="a"){
+				break;
+			}
+			if(firstNode.find("h3").text().trim()=="选项"){
+				option = firstNode.find("h3")[0];
+				break;
+			}
+		}
+	}
+	var options = option?option.parentElement.outerHTML:"";
+	var descriptionCN = "";
+	var anchor = $(".container").children("a[anchor="+id+"]");
+	while(anchor.next()[0]){
+		anchor = anchor.next();
+		if(anchor[0].localName=="a"){
+			break;
+		}
+		descriptionCN += anchor[0].outerHTML;
+	}
+	descriptionCN = descriptionCN.replace(/\"/g,'\"').replace(/\t/g,"    ");
+//	if(!option){
+//		return "";
+//	}
+	var properties = {};
+	var section = $(option).parent().children("section");
+	if(section[0]){
+		trsZ(properties,section);
+	}
+	var accordions = $(option).parent().children(".accordion");
+	for(var i=0;i<accordions.length;i++){
+		var accordion = accordions.eq(i);
+		var key = accordion.find("label").children("font").text().trim();
+		var accordionObj = {
+			"type": "info",
+			"descriptionCN": key,
+			"properties": {
+				
+			}
+		};
+		trsZ(accordionObj.properties,accordion);
+		properties[key] = accordionObj;
+	}
+	return {
+		"type": "Object",
+		"default": defaults,
+		"descriptionCN":descriptionCN,
+		"properties":properties
+	}
+}
+for(var i=0;i<tocM.length;i++){
+	if(i==0){
+		propertiess.map = zhuan("map","地图");
+		propertiess["map-pane"] = zhuan("map-pane","地图窗格");
+	}else{
+		var h4 = tocM.eq(i).children("h4");
+		for(var j=0;j<h4.length;j++){
+			var h4c = h4.eq(j);
+			var key = h4c.text().trim();
+			var childName = [];
+			propertiess[key]={
+				"type": "Object",
+	    		"default": "",
+				"descriptionCN": "",
+				"properties":{
+					
+				}
+			}
+			var li = h4c.next("ul").children("li");
+			for(var l = 0;l<li.length;l++){
+				var name = li.eq(l).text().trim();
+				childName.push(name);
+				var id = li.eq(l).find("a").attr("href").replace("#","");
+				propertiess[key].properties[id]=zhuan(id,name);
+			}
+			propertiess[key].default = "("+childName.join("、")+")";
+			propertiess[key].descriptionCN = childName.join("、");
+		}
+	}
+}
+if(!$("#resurt")[0]){
+	$("body").append('<textarea style="height: 80px;width:200px;position: fixed;top: 0;" id="resurt">'+JSON.stringify(propertiess)+'</textarea>')
+}else{
+	$("#resurt").val(JSON.stringify(propertiess));
+}

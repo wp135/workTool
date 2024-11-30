@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>告警内容</title>
+    <style>
+        body{
+            font-family: 'Microsoft YaHei','黑体',sans-serif!important;
+        }
+        .bgColor{
+            background: #eee;
+        }
+       
+    </style>
+</head>
+<body>
+<div id="titleDiv" style="font-size: 15px;height: 32px;border-bottom: 1px solid #e8e8e8; margin-bottom: 10px;">
+     <span id="titleSpan" ></span> - 基站告警
+</div>
+
+<div id="warningContent">
+    
+</div>
+<div id="divWhoise" style="border:none; position: relative;padding-left:236px;padding-top: 100px">
+    <input type="image" src="../images/loading_new.gif"  width="30px" height="30px" align="middle" /><div style="display: inline-block;position: relative;"><span style="position: relative;top: 5px;left: 7px;">数据加载中，请稍后...</span></div>
+</div>
+
+<script src="../scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+           addloadData();
+   });
+   function addloadData(){
+            $("#titleSpan").html(cell_name);
+            var popup = '<div style="border: 1px solid #e8e8e8;">'
+                        +   '<div style="text-align: left;font-size: 14px;overflow-x:auto">' 
+                        +     '<div style="width:1100px;">'
+                        +        '<table cellpadding="0" cellspacing="0" style="background-color: #e8e8e8;width:100%">'
+                        +        '<tr style="height: 32px;">'
+                        +          '<td style="width:18%;text-align: center;">告警产生时间</td>'
+                        +          '<td style="width:28%;text-align: center;">小区名称</td>'
+                        +          '<td style="width:18%;text-align: center;">告警标题</td>'
+                        +          '<td style="width:20%;text-align: center;">告警级别</td>'
+                        +          '<td style="text-align: center;">告警内容</td>'
+                        +        '</tr>'
+                        +        '</table>'
+                        +     '</div>'
+                        +     '<div style="width:1100px;">'
+                        +       '<div style="width:100%;overflow:auto;height:200px;border: 1px solid #e8e8e8;">'
+                        +         '<table style="width:100%; border-collapse:collapse;">';
+                 var data = {
+                                "time_id": time_id,
+                                "line_name": line_name,
+                                "section_name": section_name,
+                                "cell_name":cell_name,
+                                "timeType":time_type
+                            };       
+                 var url = '/sml/invoke/highSpeedMngService/queryIndexTH/highSpeed-cfg-query-gaojingByCell' ;  
+                 var dataStr = JSON.stringify(data); 
+                 var resultData = []; 
+                   $.ajax({
+                                url :'http://' +baseUrl + ':' + basePort +"/" + east +url ,
+                                type : 'POST',
+                                async : true,
+                                dataType : "json",
+                                contentType :"application/json",
+                                data:dataStr,
+                                success : function(data) {
+                                    resultData = data.data;
+                                    for (var i = 0; i < resultData.length; i++) {
+                                        var currObj = resultData[i];
+                                    popup  +=         '<tr class="'+(i%2 == 0?"":"bgColor")+'" style="height: 25px;border-bottom:1px solid #e8e8e8;">'
+                                            +           '<td style="width:20%;border-right: 1px solid #e8e8e8;text-align:center">'+currObj.TIME_ID+'</td>'
+                                            +           '<td style="width:30%;border-right: 1px solid #e8e8e8;text-align:center">'+currObj.CELL_NAME+'</td>'
+                                            +           '<td style="width:20%;border-right: 1px solid #e8e8e8;text-align:center">'+currObj.TITLE+'</td>'
+                                            +           '<td style="width:20%;border-right: 1px solid #e8e8e8;text-align:center">'
+                                            //+currObj.PARAS3
+                                    if (currObj.PARAS3 == "2") {
+                                    popup  +=            '<span style="color:#fe8416">二级告警</span>' 
+                                    }else{
+                                    popup  +=            '<span style="color:red">一级告警</span>' 
+                                    }        
+                                    popup  +=            '</td>'
+                                            +           '<td style="text-align:center;"><div time_id="'+currObj.TIME_ID+'" cellName="'+currObj.CELL_NAME+'" onclick="window.parent.showWarningContent(this)" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:185px;color: blue;cursor: pointer;">'+currObj.DESCR.toString()+'</div></td>'
+                                            +          '</tr>'
+                                    }        
+                                    popup  +=         '</table>'
+                                            +       '</div>'
+                                            +     '</div>'
+                                            +   '</div>'
+                                            + '</div>';
+                                    $("#warningContent").html(popup);
+                                     
+                                    $('#divWhoise').hide();
+                                },
+                                complete: function(XMLHttpRequest, textStatus){
+                                      //HideLoading();
+                                         
+                                },
+                                error: function(){
+                                      //请求出错处理
+                                }
+                        });
+
+
+
+               
+
+
+   };
+
+
+    //基本URL
+    var baseUrl = '10.221.247.7';
+    var locationUrl = window.location.href;
+    //console.log(locationUrl);
+
+    locationUrl.indexOf('10.10.46.60') !== -1 && (baseUrl = '10.10.46.60');
+    var hostName = window.location.hostname;
+    hostName != '' && (baseUrl = hostName); 
+    //基本端口号
+    var basePort = '8080';
+    var locationPort = window.location.port;                
+    locationPort != '' && (basePort = locationPort);
+    var nameVal = getUrlParam(locationUrl,'');
+    // console.log(nameVal);
+    var time_id = decodeURIComponent(nameVal.time_id),
+            time_type = decodeURIComponent(nameVal.time_type),
+            line_name = decodeURIComponent(nameVal.line_name),
+            section_name = decodeURIComponent(nameVal.section_name),
+            cell_name = decodeURIComponent(nameVal.cell_name);
+
+    var baseUrlbasePortNamePre =  locationUrl.substring(locationUrl.indexOf(":",7),locationUrl.length);       
+    var baseUrlbasePortName = baseUrlbasePortNamePre.substring(baseUrlbasePortNamePre.indexOf("/"),baseUrlbasePortNamePre.length);
+
+    var east = baseUrlbasePortName.substring(1,baseUrlbasePortName.indexOf("/",2))
+
+    //   http://localhost:7080/web-inas-highSpeed/pages/main.jsp
+    //console.log(baseUrlbasePortNamePre)   //  :7080/web-inas-highSpeed/pages/main.jsp
+    //console.log(baseUrlbasePortName)     //web-inas-highSpeed/pages/main.jsp
+    //console.log(east)                   //web-inas-highSpeed
+    //获取数据
+    var jsondata = [];
+    //解决跨域请求数据问题
+    jQuery.support.cors = true;
+    jQuery.ajaxSetup({ scriptCharset: "utf-8" , contentType: "application/json; charset=utf-8"});
+
+
+
+
+    function date2str(x,y) {
+        var z = {M:x.getMonth()+1,d:x.getDate(),h:x.getHours(),m:x.getMinutes(),s:x.getSeconds()};
+        y = y.replace(/(M+|d+|h+|m+|s+)/g,function(v) {return ((v.length>1?"0":"")+eval('z.'+v.slice(-1))).slice(-2)});
+        return y.replace(/(y+)/g,function(v) {return x.getFullYear().toString().slice(-v.length)});
+    }
+   
+  
+   
+
+   
+    function getUrlParam(sUrl, sKey) {
+        sUrl = sUrl.split('?')[1];//截取地址之后的所有参数
+        //sUrl = sUrl.replace(/[&#]/g,'');//删除所有特殊字符
+        //console.log(sUrl)
+        if(sKey !== ''){
+            //console.log('不为空')
+            //构造正则，并截取最新的sUrl
+            var para = '(' + sKey + '=' + ')';
+            var myReg1 = new RegExp(para,'g');
+            //var myReg2 = /[A-Za-z0-9]+/g;//可以修改传中文或者数字参数
+            var myReg2 = /^([\u4E00-\u9FA5]+，?)+$/g;
+            var myReg = new RegExp(myReg1.source + myReg2.source,'g');
+            //console.log(myReg)
+            var temArray = sUrl.match(myReg);//得到的是含有参数分隔符的数组,如果只需要返回参数，则还需进行下面的转换
+            //console.log(temArray)
+            if(temArray){
+                temArray = temArray.toString().replace(myReg1,'');//删除参数分隔符sKey=,得到的是字符串
+                var result = temArray.split(',');//字符串转换为数组
+                return result;
+            }
+            else{
+                //console.log(sKey)
+                return '';//传入的参数名称sKey有错或者参数名值为空
+            }
+        }
+        if(sKey === ''){
+            //console.log('为空')
+            sUrl = sUrl.split(/[&#]/g);//以特殊字符为分隔符生成数组
+            var resultObj = {};//最后需要返回的对象
+            for(var i= 0, len = sUrl.length; i<len; ++i){
+                var temValue = sUrl[i];
+                var temArrayV = temValue.split('=');
+                resultObj[temArrayV[0]] = temArrayV[1];
+            }
+            return resultObj;
+        }
+    }
+</script>
+</body>

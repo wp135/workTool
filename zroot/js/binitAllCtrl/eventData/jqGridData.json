@@ -1,0 +1,95 @@
+{
+	"$schema": "http://echarts.baidu.com/doc/json-schem",
+	"definitions": {
+		"option": {
+			"type": "Object",
+			"properties": {
+				"afterInsertRow": {
+					"param": "(rowid, rowdata,rowelem )",
+					"type": ["Event"],
+					"descriptionCN": "当插入每行时触发。rowid插入当前行的id；rowdata插入行的数据，格式为name: value，name为colModel中的名字"
+				},
+				"beforeRequest": {
+					"param": "(none )",
+					"type": ["Event"],
+					"descriptionCN": "向服务器端发起请求之前触发此事件但如果datatype是一个Event时例外"
+				},
+				"beforeSelectRow": {
+					"param": "(rowid,  e )",
+					"type": ["Event"],
+					"descriptionCN": "当用户点击当前行在未选择此行时触发。rowid：此行id；e：事件对象。返回值为ture或者false。如果返回true则选择完成，如果返回false则不会选择此行也不会触发其他事件"
+				},
+				"gridComplete": {
+					"param": "(none )",
+					"type": ["Event"],
+					"descriptionCN": "当表格所有数据都加载完成而且其他的处理也都完成时触发此事件，排序，翻页同样也会触发此事件"
+				},
+				"loadComplete": {
+					"param": "(xhr )",
+					"type": ["Event"],
+					"descriptionCN": "当从服务器返回响应时执行，xhr：XMLHttpRequest 对象"
+				},
+				"loadError": {
+					"param": "(xhr, status,error )",
+					"type": ["Event"],
+					"descriptionCN": "如果请求服务器失败则调用此方法。xhr：XMLHttpRequest 对象；satus：错误类型，字符串类型；error：exception对象"
+				},
+				"onCellSelect": {
+					"param": "(rowid, iCol,cellcontent,e )",
+					"type": ["Event"],
+					"descriptionCN": "当点击单元格时触发。rowid：当前行id；iCol：当前单元格索引；cellContent：当前单元格内容；e：event对象"
+				},
+				"ondblClickRow": {
+					"param": "(rowid, iRow,iCol,e )",
+					"type": ["Event"],
+					"descriptionCN": "双击行时触发。rowid：当前行id；iRow：当前行索引位置；iCol：当前单元格位置索引；e:event对象"
+				},
+				"onHeaderClick": {
+					"param": "(gridstate )",
+					"type": ["Event"],
+					"descriptionCN": "当点击显示/隐藏表格的那个按钮时触发；gridstate：表格状态，可选值：visible or hidden"
+				},
+				"onPaging": {
+					"param": "(pgButton )",
+					"type": ["Event"],
+					"descriptionCN": "点击翻页按钮填充数据之前触发此事件，同样当输入页码跳转页面时也会触发此事件"
+				},
+				"onRightClickRow": {
+					"param": "(rowid, iRow,iCol,e )",
+					"type": ["Event"],
+					"descriptionCN": "在行上右击鼠标时触发此事件。rowid：当前行id；iRow：当前行位置索引；iCol：当前单元格位置索引；e：event对象"
+				},
+				"onSelectAll": {
+					"param": "(aRowids, status )",
+					"type": ["Event"],
+					"descriptionCN": "multiselect为ture，且点击头部的checkbox时才会触发此事件。aRowids：所有选中行的id集合，为一个数组。status：boolean变量说明checkbox的选择状态，true选中false不选中。无论checkbox是否选择，aRowids始终有 值"
+				},
+				"onSelectRow": {
+					"param": "(rowid, status )",
+					"type": ["Event"],
+					"descriptionCN": "当选择行时触发此事件。rowid：当前行id；status：选择状态，当multiselect 为true时此参数才可用"
+				},
+				"onSortCol": {
+					"param": "(index, iCol,sortorder )",
+					"type": ["Event"],
+					"descriptionCN": "当点击排序列但是数据还未进行变化时触发此事件。index：name在colModel中位置索引；iCol：当前单元格位置索引；sortorder：排序状态：desc或者asc"
+				},
+				"resizeStart": {
+					"param": "(event,  index )",
+					"type": ["Event"],
+					"descriptionCN": "当开始改变一个列宽度时触发此事件。event：event对象；index：当前列在colModel中位置索引"
+				},
+				"resizeStop": {
+					"param": "(newwidth,  index )",
+					"type": ["Event"],
+					"descriptionCN": "当列宽度改变之后触发此事件。newwidth：列改变后的宽度；index：当前列在colModel中的位置索引"
+				},
+				"serializeGridData": {
+					"param": "(postData )",
+					"type": ["Event"],
+					"descriptionCN": "向服务器发起请求时会把数据进行序列化，用户自定义数据也可以被提交到服务器端"
+				}
+			}
+		}
+	}
+}

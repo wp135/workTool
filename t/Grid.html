@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function init () {
+				var network = new twaver.network.Network();
+				var box = network.getElementBox();
+				
+				var grid= new twaver.Grid();
+				grid.setLocation(20,20);
+				grid.setSize(400,300);
+				
+				var grid = new twaver.Grid();
+				grid.setLocation(20, 20);
+				grid.setSize(400, 300);
+				grid.setStyle("grid.border", 20);
+				grid.setStyle("grid.row.count", 2);
+				grid.setStyle("grid.column.count", 3);
+				grid.setStyle("grid.column.percents",[0.2,0.6,0.2]);
+				grid.setStyle("grid.deep", 8);
+				box.add(grid);
+				var cell=new twaver.Grid();
+				cell.setStyle("follower.column.index",0);
+				cell.setStyle("follower.row.index",1);
+				cell.setStyle("follower.column.span",2);
+				cell.setStyle("grid.fill.color","#ff0000");
+				cell.setStyle("follower.padding",10);
+				cell.setStyle("grid.deep",5);
+				cell.setHost(grid);
+				grid.addChild(cell);
+				box.add(cell);
+				var networkDom = network.getView();
+				networkDom.style.width = "100%";
+				networkDom.style.height = "100%";
+				document.body.appendChild(networkDom);
+			}
+		</script>
+	</head>
+	<body onload="init()">
+	</body>
+</html>

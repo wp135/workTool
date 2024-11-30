@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TWaver HTML5 Demo</title>
+<script type="text/javascript" src="js/twaver.js"></script>
+<script type="text/javascript">
+	function highlightInteraction(network) {
+//		alert(1);
+			twaver.network.interaction.MoveInteraction.superClass.constructor.call(
+			this, network);
+	}
+	twaver.Util.ext('highlightInteraction', twaver.network.interaction.BaseInteraction,
+	{
+	setUp : function() {
+	this.addListener('mousedown');
+	},
+	tearDown : function() {
+	this.removeListener('click');
+	this.end();
+	},
+	handle_mousedown : function(e) {
+	var element = this.network.getElementAt(e);
+	if (element) {
+	this.highlight(element);
+	} else {
+	this.reset();
+	}
+	},
+	highlightElement : null,
+	highlightColor : "#FF0000",
+	oldColor : null,
+	highlight : function(element) {
+		this.reset();
+	this.oldColor = element.getStyle("inner.color");
+	this.highlightElement = element;
+	element.setStyle("inner.color", this.highlightColor);
+//	network.getElementBox().getSelectionModel().appendSelection(element);
+	},
+	reset : function() {
+	if (this.highlightElement) {
+	this.highlightElement
+	.setStyle('inner.color', this.oldColor);
+//	network.getElementBox().getSelectionModel().removeSelection(this.highlightElement);
+	}
+	}
+	});
+		var network;
+		function init() {
+		network = new twaver.network.Network();
+		var box = network.getElementBox();
+		var node = new twaver.Node();
+		node.setName("from");
+		node.setLocation(100, 100);
+		box.add(node);
+		var node2 = new twaver.Node();
+		node2.setName("to");
+		node2.setLocation(300, 300);
+		box.add(node2);
+		var link = new twaver.Link(node, node2);
+		link.setName("Hello TWaver");
+		link.setToolTip("<b>Hello TWaver</b>");
+		box.add(link);
+		var networkDom = network.getView();
+		networkDom.style.width = "100%";
+		networkDom.style.height = "100%";
+		document.body.appendChild(networkDom);
+		
+		network.setInteractions([
+		new twaver.network.interaction.SelectInteraction(network),
+		new twaver.network.interaction.MoveInteraction(network),
+		new highlightInteraction(network),
+		new twaver.network.interaction.DefaultInteraction(network)]);
+	}
+</script>
+</head>
+<body onload="init()" style="margin:0px;">
+</body>
+</html>

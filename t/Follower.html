@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function init () {
+			var network= new twaver.network.Network();
+			var box = network.getElementBox();
+			
+			var node= new twaver.Node();
+			node.setLocation(20,20);
+			node.setName("Host");
+			box.add(node);
+			
+			var follower = new twaver.Follower();
+			follower.setLocation(100,50);
+			follower.setHost(node);
+			follower.setName("Follower");
+			box.add(follower);
+			var networkDom = network.getView();
+			networkDom.style.width = "100%";
+			networkDom.style.height = "100%";
+			document.body.appendChild(networkDom);
+			
+		}
+	</script>
+	<body onload="init()">
+	</body>
+</html>

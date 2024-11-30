@@ -1,0 +1,71 @@
+twaver.AlarmBox = function (elementBox)
+getElementBox: function ()
+
+getAlarmElementMapping: function ()
+setAlarmElementMapping: function (alarmElementMapping)
+
+//网元在ElementBox中被删除时，告警是否从AlarmBox中删除
+//告警设置为清除级别时，是否自动删除告警
+isRemoveAlarmWhenAlarmIsCleared: function ()
+setRemoveAlarmWhenAlarmIsCleared: function (removeAlarmWhenAlarmIsCleared)
+
+
+告警级别 - twaver.AlarmSeverity
+twaver.Alarm : function (alarmID, elementID, isAcked, isCleared)
+getElementID : function()
+isAcked : function()
+setAcked : function(value)
+isCleared : function()
+setCleared : function(value)
+getAlarmSeverity : function()
+setAlarmSeverity : function(value)
+
+twaver.AlarmSeverity : function (value, name, nickName, color, displayName)
+twaver.AlarmSeverity.CRITICAL = twaver.AlarmSeverity.add(500, "Critical", "C", '#FF0000');
+twaver.AlarmSeverity.MAJOR = twaver.AlarmSeverity.add(400, "Major", "M", '#FFA000');
+twaver.AlarmSeverity.MINOR = twaver.AlarmSeverity.add(300, "Minor", "m", '#FFFF00');
+twaver.AlarmSeverity.WARNING = twaver.AlarmSeverity.add(200, "Warning", "W", '#00FFFF');
+twaver.AlarmSeverity.INDETERMINATE = twaver.AlarmSeverity.add(100, "Indeterminate", "N", '#C800FF');
+twaver.AlarmSeverity.CLEARED = twaver.AlarmSeverity.add(0, "Cleared", "R", '#00FF00');
+
+全局注册和卸载
+twaver.AlarmSeverity.add : function (value, name, nickName, color, displayName)
+twaver.AlarmSeverity.remove : function (name)
+
+告警状态AlarmState
+确认告警的最高级别，新发告警的最高级别，该网元所有告警的最高级别，新发告警次高级别，自身
+告警最高级别，传递告警级别 以及 各级别告警的数量
+getHighestAcknowledgedAlarmSeverity: function ()  确认告警最高级别
+getHighestNewAlarmSeverity: function ()		新发最高级别
+getHighestOverallAlarmSeverity: function ()  网元所有最高级别
+getHighestNativeAlarmSeverity: function ()  自身最高级别
+
+hasLessSevereNewAlarms: function ()   最小最新级别
+getAcknowledgedAlarmCount: function (severity)  确认告警数量
+getAlarmCount: function (severity)		全部告警数量
+
+getNewAlarmCount: function (severity)		新发告警数量
+setNewAlarmCount: function (severity, count)		
+
+getPropagateSeverity: function ()		传播级别	
+setPropagateSeverity: function (propagateSeverity)
+
+isEmpty: function ()			是否为空
+isEnablePropagation: function ()	是否可传播		
+setEnablePropagation: function (enablePropagation)	
+
+确认告警，清除告警，增加/减少确认告警，删除告警...	
+acknowledgeAlarm: function (severity)	确认告警（级别）
+acknowledgeAllAlarms: function (severity)	确认全部告警
+increaseAcknowledgedAlarm: function (severity, increment)	增加确认告警（级别，数量）
+increaseNewAlarm: function (severity, increment)	增加新发告警（级别，数量）
+decreaseAcknowledgedAlarm: function (severity, decrement)	减少确认告警
+decreaseNewAlarm: function (severity, decrement)	减少新发告警
+removeAllNewAlarms: function (severity)			删除所有新发告警（级别）
+setAcknowledgedAlarmCount: function (severity, count)	设置确认告警数量（级别，数量）
+removeAllAcknowledgedAlarms: function (severity)		删除所有确认告警（级别）
+clear: function ()	清空所有
+
+使用
+var alarm = new twaver.Alarm(alarmID,elementID,alarmSeverity);
+alarmBox.add(alarm);

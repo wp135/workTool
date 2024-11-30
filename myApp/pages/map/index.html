@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script>var h5pullDown = true;</script>
+    <script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <style type="text/css">
+    	.mui-pull-top-pocket{
+    		overflow: hidden;
+    	}
+    	html,body{
+    		width: 100%;
+    		height: 100%;
+    		padding: 0;
+    		margin: 0;
+    	}
+    </style>
+    <script type="text/javascript" charset="utf-8">
+      	$(document).ready(function () {
+      		try{
+      			muiHtml = mui.init({
+				  subpages:[{
+				      url:"child.html",//下拉刷新内容页面地址
+				      id:"cree0",//内容页面标志
+				      styles:{
+				      }
+				    }],
+				});
+      		}catch(e){
+      			//TODO handle the exception
+      			alert(e)
+      		}
+      	})
+    </script>
+</head>
+<body>
+</body>
+</html>

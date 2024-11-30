@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="leaflet/leaflet.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="leaflet/leaflet.css"/>
+	<body>
+		<div id="mapid" style="height: 580px;"></div>
+	</body>
+<script type="text/javascript">
+var tileAddress = 'https://api.mapbox.com/styles/v1/yqcim/cizh1ma3400ez2so5x1anhuzo/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoieXFjaW0iLCJhIjoiY2l6ZmhnZjExMDBhajJ4cGxnNGN5MnhpdCJ9.pcZtdfk8mSFboCdwqkvW6g';
+	//初始化地图
+	var mymap = L.map('mapid').setView([31.23, 121.47], 13);
+	mymap.on("click",function (e) {
+		console.log(e.latlng.lat+","+e.latlng.lng);
+	});
+	L.tileLayer(tileAddress, {
+	    attribution: "",
+	    maxZoom: 18,
+	    id: 'mapbox.streets',
+	}).addTo(mymap);
+	//圆形区域	--------------------------------------------------------------------------
+	var circle = L.circle([31.263,121.380], {
+	    color: 'red',
+	    fillColor: '#f03',
+	    fillOpacity: 0.5,
+	    radius: 500,
+	    border:0
+	}).addTo(mymap);
+	//以像素为单位的圆
+	var tooltipcircleMarker = L.tooltip({
+//		pane:"这是一个 tooltip",
+		offset:[20,0],		//偏移
+		sticky:true			//跟随鼠标
+	}).setContent("以像素为单位的圆")
+	var circleMarker = L.circleMarker([31.24612216586921,121.37987136840822], {
+	    color: 'red',
+	    fillColor: '#f03',
+	    fillOpacity: 0.5,
+	    radius: 50,
+	    border:0
+	}).addTo(mymap).bindTooltip(tooltipcircleMarker);
+	//弹出	--------------------------------------------------------------------------
+	var popup = '<p>Hello world!<br />这是一个附带弹出 popup，<br />这是一个附带图标 icon，的标记 marker</p>';
+    //图标	--------------------------------------------------------------------------
+    var greenIcon = L.icon({
+	    iconUrl: 'img/leaf-green.png',
+	    shadowUrl: 'img/leaf-shadow.png',
+	    iconSize:     [38, 95], // 图标大小
+	    shadowSize:   [50, 64], // 影子大小
+	    iconAnchor:   [22, 94], // 与标记的位置相对应的图标的点
+	    shadowAnchor: [4, 62],  // 与影子的位置相对应的图标的点
+	    popupAnchor:  [-3, -76] // 弹出窗口相对于iconAnchor打开的点
+	});
+    var myIcon = L.Icon.extend({
+    	options:{
+		    iconSize: [38, 95],
+		    iconAnchor: [22, 94],
+		    popupAnchor: [-3, -76],
+		    shadowUrl: 'img/leaf-shadow.png',
+		    shadowSize: [68, 95],
+		    shadowAnchor: [22, 94]
+		}
+	});
+	var greenIcon = new myIcon({iconUrl: 'img/leaf-green.png'});
+	//标记	--------------------------------------------------------------------------
+	var marker = L.marker([31.25727537168288,121.39411926269531],{icon:greenIcon}).addTo(mymap);
+	var marker = L.marker([31.200059972741247,121.44102036952974]).addTo(mymap);
+	marker.bindPopup(popup)
+//	.openPopup();	//在绑定后立即显示
+	//多边形区域-------------------------------------------------------------------------
+	var polygon = L.polygon([
+	    [31.2575688593062,121.4011573791504],
+	    [31.261971064151226,121.41197204589845],
+	    [31.26769362347472,121.40476226806642]
+	]).addTo(mymap);
+	//提示	-------------------------------------------------------------------------
+	var tooltip = L.tooltip({
+		pane:"这是一个 tooltip",
+		offset:[20,0],		//偏移
+		sticky:true			//跟随鼠标
+	}).setContent("这是一个提示 tooltip")
+    polygon.bindTooltip(tooltip)
+//  .openTooltip();	//在绑定后立即显示
+	//折线	-------------------------------------------------------------------------
+	var latlngs = [
+	    [31.261530852906432,121.41832351684572],
+	    [31.265786142259383,121.42347335815431],
+	    [31.260943901385993,121.43360137939455],
+	    [31.257715602775658,121.42484664916992],
+	];
+	var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
+//  mymap.fitBounds(polyline.getBounds());
+	//svg	-------------------------------------------------------------------------
+	var myRenderer = L.svg({ padding: 5 });
+	//长方形	-------------------------------------------------------------------------
+	var bounds = [[31.264,121.436], [31.259,121.448]];
+	var rectangle = L.rectangle(bounds, {color: "red", weight: 1,renderer:myRenderer}).addTo(mymap);
+	rectangle.bindPopup(popup);
+//	mymap.fitBounds(rectangle.getBounds());
+	</script>
+</html>

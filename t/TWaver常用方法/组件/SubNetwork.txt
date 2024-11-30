@@ -1,0 +1,4 @@
+//设置当前子网
+get/setCurrentSubNetwork : function(subnetwork, animate)
+//返回上级子网
+upSubNetwork : function(animate)

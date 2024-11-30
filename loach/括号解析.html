@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var ssx=2;
+			var a="ds(<asd(dasd)>(<ssx*12>))<(()a-34)>";
+			function sele(str,c){
+				var zong=[];
+				var ls=seleindex(a,"<");	//左标识
+				var rs=seleindex(a,">");	//右标识
+				for(var i=ls.length-1;i>=0;i--){
+					var lin=[];
+					var l=ls[i];
+					var r=str.length;
+					for(var j=rs.length-1;j>=0;j--){
+						if(l>rs[j]){
+							lin.push(l);
+							lin.push(r);
+							zong.push(lin);
+							rs.splice(j+1,1);
+							break;
+						}else{
+							if(j==0){
+								lin.push(l);
+								lin.push(rs[j]);
+								zong.push(lin);
+								rs.splice(j,1);
+								break;
+							}else{
+								r=rs[j];
+							}
+						}
+					}
+				}
+				c=zong.length-c;
+				var le=zong[c][0]+1;
+				var ri=zong[c][1];
+				var shu=str.substring(le,ri);
+				alert(eval(shu));
+			}
+			function seleindex (str,z){
+				var ls=[];
+				var i=0;
+				while(i!=-1){
+					var l=str.indexOf(z,i);
+					if(l==-1){
+						i=-1;
+					}else{
+						i=l+1;
+						ls.push(l);
+					}
+				}
+				return ls;
+			}
+			sele(a,2);
+		</script>
+		
+	</body>
+</html>

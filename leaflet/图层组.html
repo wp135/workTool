@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title></title>
+	</head>
+	<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="leaflet/leaflet.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="leaflet/leaflet.css"/>
+	<body>
+		<div id="mapid" style="height: 580px;"></div>
+	</body>
+	<script src="js/initMap.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		//初始化地图
+		var mymap = L.map('mapid',{
+			zoomControl:false
+		}).setView([31.23, 121.47], 13);
+		mymap.on("click",function (e) {
+			console.log(e.latlng.lat+","+e.latlng.lng);
+		});
+		var	mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+		var grayscale = L.tileLayer(mbUrl, {id: 'mapbox.streets', attribution: "mapboxAttribution"}),
+    		streets   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: "mapboxAttribution"});
+    		
+		var littleton = L.marker([31.22733484153582,121.44390106201173]).bindPopup('This is Littleton, CO.'),
+		    denver    = L.marker([31.22792200197288,121.47668838500978]).bindPopup('This is Denver, CO.'),
+		    aurora    = L.marker([31.23584831079916,121.46209716796876]).bindPopup('This is Aurora, CO.'),
+		    golden    = L.marker([31.221022636447476,121.45505905151369]).bindPopup('This is Golden, CO.');
+		//创建图层
+		var cities1 = L.layerGroup([littleton, denver]);
+		var cities2 = L.layerGroup([ aurora, golden]);
+		L.control.zoom({
+			zoomInTitle:"放大",
+			zoomOutTitle:"缩小"
+		}).addTo(mymap);
+		
+		var baseMaps = {
+		    "grayscale": grayscale,
+		    "streets": streets
+		};
+		
+		var overlayMaps = {
+		    "城市1": cities1,
+		    "城市2": cities2,
+		};
+		mymap.addLayer(grayscale);
+		mymap.addLayer(cities1);
+		//添加控制器
+    	L.control.layers(baseMaps, overlayMaps).addTo(mymap)
+    	
+	</script>
+</html>

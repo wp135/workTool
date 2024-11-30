@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		.pos{
+			position: absolute;
+			/*background-color:#00C4FF ;*/
+			cursor:pointer;
+			
+		}
+		.suoding{
+		    width: 50px;
+		    height: 50.5px;
+		    display: none;
+		    background-image: url(image/suoding.png);
+		    background-size: 99% 98%;
+		    position: absolute;
+		    left: calc(50% - 0.5px);
+		    top: calc(50% - 1px);
+		    margin-left: -25px;
+		    margin-top: -25px;
+		}
+		.jiao{
+			position: absolute;
+			display: none;
+			border:2px solid #2E6DA4;
+		}
+		.jiao.jiao1{
+			top: 0;
+			left: 0;
+			border-right-style:none;
+			border-bottom-style:none;
+		}
+		.jiao.jiao2{
+			top: 0;
+			right: 0;
+			border-left-style:none;
+			border-bottom-style:none;
+			
+		}
+		.jiao.jiao3{
+			bottom: 0;
+			right: 0;
+			border-left-style:none;
+			border-top-style:none;
+		}
+		.jiao.jiao4{
+			bottom: 0;
+			left: 0;
+			border-right-style:none;
+			border-top-style:none;
+		}
+	</style>
+	<body style="min-width: 800px;min-height: 1000px;overflow: auto;">
+		<div id="main" style="width: auto;position: relative;display: block;margin:60px auto;">
+			<canvas id="myCanvas" style="background-color: #D9C69B;"></canvas>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var c=document.getElementById("myCanvas");
+		var ctx=c.getContext("2d");
+		var panML = 60;		//棋盘左右边距
+		var panMT = 45;		//棋盘上下边距
+		var panW = 90;		//棋盘格子宽
+		var panY = 80;		//棋盘格子高
+		var chuheW =80;		//楚河界格子高
+		var chuheFontW =60;	//楚河界字体高
+		var qiziW = 78;		//棋子宽高
+		var kands = true;	//true为红色方
+		var qiziCtrl = "";	//当前操作的棋子
+		var qizis = {};
+		var qiziInit=[
+			{"index":"che","kand":"self","name":"車","pos":[{x:0,y:9},{x:8,y:9}]},
+			{"index":"ma","kand":"self","name":"馬","pos":[{x:1,y:9},{x:7,y:9}]},
+			{"index":"xiang","kand":"self","name":"象","pos":[{x:2,y:9},{x:6,y:9}]},
+			{"index":"shi","kand":"self","name":"士","pos":[{x:3,y:9},{x:5,y:9}]},
+			{"index":"pao","kand":"self","name":"炮","pos":[{x:1,y:7},{x:7,y:7}]},
+			
+			{"index":"che","kand":"match","name":"車","pos":[{x:0,y:0},{x:8,y:0}]},
+			{"index":"ma","kand":"match","name":"馬","pos":[{x:1,y:0},{x:7,y:0}]},
+			{"index":"xiang","kand":"match","name":"象","pos":[{x:2,y:0},{x:6,y:0}]},
+			{"index":"shi","kand":"match","name":"士","pos":[{x:3,y:0},{x:5,y:0}]},
+			{"index":"pao","kand":"match","name":"炮","pos":[{x:1,y:2},{x:7,y:2}]},
+		];
+		var bingY = kands?6:3;
+		var zuY = kands?3:6;
+		qiziInit.push({"index":"shuai","kand":( kands?"self":"match"),"name":"帅","pos":[{x:4,y:(kands?9:0)}]});
+		qiziInit.push({"index":"bing","kand":(kands?"self":"match"),"name":"兵","pos":[{x:0,y:bingY},{x:2,y:bingY},{x:4,y:bingY},{x:6,y:bingY},{x:8,y:bingY},]});
+		qiziInit.push({"index":"jiang","kand":(kands?"match":"self"),"name":"将","pos":[{x:4,y:(kands?0:9)}]});
+		qiziInit.push({"index":"zu","kand":(kands?"match":"self"),"name":"卒","pos":[{x:0,y:zuY},{x:2,y:zuY},{x:4,y:zuY},{x:6,y:zuY},{x:8,y:zuY},]});
+		
+		$(c).attr("width",panW*8+panML*2);
+		$(c).attr("height",panY*8+panMT*2+chuheW);
+		$("#main").width($(c).attr("width"));
+		$("#main").height($(c).attr("height"));
+		
+		function init () {
+			ctx.clearRect(0, 0, 800, 850);  
+			$("#main").find(".pos").remove();
+			ctx.strokeStyle="#002D57";
+			ctx.beginPath();
+			//外框
+			var jianju = 0.1;
+			ctx.lineWidth = 4;
+			ctx.moveTo(panML*(1-jianju),panMT*(1-jianju-0.05));
+			ctx.lineTo(panW*8+panML*(1+jianju),panMT*(1-jianju-0.05));
+			ctx.lineTo(panW*8+panML*(1+jianju),panY*9+panMT*(1+jianju+0.05));
+			ctx.lineTo(panML*(1-jianju),panY*9+panMT*(1+jianju+0.05));
+			ctx.lineTo(panML*(1-jianju),panMT*(1-jianju-0.05));
+			ctx.stroke();
+			ctx.beginPath();
+			//纵线
+			ctx.lineWidth = 1;
+			for(var i=0;i<9;i++){
+				var x = i*panW+panML;
+				ctx.moveTo(x,panMT);
+				if(i!=0&&i!=8){
+					ctx.lineTo(x,panY*4+panMT);
+					ctx.moveTo(x,panY*4+chuheW+panMT);
+				}
+				ctx.lineTo(x,panY*8+chuheW+panMT);
+			}
+			//横线
+			for(var i=0;i<10;i++){
+				if(i==4||i==5){
+					ctx.lineWidth = 3;
+				}else{
+					ctx.lineWidth = 1;
+				}
+				var y = i<5?i*panY+panMT:(i-1)*panY+chuheW+panMT;
+				ctx.moveTo(panML,y);
+				ctx.lineTo(panW*8+panML,y);
+				ctx.stroke();
+				ctx.beginPath();
+			}
+			//士线
+			for(var i=1;i<5;i++){
+				var x=i%2==0?panW*5+panML:panW*3+panML;
+				var y=i<3?panMT:panY*6+chuheW+panMT;
+				ctx.moveTo(x,y);
+				ctx.lineTo(x+panW*2*(i%2==0?-1:1),y+panY*2);
+			}
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.stroke();
+			ctx.beginPath();
+//			楚河汉界
+			ctx.font = " "+chuheFontW+"px 华文行楷";
+            ctx.textAlign = "start";
+            ctx.textBaseline = "top";
+//          ctx.translate(panML+panW*1.2, panMT+panY*4+(chuheW-chuheFontW)/2)
+//          ctx.rotate( 270* Math.PI/180)
+            var txt = "汉 界";
+            ctx.fillText(txt, panML+panW*1.25, panMT+panY*4+(chuheW-chuheFontW)/2);
+            var txt1 = "楚 河";
+            ctx.fillText(txt1, panML+panW*5.2, panMT+panY*4+(chuheW-chuheFontW)/2);
+			ctx.stroke();
+			createPos();
+			initQiZi();
+			$(".pos").click(function () {
+				console.log($(this).attr("x")+"_"+$(this).attr("y"));
+			})
+		}
+		
+		function bindQiZi (id,isSuoDing) {
+			var qizi =  qizis[id];
+			var kand = qizi.kand;
+			var name = qizi.name;
+			var x = qizi.pos.x;
+			var y = qizi.pos.y;
+			$(".pos[name="+x+"_"+y+"]").append('<canvas id="'+id+'" name="'+x+"_"+y+'" class="qizi" kand="'+kand+'" style="" width="'+qiziW+'px" height="'+qiziW+'px"></canvas>')
+			var colorK = kand =="self" ? (kands?"#D56C56":"#000000"):(kands?"#000000":"#D56C56");
+			var c1=document.getElementById(id);
+			var ctx1=c1.getContext("2d");
+			ctx1.lineWidth = 0.1;
+			//外圆
+			var grd = ctx1.createRadialGradient(qiziW/2, qiziW/2, qiziW*0.39, qiziW/2, qiziW/2, qiziW/2);
+            grd.addColorStop(0, '#D9C69B');  
+            grd.addColorStop(1, '#4C1C08');
+            ctx1.fillStyle = grd;
+			ctx1.beginPath();
+            ctx1.arc(qiziW/2, qiziW/2, qiziW/2, 0, 2*Math.PI, true);
+            ctx1.stroke();
+            ctx1.fill();
+            //红圈
+            var rr = qiziW*0.39*0.98-5;
+			var grd1 = ctx1.createRadialGradient(qiziW/2, qiziW/2, rr, qiziW/2, qiziW/2, qiziW*0.39);
+            grd1.addColorStop(0, 'white');  
+            grd1.addColorStop(1, colorK);
+            ctx1.fillStyle = grd1;
+			ctx1.beginPath();
+            ctx1.arc(qiziW/2-0.5, qiziW/2-0.5, qiziW*0.38, 0, 2*Math.PI, true);
+            ctx1.stroke();
+            ctx1.fill();
+            //内圈
+            var r =rr;
+            for(var i=r;i>0.5;i=i-3){
+            	var grd2 = ctx1.createRadialGradient(qiziW/2, qiziW/2, i-0.5, qiziW/2, qiziW/2,i);
+	            grd2.addColorStop(0, '#D9C69B');  
+	            grd2.addColorStop(1, "#C39C73");
+	            ctx1.fillStyle = grd2;
+				ctx1.beginPath();
+	            ctx1.arc(qiziW/2-0.5, qiziW/2-0.5, i, 0, 2*Math.PI, true);
+	            ctx1.stroke();
+	            ctx1.fill();
+            }
+            //随机裂纹
+            
+            //画字
+            var grd3 = ctx1.createLinearGradient(qiziW/2, qiziW/2,0,qiziW/2, qiziW/2,r);
+            grd3.addColorStop(0, colorK);  
+            grd3.addColorStop(1, colorK);
+            ctx1.fillStyle = grd3;
+			ctx1.beginPath();
+            
+			ctx1.font = "bold "+qiziW*0.5+"px 楷体";
+            ctx1.textAlign = "start";
+            ctx1.textBaseline = "top";
+            var txt = name;
+            ctx1.fillText(txt, qiziW*0.235, qiziW*0.227);
+			ctx1.stroke();
+			ctx1.fill();
+		}
+		
+		function initQiZi () {
+			var data = qiziInit;
+			for(var i=0;i<data.length;i++){
+				var index = data[i].index;
+				var kand = data[i].kand;
+				var name = data[i].name;
+				var pos = data[i].pos;
+				for(var j=0;j<pos.length;j++){
+					var x = pos[j].x;
+					var y = pos[j].y;
+					var id = index+"_"+kand+"_"+(j+1);
+					qizis[id]={
+						"index":index,
+						"name":name,
+						"kand":kand,
+						"pos":{x:x,y:y}
+					};
+					bindQiZi(id,false);
+				}
+			}
+		}
+		
+		function createPos () {
+			for(var i=0;i<9;i++){
+				for(var j=0;j<10;j++){
+					var left =getPos(i,j).left;
+					var top=getPos(i,j).top;
+					var jiaoW = qiziW/2*0.4
+					var bianjiao = '<div class="jiao jiao1" style="width:'+jiaoW+'px;height:'+jiaoW+'px;"></div><div class="jiao jiao2" style="width:'+jiaoW+'px;height:'+jiaoW+'px;"></div><div class="jiao jiao3" style="width:'+jiaoW+'px;height:'+jiaoW+'px;"></div><div class="jiao jiao4" style="width:'+jiaoW+'px;height:'+jiaoW+'px;"></div>';
+					$("#main").append('<div class="pos" style="width: '+qiziW+'px;height:'+qiziW+'px;top: '+top+'px;left:'+left+'px;'+
+					'border-radius:'+qiziW/2+'px;" x="'+i+'" y="'+j+'" name="'+i+'_'+j+'" fanZhuan="'+(8-i)+'_'+(9-j)+'">'+
+					'<span class="suoding"></span>'+
+					bianjiao+
+					'</div>');
+				}
+			}
+		}
+		function fanzhuan (data) {
+			
+		}
+		function getPos (x,y) {
+			return{
+				left:x*panW+panML-qiziW/2,
+				top:y<5?y*panY+panMT-qiziW/2:((y-1)*panY+chuheW+panMT-qiziW/2)
+			}
+		}
+		function initClass () {
+			$(".qizi[kand=self]").click(function () {
+				$(".jiao").hide();
+				$(this).parent().find(".jiao").show();
+				var id = $(this).attr("id");
+				qiziCtrl = id;
+				bindPos(id);
+			})
+			$(".suoding").click(function () {
+				$(".suoding").hide();
+				$(".jiao").hide();
+				var pos = {
+					x:$(this).parent().attr("x"),
+					y:$(this).parent().attr("y")
+				}
+				qizis[qiziCtrl].pos=pos;
+				$(this).parent().find(".qizi").remove();
+				$(this).parent().append($("#"+qiziCtrl));
+			})
+		}
+		function bindPos (id) {
+			var self = qizis[id];
+			var x = self.pos.x;
+			var y = self.pos.y;
+			var index = self.index;
+			var poss = compuPos(index,x,y);
+			$(".suoding").hide();
+			for(var i=0;i<poss.length;i++){
+				var x = poss[i].x;
+				var y = poss[i].y;
+				$(".pos[name="+x+"_"+y+"]").find(".suoding").show();
+			}
+		}
+		function compuPos (name,x,y) {
+			var poss=[];
+			x=parseInt(x);
+			y=parseInt(y);
+			switch (name){
+				case 'bing':
+				case 'zu':
+					var top = isPos(x,y-1);
+					var left = isPos(x-1,y);
+					var right = isPos(x+1,y);
+					poss.push({x:x,y:y-1});
+					if(y<5){
+						poss.push({x:x-1,y:y});
+						poss.push({x:x+1,y:y});
+					}
+					break;
+				case 'che':
+					for(var i=1;i<10;i++){
+						if(isPos(x+i,y)==3){		//没有棋子
+							poss.push({x:x+i,y:y});
+						}else if(isPos(x+i,y)==2){	//对方的棋子
+							poss.push({x:x+i,y:y});
+							break;
+						}else{
+							break;
+						}
+					}
+					for(var i=1;i<10;i++){
+						if(isPos(x-i,y)==3){		//没有棋子
+							poss.push({x:x-i,y:y});
+						}else if(isPos(x-i,y)==2){	//对方的棋子
+							poss.push({x:x-i,y:y});
+							break;
+						}else{
+							break;
+						}
+					}
+					for(var i=1;i<10;i++){
+						if(isPos(x,y+i)==3){		//没有棋子
+							poss.push({x:x,y:y+i});
+						}else if(isPos(x,y+i)==2){	//对方的棋子
+							poss.push({x:x,y:y+i});
+							break;
+						}else{
+							break;
+						}
+					}
+					for(var i=1;i<10;i++){
+						if(isPos(x,y-i)==3){		//没有棋子
+							poss.push({x:x,y:y-i});
+						}else if(isPos(x,y-i)==2){	//对方的棋子
+							poss.push({x:x,y:y-i});
+							break;
+						}else{
+							break;
+						}
+					}
+					break;
+				case 'ma':
+						var top = isPos(x,y-1);
+						var left = isPos(x-1,y);
+						var right = isPos(x+1,y);
+						var bottom = isPos(x,y+1);
+						if(top==3){
+							poss.push({x:x+1,y:y-2});
+							poss.push({x:x-1,y:y-2});
+						}
+						if(bottom==3){
+							poss.push({x:x+1,y:y+2});
+							poss.push({x:x-1,y:y+2});
+						}
+						if(left==3){
+							poss.push({x:x-2,y:y+1});
+							poss.push({x:x-2,y:y-1});
+						}
+						if(right==3){
+							poss.push({x:x+2,y:y+1});
+							poss.push({x:x+2,y:y-1});
+						}
+					break;
+				case 'xiang':
+						var pos1 = 0;
+						var pos2 = 0;
+						if(y!=5){
+							pos1 = isPos(x-1,y-1);
+							pos2 = isPos(x+1,y-1);
+						}
+						var pos3 = isPos(x+1,y+1);
+						var pos4 = isPos(x-1,y+1);
+						if(pos1==3){
+							poss.push({x:x-2,y:y-2});
+						}
+						if(pos2==3){
+							poss.push({x:x+2,y:y-2});
+						}
+						if(pos3==3){
+							poss.push({x:x+2,y:y+2});
+						}
+						if(pos4==3){
+							poss.push({x:x-2,y:y+2});
+						}
+					break;
+				case 'shi':
+						var pos1 = isPos(x-1,y-1);
+						var pos2 = isPos(x+1,y-1);
+						var pos3 = isPos(x+1,y+1);
+						var pos4 = isPos(x-1,y+1);
+						if((x==3||x==5)){
+							if(isPos(4,8)!=1){
+								poss.push({x:4,y:8});
+							}
+						}else{
+							poss.push({x:x-1,y:y-1});
+							poss.push({x:x+1,y:y-1});
+							poss.push({x:x+1,y:y+1});
+							poss.push({x:x-1,y:y+1});
+						}
+					break;
+				case 'jiang':
+				case 'shuai':
+					if(y!=7){
+						poss.push({x:x,y:y-1});
+					}
+					if(x!=5){
+						poss.push({x:x+1,y:y});
+					}
+					if(x!=3){
+						poss.push({x:x-1,y:y});
+					}
+					poss.push({x:x,y:y+1});
+					break;
+				case 'pao':
+					var rrr = 0;
+					var ttt = 0;
+					var lll = 0;
+					var bbb = 0;
+					for(var i=1;i<10;i++){
+						if(isPos(x+i,y)==3&&!rrr){		//没有棋子
+							poss.push({x:x+i,y:y});
+						}else if(isPos(x+i,y)!=3&&!rrr){
+							rrr=1;
+						}else if(isPos(x+i,y)==3&&rrr){	//没有棋子
+						}else if(isPos(x+i,y)==2&&rrr){	//对方的棋子
+							poss.push({x:x+i,y:y});
+							break;
+						}else{
+							break;
+						}
+					}
+					for(var i=1;i<10;i++){
+						if(isPos(x-i,y)==3&&!lll){		//没有棋子
+							poss.push({x:x-i,y:y});
+						}else if(isPos(x-i,y)!=3&&!lll){
+							lll=1;
+						}else if(isPos(x-i,y)==3&&lll){	//没有棋子
+						}else if(isPos(x-i,y)==2&&lll){	//对方的棋子
+							poss.push({x:x-i,y:y});
+							break;
+						}else{
+							break;
+						}
+					}
+					for(var i=1;i<10;i++){
+						if(isPos(x,y-i)==3&&!ttt){		//没有棋子
+							poss.push({x:x,y:y-i});
+						}else if(isPos(x,y-i)!=3&&!ttt){
+							ttt=1;
+						}else if(isPos(x,y-i)==3&&ttt){	//没有棋子
+						}else if(isPos(x,y-i)==2&&ttt){	//对方的棋子
+							poss.push({x:x,y:y-i});
+							break;
+						}else{
+							break;
+						}
+					}
+					for(var i=1;i<10;i++){
+						if(isPos(x,y+i)==3&&!bbb){		//没有棋子
+							poss.push({x:x,y:y+i});
+						}else if(isPos(x,y+i)!=3&&!bbb){
+							bbb=1;
+						}else if(isPos(x,y+i)==3&&bbb){	//没有棋子
+						}else if(isPos(x,y+i)==2&&bbb){	//对方的棋子
+							poss.push({x:x,y:y+i});
+							break;
+						}else{
+							break;
+						}
+					}
+					break;
+				default:
+					break;
+			}
+			for(var i=0;i<poss.length;){
+				var sel = poss[i];
+				var num = isPos(sel.x,sel.y);
+				if(num!=1&&num!=0){
+					i++;
+					continue;
+				}
+				poss.splice(i,1);
+			}
+			return poss;
+		}
+		function isPos (x,y) {
+			var pos = $(".pos[name="+x+"_"+y+"]");
+			if(pos.length==0){
+				return 0;		//超出区域
+			}
+			var qizi = pos.find(".qizi");
+			if(qizi.length){
+				if(qizi.attr("kand")=="self"){
+					return 1;		//自己的棋子
+				}else{
+					return 2;		//对方的棋子
+				}
+			}else{
+				return 3;			//没有棋子
+			}
+		}
+		init();
+		initClass();
+	</script>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/mui.js"></script>
+    <link href="css/mui.css" rel="stylesheet"/>
+    
+    <script src="leaflet/leaflet.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="leaflet/leaflet.css"/>
+	
+    <style type="text/css">
+    	.mui-pull-top-pocket{
+    		overflow: hidden;
+    	}
+    </style>
+    <script type="text/javascript" charset="utf-8">
+    	var mymap = null;
+    	var marker = null;
+    	function getLocal (showPosition) {
+	        if (navigator.geolocation){
+	            navigator.geolocation.getCurrentPosition(showPosition,function (e) {
+	            	showPosition({
+	            		coords:{
+	            			latitude:31.24612216586921,
+	            			longitude:121.37987136840822,
+	            		}
+	            	});
+	            	return;
+	            	mui('#cree').pullRefresh().endPulldownToRefresh();
+	            	switch(error.code){
+	                   case 1:
+		                   alert("位置服务被拒绝");
+		                   break;
+	                   case 2:
+		                   alert("暂时获取不到位置信息");
+		                   break;
+	                   case 3:
+		                   alert("获取信息超时");
+		                   break;
+	                   case 4:
+		                   alert("未知错误");
+		                   break;
+	               }
+	            },{
+                  enableHighAccuracy: true,
+                  maximumAge: 100,
+                  timeout: 2000
+              });
+	        }else{
+	        	alert("不支持获取位置信息！")
+	        }
+    	}
+    	function getLocalOfWatch (showPosition) {
+	        if (navigator.geolocation){
+	            navigator.geolocation.watchPosition(showPosition,function (e) {
+	            	mui('#cree').pullRefresh().endPulldownToRefresh();
+	            	switch(error.code){
+	                   case 1:
+		                   alert("位置服务被拒绝");
+		                   break;
+	                   case 2:
+		                   alert("暂时获取不到位置信息");
+		                   break;
+	                   case 3:
+		                   alert("获取信息超时");
+		                   break;
+	                   case 4:
+		                   alert("未知错误");
+		                   break;
+	               }
+	            },{
+                  enableHighAccuracy: true,
+                  maximumAge: 100,
+                  timeout: 2000
+              });
+	        }else{
+	        	alert("不支持获取位置信息！")
+	        }
+    	}
+	   	function initMap (w,j) {
+	   		 //初始化地图
+	   		 if(mymap){
+	   		 	return;
+	   		 }
+			mymap = L.map('mapid',{
+				zoomControl:false
+			}).setView([w, j], 13);
+			mymap.on("click",function (e) {
+				console.log(e.latlng.lat+","+e.latlng.lng);
+			});
+			var	mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+			var grayscale = L.tileLayer(mbUrl, {id: 'mapbox.streets', attribution: "mapboxAttribution"}),
+	    		streets   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: "mapboxAttribution"});
+	    		
+			L.control.zoom({
+				zoomInTitle:"放大",
+				zoomOutTitle:"缩小"
+			}).addTo(mymap);
+			
+			var baseMaps = {
+			    "grayscale": grayscale,
+			    "streets": streets
+			};
+			
+			mymap.addLayer(grayscale);
+			//添加控制器
+	    	L.control.layers(baseMaps).addTo(mymap);
+	    	if(!marker){
+	    		//图标	--------------------------------------------------------------------------
+			    var greenIcon = L.icon({
+				    iconUrl: 'img/postion.png',
+				    className:'oneSelf',
+				    iconSize:     [20, 20], // 图标大小
+				});
+				marker = L.marker([w,j],{icon:greenIcon}).addTo(mymap);
+			}
+			marker.setLatLng([w,j]);
+	   	}
+    	function pullfresh () {
+  			setTimeout(function () {
+  				getLocal(function (position) {
+  					var zoom = 15;
+  					var Latitude = position.coords.latitude;
+  					var Longitude = position.coords.longitude;
+  					var center = mymap.getCenter();
+  					mui('#cree').pullRefresh().endPulldownToRefresh();
+  					if(center.lat == Latitude && center.lng == Longitude && mymap.getZoom() == zoom){
+  						return;
+  					}
+					mymap.setView([Latitude, Longitude], zoom);
+					if(!marker){
+  						marker = L.marker([Latitude,Longitude]).addTo(mymap);
+  					}
+  					marker.setLatLng([Latitude,Longitude]);
+  				})
+  			},10)
+    	}
+    	
+      	$(document).ready(function () {
+      		getLocalOfWatch(function (pos) {
+				var head = pos.coords.heading;
+				var accuracy = pos.coords.accuracy;
+				var altitude = pos.coords.altitude;
+			})
+      		getLocal(function (position) {
+				var Latitude = position.coords.latitude;
+				var Longitude = position.coords.longitude;
+				var head = position.coords.heading;
+				alert(Latitude+head)
+				initMap(Latitude,Longitude);
+      		try{
+      			mui.init({
+				  pullRefresh : {
+				    container:"#cree",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+				    up : {
+				      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+				      contentrefresh: '正在加载...',
+				　　　　contentnomore:'没有更多数据了',
+				      color:'red', //可选，默认“#2BD009” 下拉刷新控件颜色
+				      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+				      range:'10px', //可选 默认100px,控件可下拉拖拽的范围
+				      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+				      auto: false,//可选,默认false.首次加载自动上拉刷新一次
+				    },
+				    down:{
+				　　　　callback:pullfresh, //上拉加载下一页
+						auto: false
+				　　}
+				  }
+				});
+      		}catch(e){
+      			//TODO handle the exception
+      			alert(e)
+      		}
+      		});
+      	})
+    </script>
+</head>
+<body>
+	<div id="cree" class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+		    <ul class="mui-table-view mui-table-view-chevron">
+		    		<div id="mapid" style="height: 580px;">
+		    			
+		    		</div>
+		    </ul>
+		  </div>
+	</div>
+</body>
+</html>

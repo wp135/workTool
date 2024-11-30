@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>工具-文档管理</title>
+		<!--头部图标-->
+		<link rel="icon" href="img/peizhi.png" type="image/x-icon"/>
+	</head>
+	<style type="text/css">
+		.treeSearch{
+			background: #efd689;
+			color: #000;
+		}
+		.alert_title {
+		    position: fixed;
+		    width: 100%;
+		    height: auto;
+		    z-index: 1056;
+		    bottom: 10px;
+		    font-size: 14px;
+		    display: block;
+		    padding: 0 29px;
+		}
+	</style>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+		<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="jquery-easyui-1.5.4.1/themes/bootstrap/easyui.css"/>
+		<link rel="stylesheet" type="text/css" href="jquery-easyui-1.5.4.1/themes/icon.css"/>
+		<script src="jquery-easyui-1.5.4.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--下面两个是使用Code Mirror必须引入的-->
+		<link rel=stylesheet href="editOnline/lib/codemirror.css">
+		<script src="editOnline/lib/codemirror.js"></script>
+		<!--括号提示-->
+		<script src="editOnline/addon/edit/matchbrackets.js"></script>
+		<!--搜索功能-->
+		<script src="editOnline/addon/search/searchcursor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/search/search.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/search/match-highlighter.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/search/matchesonscrollbar.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/scroll/annotatescrollbar.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="editOnline/addon/search/matchesonscrollbar.css"/>
+		<!--对话框-->
+		<script src="editOnline/addon/dialog/dialog.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="editOnline/addon/dialog/dialog.css"/>
+		<!-- 标签匹配 -->
+		<script src="editOnline/mode/javascript/javascript.js"></script>
+		<script src="editOnline/mode/properties/properties.js"></script>
+		<script src="editOnline/mode/turtle/turtle.js"></script>
+		<script src="editOnline/mode/mathematica/mathematica.js"></script>
+		<script src="editOnline/mode/cypher/cypher.js"></script>
+		<script src="editOnline/addon/fold/xml-fold.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/edit/matchtags.js"></script>
+		<script src="editOnline/addon/edit/closetag.js" type="text/javascript" charset="utf-8"></script>
+		<!--代码提示-->
+		<link rel="stylesheet" href="editOnline/addon/hint/show-hint.css">
+		<script src="editOnline/addon/hint/show-hint.js"></script>
+		<script src="editOnline/addon/hint/javascript-hint.js"></script>
+		<!-- jqGrid -->
+		<link rel="stylesheet" type="text/css" href="css/jqGrid/jquery-ui-1.10.3.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jqGrid/ui.jqgrid.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jqGrid/jqGrid.overrides.css"/>
+		<script src="jqGrid_5.3.1/js/jquery.jqGrid.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jqGrid_5.3.1/js/i18n/grid.locale-cn.js" type="text/javascript" charset="utf-8"></script>
+		<!-- echarts2 -->
+		<script src="echarts/dist/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!-- echarts3 -->
+		<script src="echarts3/echarts3.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 自己的js -->
+		<script src="js/require.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/formatTime.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ctrlFile.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/binitAllCtrl/button.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/binitAllCtrl/main.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/binitAllCtrl/ThresAjax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/geshihua/javascript.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/geshihua/Json.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/binitAllCtrl/initClass.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 自己的 css -->
+		<link rel="stylesheet" type="text/css" href="css/codeMirrorOneself.css"/>
+		<link rel="stylesheet" type="text/css" href="css/binitAllCtrl/treeApi.css"/>
+		<link rel="stylesheet" type="text/css" href="css/binitAllCtrl/icon.css"/>
+		<link rel="stylesheet" type="text/css" href="css/binitAllCtrl/main.css"/>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	<style type="text/css">
+		html,body{
+			height: 100%;
+			width: 100%;
+		}
+		.cm-matchhighlight{
+			background-color: antiquewhite;
+		}
+		.default{
+			color: #999;font-style: normal;margin-left: 5px;
+		}
+		.tree-node-selected .default{
+			color: white;
+		}
+		.tree-node-hover .default{
+			color: #999;
+		}
+		.tree-title{
+			font-family: "Helvetica Neue","Segoe UI",Tahoma,Arial,"Hiragino Sans GB",STHeiti,"Microsoft Yahei","WenQuanYi Micro Hei",sans-serif;
+		}
+		.ui-widget {
+		    font-family: "Microsoft YaHei", "黑体", sans-serif;
+		}
+		.btn-title{
+		    padding: 0px 12px;
+		    font-size: 12px;
+		    margin: -1px;
+		}
+		#treeInfo li {
+		    margin: 0 0 0 20px;
+			list-style-type: square;
+		}
+		#treeInfo table {
+	        margin-bottom: 2em;
+	        width: 100%;
+    		border-collapse: collapse;
+		    border-spacing: 0;
+		}
+		#treeInfo table thead {
+		    display: table-header-group;
+		    vertical-align: middle;
+		    border-color: inherit;
+		}
+		#treeInfo table tr {
+		    display: table-row;
+		    vertical-align: inherit;
+		    border-color: inherit;
+		}
+		#treeInfo table th {
+		    background: #eee;
+		}
+		#treeInfo table th,td {
+		    text-align: left;
+		    border: 0;
+		    border: 1px solid #eee;
+		    padding: 0.5em 1em 0.5em 1em;
+		}
+		#treeInfo table td:first-child {
+		    color: #777;
+		}
+		#treeInfo table td:last-child {
+		    color: black;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		require.config({  
+            paths: {  
+                echarts: './echarts/dist',
+                echarts3: './echarts3/echarts3',
+            }  
+        });  
+	</script>
+	<body class="easyui-layout" style="">
+		<div data-options="region:'west',minWidth:'400',maxWidth:'600',collapsible:'true',split:true" style="width:400px;position: relative;overflow: hidden;">
+			<!--
+            	作者：wangpeng@foxmail.com
+            	时间：2018-05-22
+            	描述：树图
+            -->
+            <div id="" class="easyui-layout" data-options="fit:true">
+            	<div id="" data-options="region:'north',split:false" style="height: 70px;overflow: hidden;position: relative;border-width: 0px;">
+        			<div class="easyui-layout" data-options="fit:true" style="">
+        				<div id="" data-options="region:'center',split:false" style="overflow: hidden;position: relative;border-style: none;padding: 0 3px;">
+        					<!--
+                            	作者：1418574439@qq.com
+                            	时间：2018-05-26
+                            	描述：搜索框
+                            -->
+        					<input type="search" id="ctrlSearch" style="width: 100%;border: 1px solid #ddd;padding: 4px;height: 34px;border-radius: 2px;font-size: 13px;line-height: 18px;color: #555555;"/>
+        				</div>
+        				<div id="" data-options="region:'east',split:false" style="width: 280px;height: 35px;overflow: hidden;position: relative;border-style: none;">
+            				<select id="fileOfData" name="" style="width: 98px;position: relative;" class="btn btn-default">
+							</select>
+							<select id="fileOfData1" name="" class="btn btn-default" style="width: 90px;position: relative;">
+							</select>
+							<div id="" class="btn btn-danger" onclick="newCode('tree')">
+								newCode
+							</div>
+        				</div>
+        				<div id="searchByInfo" data-options="region:'south',split:false" style="overflow: hidden;position: relative;height: 30px;border-style: none;">
+        					<div id="" style="padding: 2px 0;display: table;float: left;">
+        						<span class="dtui-chkbtn-i dtui-chkbtn-i-active" data-value-index="0">搜索配置项</span>
+        						<span class="dtui-chkbtn-i" data-value-index="1">全文搜索</span>
+        					</div>
+        					<span id="query-result-info" style="float: left;font-size: 12px;color: #aaa;width: 161px;float: left;height: 18px;line-height: 18px;margin-top: 5px;"></span>
+        					<div id="ctrlzy" style="position: absolute;top: 0px;right: 5px;padding: 0px 4px;font-size: 20px;">
+								<a  class="sip" onclick="ctrlInfo.ctrlIni()" title="操作配置项" data-placement="top" style="padding: 0 7px;cursor: pointer;"><i class="fa fa-lightbulb-o"></i></a>
+								<a  class="sip" onclick="ctrlInfo.collapseAll('body','west')" title="折叠" data-placement="top" style="padding: 0 7px;cursor: pointer;"><i class="fa fa-compress"></i></a>
+							</div>
+        					<input type="search" placeholder="回车保存" id="ctrlSaveKand" style="display: none;position: absolute;top: -4px;right: 70px;width: 100px;border: 1px solid #ddd;padding: 4px;height: 34px;border-radius: 2px;font-size: 13px;line-height: 18px;color: #555555;"/>
+        					<input type="search" placeholder="回车保存" id="ctrlSave" style="display: none;position: absolute;top: -4px;right: 70px;width: 100px;border: 1px solid #ddd;padding: 4px;height: 34px;border-radius: 2px;font-size: 13px;line-height: 18px;color: #555555;"/>
+        				</div>
+        			</div>
+            	</div>
+            	<div id="treeDiv" data-options="region:'center',title:'',split:false" style="padding: 20px;    border-width: 0px;">
+            		<div id="initFouse" style="position: absolute;top: 3px;background-color: white;display: block;">
+            			<div name="jsonData" option="option" class='btn btn-default btn-info btn-title'>配置项</div>
+            			<div name="apiData" option="option" class='btn btn-default btn-title'>方法</div>
+            			<div name="eventData" option="events" class='btn btn-default btn-title'>事件</div>
+            		</div>
+            		<div id="ctrlTree" style="position: absolute;top: 3px;right:20px;font-size: 16px;color: #337ab7;background-color: white;display: block;">
+            			<i name="refresh" style="cursor: pointer;" class='fa fa-refresh' title="刷新"></i>
+            		</div>
+           			<ul id="tree"></ul>
+            	</div>
+            </div>
+		</div>
+		<div data-options="region:'center',title:'生成区域',split:true" style="border-style: none;padding:0px;background:#eee;">
+			<div id="noTree" class="easyui-layout" data-options="fit:true">
+				<div id="" data-options="region:'center',split:true" style="position: relative;">
+					<textarea id="sql1" name="" rows="" cols=""></textarea>
+                    <div id="zujianPanal" style="position: absolute;top: 0;height: 100%;width: 100%;background-color: white;z-index: 98;display: none;"></div>
+					<!--
+                    	作者：wangpeng@foxmail.com
+                    	时间：2018-05-22
+                    	描述：生成区
+                    -->
+					<div id="echarts" class="zujianShow" style="position: absolute;background-color: white;top:0;z-index: -5;height: 100%;width: 100%;"></div>
+					<div id="echart3s" class="zujianShow" style="position: absolute;background-color: white;top:0;z-index: -5;height: 100%;width: 100%;"></div>
+					<div id="jqGrids" isChongGou="true" class="zujianShow" style="position: absolute;background-color: white;top:0;z-index: -5;height: 100%;width: 100%;">
+						<table id="jqGrid_table" style="width:100%;"></table>
+						<div id="jqGrid_table_pager"></div>
+					</div>
+					<div id="ctrlShow" class="btn btn-danger" onclick="ctrlShow(this);" style="top: 10px;right: 10px;position: absolute;z-index: 999;">
+						生 成
+					</div>
+				</div>
+				<div id="" data-options="region:'south',split:true,minHeight:'200',maxHeight:'100%'" style="height: 200px;border-width: 0;">
+					<div id="" class="easyui-layout" data-options="fit:true">
+						<div id="" data-options="region:'north',split:false" style="height: 30px;padding: 0 10px;overflow: hidden;">
+							<!--
+				            	作者：wangpeng@foxmail.com
+				            	时间：2018-05-22
+				            	描述：节点的定位
+				            -->
+							<span id="treePos" style="font-family: Monaco,Monospace;font-size: 13px;line-height: 30px;color: white;background-color: #428bca;display: -webkit-inline-box;padding: 0 5px;">
+							</span>
+							<a  class="sip" style="float: right;font-size: 20px;" onclick="ctrlInfo.collapseAll('#noTree','south')" title="折叠" data-placement="top" style="padding: 0 7px;cursor: pointer;"><i class="fa fa-compress"></i></a>
+						</div>
+						<div id="" data-options="region:'center',split:false" style="border-style: none;">
+							<div id="" class="easyui-layout" data-options="fit:true">
+								<div id="" data-options="region:'west',split:false" style="width: 170px;padding: 10px 0 0 10px;">
+										<span style="font-weight: 600;display: block;line-height: 20px;">类型</span>
+										<!--
+							            	作者：wangpeng@foxmail.com
+							            	时间：2018-05-22
+							            	描述：类型
+							            -->
+										<div id="objValue" style="line-height: 22px;font-size: 16px;">
+											
+										</div>
+										<span style="font-weight: 600;display: block;line-height: 23px;">默认值</span>
+									<!--
+						            	作者：wangpeng@foxmail.com
+						            	时间：2018-05-22
+						            	描述：默认值
+						            -->
+										<div id="defaultValue" style="word-wrap:break-word;font-size: 15px;line-height: 20px;"></div>
+								</div>
+								<div id="" data-options="region:'center',split:false" style="">
+									<!--
+						            	作者：wangpeng@foxmail.com
+						            	时间：2018-05-22
+						            	描述：树节点信息
+						            -->
+									<div id="treeInfo" style="line-height: 22px;font-size: 14px;padding: 20px 6px 0 10px;overflow:auto;word-break:break-all;word-wrap:break-word">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="mm1" class="easyui-menu" style="width:150px;">
+		    <div onclick="ctrlInfo.saveInfo()" data-options="iconCls:'panel-tool-save'">保存</div>
+		    <div onclick="$('#ctrlSave').show()" data-options="iconCls:'panel-tool-save'">另存为</div>
+		    <!--<div onclick="nodeMenu.saveAll(youjian_off)" data-options="iconCls:'panel-tool-save'">全部保存 非离散</div>-->
+		    <div class="menu-sep"></div>
+		    <div onclick="$('#ctrlSaveKand').show()" data-options="iconCls:'icon-add'">添加插件名</div>
+		    <div class="menu-sep"></div>
+		    <!--<div onclick="nodeMenu.file_off(youjian_off)" data-options="iconCls:'panel-tool-close'">关闭</div>
+		    <div onclick="nodeMenu.file_other_off(youjian_off)" data-options="iconCls:''">关闭其他</div>
+		    <div onclick="nodeMenu.file_left_off(youjian_off)" data-options="iconCls:'layout-button-left'">关闭左侧全部</div>
+		    <div onclick="nodeMenu.file_right_off(youjian_off)" data-options="iconCls:'layout-button-right'">关闭右侧全部</div>-->
+		    <div onclick="ctrlInfo.remove(1)" data-options="iconCls:'icon-cancel'">删除插件名</div>
+		    <div onclick="ctrlInfo.remove(0)" data-options="iconCls:'icon-cancel'">删除节点信息</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		CodeMirrorEditor = CodeMirror.fromTextArea(document.getElementById("sql1"), {
+			lineNumbers: true,
+			mode: {
+	        	name: "javascript",
+			},
+			//设置主题
+	         theme:"default",
+			//代码折叠
+			lineWrapping: false,
+			foldGutter: true,
+			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			fullScreen: false,	//全屏模式
+			indentUnit:4,		//回车退格数（js为2，html为4）
+			indentWithTabs:true,//回车是否制表
+			matchBrackets: true,//括号匹配
+			matchTags: true,	//标签匹配
+			autoCloseTags:true,	//标签补全
+	//			cursorHeight:0.85,	//光标高度
+			extraKeys: {
+				"Alt-/": "autocomplete",//ctrl-/唤起智能提示
+				"Ctrl-S": function() {
+	//								jicheng();
+				},
+				"Esc": function(){
+	//								$("#full").click();
+				}
+			} 	
+		});
+	</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+var layerBox, box;
+function init() {
+var network = new twaver.network.Network();
+box = network.getElementBox();
+layerBox = box.getLayerBox();
+var layer1 = new twaver.Layer("unmovable", "unmovable layer");
+layer1.setEditable(false);
+layer1.setMovable(false);
+var layer2 = new twaver.Layer("uneditable", "uneditable layer");
+layer2.setEditable(false);
+var layer3 = new twaver.Layer("unvisible", "unvisible layer");
+layer3.setVisible(false);;
+layerBox.add(layer1);
+layerBox.add(layer2);
+layerBox.add(layer3, 0);
+createNode(layer1, "circle", 10, 40, 100, 100, "#ff0000");
+createNode(layer2, "diamond", 30, 60, 100, 100, "#00ff00");
+createNode(layer3, "rectangle", 50, 80, 100, 100, "#0000ff");
+createNode(layerBox.getDefaultLayer(), "rectangle", 70, 20, 150, 150, "#808080");
+var networkDom = network.getView();
+networkDom.style.width = "100%";
+networkDom.style.height = "100%";
+document.body.appendChild(networkDom);
+network.setEditInteractions();
+}
+function createNode(layer, shape, x, y, width, height, fillColor) {
+var node = new twaver.Node();
+node.setLayerId(layer.getId());
+node.setName("layer-" + layer.getId());
+node.setStyle("body.type", "vector");
+node.setStyle("vector.fill.alpha", 0.7);
+node.setStyle("vector.shape", shape);
+node.setSize(width, height);
+node.setStyle("vector.fill.color", fillColor);
+box.add(node);
+return node;
+}
+		
+	</script>
+	
+	<body onload="init()">
+		
+		
+	</body>
+</html>

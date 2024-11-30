@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="css/chosen.css" />
+<script src="../../../aaa/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="chosen.js" language="javascript"></script>
+<script language="javascript">
+    $(document).ready(function(){
+    	$(".chzn-select").chosen();
+// 		$(".chzn-select").append('<option value="United Kingdom">美国</option>');
+// 		$(".chzn-select").chosen();
+    });
+</script>
+</head>
+	<body>
+	    <select class="chzn-select" data-placeholder="" style="min-width:100px;position: relative;" tabindex="1"> 
+	        <!--<option value=""></option>-->  
+	        <option value="United States" selected="selected">中国</option>  
+	        <option value="United Kingdom">美国</option>
+	    </select>
+	    <select class="chzn-select" data-placeholder=" " style="width:150px;" tabindex="1"> 
+	        <option value=""></option>  
+	        <option value="United States" selected="selected">中国1</option>  
+	    </select>
+	</body>
+</html>
+

@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/mui.picker.min.css" rel="stylesheet"/>
+    <link href="../../font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/config.css"/>
+    <link rel="stylesheet" type="text/css" href="css/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="css/config/main.css"/>
+    <style type="text/css">
+    	.liGeli{
+    		height: 20px;
+    		position: relative;
+    		background: rgba(230 ,230 ,238,0.2);
+    	}
+    	.liGeli:after {
+		    position: absolute;
+		    right: 0;
+		    bottom: 0;
+		    left: 0px;
+		    height: 1px;
+		    content: '';
+		    -webkit-transform: scaleY(.5);
+		    transform: scaleY(.5);
+		    background-color: #c8c7cc;
+		}
+		input[type=text]{
+			border-style: none;
+			background: rgba(232 ,232 ,232,0.5);
+		}
+		.mui-table-view-cell:after{
+			left: 0;
+		}
+		.icon-text{
+			color: mediumblue;
+			font-size: 22px;
+			margin-right: 12px;
+		}
+			
+			.zheList{
+				padding: 15px 0 15px 55px !important;
+			    font-size: 18px;
+			    letter-spacing: 1px;
+			}
+			
+			.riliLists{
+				padding: 15px !important;
+			    font-size: 22px;
+			    letter-spacing: 1px;
+			}
+			.fl{
+				float: left;
+			}
+			.clear{
+				clear: both;
+				padding: 0;
+			}
+			.ctrl_qitaziti{
+				font-size: 12px;
+			}
+			.ctrl_benpao{
+				height: 25px;
+			}
+			.ctrl_daojishi{
+			    line-height: 0.75;
+			    font-size: 63px;
+				display: inline-table;
+			}
+			.ctrl_danwei{
+				font-size: 15px;
+			    position: relative;
+			    bottom: 5px;
+			}
+			.ctrl_fshijian{
+				position: relative;
+				font-size: 22px;
+				margin: 0 5px;
+			}
+			
+    </style>
+</head>
+<body class="mui-fullscreen">
+	<!--页面主结构开始-->
+	<div id="app" class="mui-views">
+		<div class="mui-view">
+			<div class="mui-navbar">
+			</div>
+			<div class="mui-pages">
+			</div>
+		</div>
+	</div>
+	<div id="setting">
+		<div class="mui-navbar-inner mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-btn  mui-btn-link mui-action-back mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>取消
+			</button>
+			<button type="button" class="mui-left mui-btn  mui-btn-link mui-btn-nav mui-pull-right" style="margin-left: 4px;">
+				<span class="mui-icon fa finish" style="top: 5px;"></span>
+			</button>
+			<button type="button" class="mui-left mui-btn  mui-btn-link mui-btn-nav mui-pull-right" style="margin-right: 4px;">
+				<span class="mui-icon fa refesh" style="top: 5px;"></span>
+			</button>
+			<h1 class="mui-center mui-title">设置</h1>
+		</div>
+		<div class="mui-content">
+			<div id="zhanshiwin" style="height: 150px;position: relative;" class="mui-scroll-wrapper">
+				<img src="img/bg.jpg" class="" style="width: 100%;" />
+				<div id="windows" class="chuiCenter" style="width: 100%;position: absolute; height: 150px;">
+					<div class="chuiCenter" style="height: 1px;">
+						<div class="fl chuiCenter" style="width: 120px;">
+							<div class="ctrl_qitaziti">
+								上海
+							</div>
+							<div class="ctrl_shijian" style="height: 50px;text-align: center;font-size: 36px;line-height: 50px;">
+								19:32
+							</div>
+							<div class="ctrl_qitaziti" style="text-align: center;">
+								10月23日 星期三
+							</div>
+						</div>
+						<div class="fl chuiCenter" style="width: calc(100% - 120px);height:auto;">
+							<div class="ctrl_qitaziti" style="position: relative;height: 15px;">
+								<div style="line-height: 0.8;position: absolute;bottom: 0;"
+									>距离<span class="ctrl_fshijian">xx</span>还剩</div>
+							</div>
+							<div class="ctrl_benpao"></div>
+							<div class="ctrl_daojishi">
+								<span id="dayNum">23</span>
+								<span class="ctrl_danwei">天</span>
+								<span id="hourNum">23</span>
+								<span class="ctrl_danwei">时</span>
+								<span id="minNum">23</span>
+								<span class="ctrl_danwei">分</span>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-scroll-wrapper" style="position: absolute;bottom: 0;top: 150px;background: white;">
+				<div class="mui-scroll" style="">
+					<ul class="mui-table-view" style="margin: 0;">
+						<li class="mui-table-view-cell">
+				            <a class="">
+				               	<input type="text" onfocus="this.blur()" id="postDate" placeholder="时间选择" style="margin: 0;width: calc(100% - 114px - 20px);">
+				               	<a type="button" class="mui-btn mui-btn-blue mui-navigate-right" href="#riliList">
+				               		<span class="mui-icon fa fa-calendar-check-o"></span> 从日历选择
+				               	</a>
+				            </a>
+				        </li>
+				        <li class="liGeli"></li>
+				        <li class="mui-table-view-cell">
+				            <a class="mui-input-row">
+				                <input type="text" placeholder="事件名称" style="margin: 0;">
+				            </a>
+				        </li>
+				    </ul>
+				    <ul class="mui-table-view" style="margin: 0;">
+				    	<li class="liGeli"></li>
+				        <li class="mui-table-view-cell mui-collapse">
+				            <a class="mui-navigate-right zheList" href="#">
+				            	<span class="fa icon_shijian"></span>
+				            	时间
+				            </a>
+				            <div class="mui-collapse-content">
+				            	<div class="contentList bor_blue" style="">
+				            		<div class="contentZujian mui-input-row">
+				            			<label>大小:</label>
+				            			<div class="mui-numbox mui-right" data-numbox-step='1' data-numbox-min='11' data-numbox-max='40'>
+				            			    <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+				            			    <input id="time_size" class="mui-input-numbox" type="number" />
+				            			    <button id="" class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+				            			</div>
+				            		</div>
+				            		<div class="contentZujian mui-input-row">
+				            			<label>颜色:</label>
+				            			<button type="button" class="mui-btn mui-right" style="width: 95px;margin-left: 10px;">&nbsp;</button>
+				            		</div>
+				            		<div class="contentZujian mui-input-row">
+			            			    <label>阴影:</label>
+			            			    <div class="mui-switch mui-active mui-switch-blue  mui-right">
+			            			        <div class="mui-switch-handle"></div>
+			            			    </div>
+				            		</div>
+				            		<div class="contentZujian mui-input-row">
+			            			    <label>加粗:</label>
+			            			    <div class="mui-switch mui-active mui-switch-blue  mui-right">
+			            			        <div class="mui-switch-handle"></div>
+			            			    </div>
+				            		</div>
+				            		<div class="contentZujian">
+				            			
+				            		</div>
+				            		<div class="contentZujian">
+				            			
+				            		</div>
+				            		<div class="clear"></div>
+				            	</div>
+				            </div>
+				        </li>
+				        <li class="mui-table-view-cell mui-collapse">
+				            <a class="mui-navigate-right zheList" href="#">
+				            	<span class="fa icon_daojishi"></span>
+				            	倒计时
+				            </a>
+			                <div class="mui-collapse-content">
+				                <p>面板2子内容</p>
+				            </div>
+				        </li>
+				        <li class="mui-table-view-cell mui-collapse">
+				            <a class="mui-navigate-right zheList" href="#">
+				            	<span class="fa icon_danwei"></span>
+				            	单位 (天、时、分)
+				            </a>
+				            <div class="mui-collapse-content">
+				                <p>面板3子内容</p>
+				            </div>
+				        </li>
+				        <li class="mui-table-view-cell mui-collapse">
+				            <a class="mui-navigate-right zheList" href="#">
+				            	<span class="fa icon_shijianming"></span>
+				            	事件名
+				            </a>
+				            <div class="mui-collapse-content">
+				                <p>面板3子内容</p>
+				            </div>
+				        </li>
+				        <li class="mui-table-view-cell mui-collapse">
+				            <a class="mui-navigate-right zheList" href="#">
+				            	<span class="fa icon_ziti"></span>
+				            	其他字体
+				            </a>
+				            <div class="mui-collapse-content">
+				                <p>面板3子内容</p>
+				            </div>
+				        </li>
+				        <li class="liGeli"></li>
+				        <li class="mui-table-view-cell">
+				            <a class="mui-navigate-right zheList" href="#account">
+				            	<span class="fa icon_tianqi"></span>
+				            	实时天气
+				            </a>
+				        </li>
+				        <li class="mui-table-view-cell mui-collapse">
+				            <a class="mui-navigate-right zheList" href="#">
+				            	<span class="fa icon_benpao"></span>
+				            	奔跑的小人
+				            </a>
+				            <div class="mui-collapse-content">
+				                <p>面板3子内容</p>
+				            </div>
+				        </li>
+				        <li class="liGeli"></li>
+				        <li class="mui-table-view-cell">
+				            <a class="mui-navigate-right zheList" href="#">
+				            	<span class="fa icon_djsxx"></span>
+				            	其他信息
+				            </a>
+				        </li>
+				        <li class="liGeli" style="height: 150px;"></li>
+				    </ul>
+				    
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
+    	作者：wangpeng@eastcom-sw.com
+    	时间：2018-10-22
+    	描述：从日历中选取
+    -->
+	<div id="riliList" class="mui-page">
+		<div class="mui-navbar-inner mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>设置
+			</button>
+			<h1 class="mui-center mui-title">日历事件</h1>
+		</div>
+		<div class="mui-page-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell riliLists" >
+							<a>2019-09-12<span class="mui-pull-right">88888888</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="account" class="mui-page">
+		<div class="mui-navbar-inner mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>设置
+			</button>
+			<h1 class="mui-center mui-title">账号与安全</h1>
+		</div>
+		<div class="mui-page-content">
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a id="head" class="mui-navigate-right">头像
+							<span class="mui-pull-right head">
+								<img class="head-img mui-action-preview" id="head-img1" src=""/>
+							</span>
+						</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a>姓名<span class="mui-pull-right">Hbuilder</span></a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a>HBuilder账号<span class="mui-pull-right">hbuilder@dcloud.io</span></a>
+						</li>
+					</ul>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a>QQ号<span class="mui-pull-right">88888888</span></a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a>手机号<span class="mui-pull-right">18601234567</span></a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a>邮箱地址<span class="mui-pull-right">hbuilder@dcloud.io</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script src="../../js/mui.js"></script>
+    <script src="../../js/mui.picker.min.js"></script>
+    <script src="js/config/main.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/mui.view.js "></script>
+    <script type="text/javascript">
+    mui.init({
+    	swipeBack:true 
+    });
+    //初始化单页view
+	var viewApi = mui('#app').view({
+		defaultPage: '#setting'
+	});
+	var view = viewApi.view;
+	(function($) {
+		//处理view的后退与webview后退
+		var oldBack = $.back;
+		$.back = function() {
+			if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+				viewApi.back();
+			} else { //执行webview后退
+				oldBack();
+			}
+		};
+		//监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
+		//第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
+		view.addEventListener('pageBeforeShow', function(e) {
+			//				console.log(e.detail.page.id + ' beforeShow');
+		});
+		view.addEventListener('pageShow', function(e) {
+			//				console.log(e.detail.page.id + ' show');
+		});
+		view.addEventListener('pageBeforeBack', function(e) {
+			//				console.log(e.detail.page.id + ' beforeBack');
+		});
+		view.addEventListener('pageBack', function(e) {
+			//				console.log(e.detail.page.id + ' back');
+		});
+	})(mui);
+	//初始化单页的区域滚动
+	mui('.mui-scroll-wrapper').scroll();
+    var zongYearData = {};
+    var picker = null;
+    $("#postDate").click(function (e) {
+    	var value = $(this).val().replace(/^\s+|\s+$/g,"").split(/-|\s/g);
+    	if(!picker){
+    		picker = new mui.PopPicker({
+				layer: 4
+			});
+    	}
+    	picker.show(function (selectItems) {
+		 	var dates = [];
+		 	for(var i=0;i<3;i++){
+		 		dates.push(selectItems[i].value);
+		 	}
+		 	$("#postDate").val(dates.join("-")+" "+selectItems[3].value)
+		})
+    	var zongData = main.getSelectDate({
+    		beginDate:new Date(),
+    		endDate:""
+    	});
+		picker.setData(zongData);
+		var i=-1;
+		var setValue = function () {
+			if(++i>3)return;
+			picker.pickers[i].setSelectedValue(value[i],0,setValue);
+		}
+		setValue();
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function init () {
+			var network= new twaver.network.Network();
+			var box = network.getElementBox();
+			
+			box.addDataBoxChangeListener(function(e){
+				alert(1);
+			})
+			var node1= new twaver.Node();
+			node1.setLocation(20,20);
+			node1.setName("from node");
+			var node2= new twaver.Node();
+			node2.setLocation(150,150);
+			node2.setName("top node");
+			var group = new twaver.Group();
+			group.addChild(node1);
+			group.setName("from agent");
+			var link6 = new twaver.Link(node1,node2);
+			var link5=new twaver.Link(node1,node2);
+			box.add(link5);
+			box.add(node1);
+			box.add(node2);
+			box.add(group);
+			box.add(link6);
+			
+			var newworkDom=network.getView();
+			newworkDom.style.width = "100%";
+			newworkDom.style.height = "100%";
+			document.body.appendChild(newworkDom);
+		}
+	</script>
+	
+	<body onload="init()">
+	</body>
+</html>

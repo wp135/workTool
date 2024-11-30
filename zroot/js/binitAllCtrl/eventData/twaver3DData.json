@@ -1,0 +1,11 @@
+{
+    "$schema": "http://doc.servasoft.com/uploads/twaver-html5-5.0.3-api/",
+    "definitions": {
+        "option": {
+            "type": "Object",
+            "properties": {
+            	
+            }
+        }
+    }
+}

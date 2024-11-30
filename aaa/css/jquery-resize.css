@@ -1,0 +1,133 @@
+.jqResize{
+	position: absolute;
+}
+
+.nodeActive{
+	border: 0.5px solid #0AB7DC;
+}
+
+.selfZong{
+	position: relative;
+}
+
+.posCanvas{
+	position: absolute;
+	z-index: 90;
+	pointer-events: none;	
+	top:0px;left:0px;
+}
+
+.qiCanvas{
+	position: absolute;
+	z-index: 100;
+	pointer-events: none;	
+	top: 0;
+}
+
+
+.selfCanvas{
+    box-shadow: rgba(0,0,0,.5) 0 0 30px 0;
+	background: #122B40;
+	position: relative;
+	height: 100%;
+}
+
+.nodeOfresize{
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	background: white;
+	box-shadow: 1px 1px 1px rgba(136,136,136,0.5);
+	z-index: 2;
+	display: none;
+}
+.zhebu{
+	width: 100%;
+	height: 100%;
+	top: 0;
+	z-index: 1;
+	background:rgba(0,0,0,0);
+	cursor: Move;
+	display: block;
+}
+.bianjiao1{
+	left: 0;
+	top: 0;
+	transform: translate(-50%,-50%);
+	cursor: nw-resize;
+}
+.bianjiao2{
+	right: 0;
+	top: 0;
+	transform: translate(50%,-50%);
+	cursor: ne-resize;
+}
+.bianjiao3{
+	right: 0;
+	bottom: 0;
+	transform: translate(50%,50%);
+	cursor: nw-resize;
+}
+.bianjiao4{
+	left: 0;
+	bottom: 0;
+	transform: translate(-50%,50%);
+	cursor: ne-resize;
+}
+.biankuang1{
+	left: 50%;
+	top: 0;
+	transform: translate(-50%,-50%);
+	cursor: n-resize;
+}
+.biankuang2{
+	right: 0;
+	top: 50%;
+	transform: translate(50%,-50%);
+	cursor: e-resize;
+}
+.biankuang3{
+	right: 50%;
+	bottom: 0;
+	transform: translate(50%,50%);
+	cursor: n-resize;
+}
+.biankuang4{
+	left: 0;
+	bottom: 50%;
+	transform: translate(-50%,50%);
+	cursor: e-resize;
+}
+.nodeActive>.zhebu{
+	display: block;
+}
+.nodeActive>.nodeOfresize{
+	display: block;
+}
+
+.bcMuBu{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 0;
+}
+
+
+
+.initCanva{
+	position: relative;
+	background: url(https://img.alicdn.com/tfs/TB184VLcPfguuRjSspkXXXchpXa-14-14.png) repeat;
+	user-select: none;
+	height: 100%;
+	overflow: scroll;
+}
+.ruler{
+	position: absolute;
+	background: rgba(0,0,0,0.5);
+}
+.rulerX{
+	
+}
+.rulerY{
+	transform: rotate(90deg); 
+}

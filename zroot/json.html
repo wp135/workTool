@@ -1,0 +1,536 @@
+<html>
+	<head>
+		<title>工具-数据管理</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+		<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="jquery-easyui-1.5.4.1/themes/bootstrap/easyui.css"/>
+		<link rel="stylesheet" type="text/css" href="jquery-easyui-1.5.4.1/themes/icon.css"/>
+		<script src="jquery-easyui-1.5.4.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 头部图标 -->
+		<link rel="icon" href="img/init.png" type="image/x-icon"/>
+		<!--
+        	作者：1418574439@qq.com
+        	时间：2017-09-15
+        	描述：在线编译器插件引入ceshi
+        -->
+		<!--下面两个是使用Code Mirror必须引入的-->
+		<link rel=stylesheet href="editOnline/lib/codemirror.css">
+		<script src="editOnline/lib/codemirror.js"></script>
+		
+		<!--引入js，绑定Vim-->
+		<link rel="stylesheet" href="editOnline/addon/dialog/dialog.css">
+		<script src="editOnline/keymap/vim.js"></script>
+		<script src="editOnline/addon/search/searchcursor.js"></script>
+		<script src="editOnline/addon/mode/simple.js"></script>
+		<script src="editOnline/addon/mode/overlay.js"></script>
+		<!--改善vim输入命令时的样式-->
+		<script src="editOnline/addon/dialog/dialog.js"></script>
+		<link rel="stylesheet" href="editOnline/addon/fold/foldgutter.css" />
+		<script src="editOnline/addon/fold/foldcode.js"></script>
+		<script src="editOnline/addon/fold/foldgutter.js"></script>
+		<script src="editOnline/addon/fold/brace-fold.js"></script>
+		<script src="editOnline/addon/fold/comment-fold.js"></script>
+		<!--全屏模式-->
+		<link rel="stylesheet" href="editOnline/addon/display/fullscreen.css">
+		<script src="editOnline/addon/display/fullscreen.js"></script>
+		<!--括号匹配-->
+		<script src="editOnline/addon/edit/matchbrackets.js"></script>
+		<!--Html标签匹配-->
+		<script src="editOnline/addon/fold/xml-fold.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/edit/matchtags.js"></script>
+		<script src="editOnline/addon/edit/closetag.js" type="text/javascript" charset="utf-8"></script>
+		<!--自动补全-->
+		<link rel="stylesheet" href="editOnline/addon/hint/show-hint.css">
+		<script src="editOnline/addon/hint/show-hint.js"></script>
+		<script src="editOnline/addon/hint/javascript-hint.js"></script>
+		<script src="editOnline/addon/hint/css-hint.js"></script>
+		<!--搜索功能-->
+		<script src="editOnline/addon/search/searchcursor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="editOnline/addon/search/search.js" type="text/javascript" charset="utf-8"></script>
+		
+		<link rel=stylesheet href="editOnline/doc/docs.css">
+		<!--代码高亮-->
+
+		<link rel="stylesheet" type="text/css" href="js/bJSONCtrl/animate.css"/>
+		<style type="text/css">
+			html{
+				height: 100%;
+				/*overflow: hidden;*/
+			}
+			.CodeMirror {
+				line-height: 1.4em;
+			    font-size: 14px;
+			    font-family: Inconsolata,Monaco,"Andale Mono","Lucida Console","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+			    overflow: hidden;
+			    height: 100%;
+			    background: #F3F5F6;
+			    color: #39464E;
+			}
+			.CodeMirror * {
+			    -webkit-font-smoothing: subpixel-antialiased;
+			}
+			.CodeMirror-scroll {}
+			.CodeMirror-hints{
+				z-index: 99999;
+			}
+			.CodeMirror pre { 
+			
+			}
+			i {
+				cursor: pointer;
+			}
+			.rownum {
+				height: 15.01px;
+				text-align: center;
+				font-weight: 100;
+			}
+			.tool a {
+				padding: 0px 20px;
+				font-size: 14px;
+			}
+			.caret{
+				margin-left: 4px !important;
+			}
+			#span0 {
+				position: absolute;
+				/*height: 100%;*/
+			    white-space: nowrap;
+				overflow: auto;
+				width: 100%;
+				font-family: cursive;
+			} 
+			/*各个功能下，span0中的样式*/
+			.tubiao_but i{
+				padding:4px;
+				width: 30px;
+				text-align: center;
+			}
+			.tubiao_but i:hover{
+				background-color: #ECFFED;
+			}
+			
+			#createDataModal .row{
+				padding: 10px 15px;
+				margin: 0;
+			}
+			#dropdownMenu1,.tiaojian{
+				position: relative;
+				float: right;
+				display: none;
+				width: 103px;
+			    height: 34px;
+			    top: -8px;
+			    font-size: 18px;
+			}
+			.pos1 {
+				left: -202px;
+			}
+			.pos2 {
+				left: 6px;
+			}
+			.pos3 {
+				left: 214px;
+			}
+			.anKand{
+				margin-top: 20px;
+			}
+			.myAnomates{
+				padding: 10px 10px;
+				font-size: 28px;
+				float: left;
+			    border: 1px #e8e8e8 solid;
+			    margin: 4px;
+			    overflow: hidden;
+			}
+			.myAnimateChild{
+				animation-duration: 1s;
+			    animation-iteration-count:infinite;
+			}
+		</style>
+		<!--  ==========  -->
+	</head>
+	<script type="text/javascript">
+		function checkLeave(){
+	        event.returnValue="确定离开当前页面吗？";    
+	    }
+	</script>
+	<body class="easyui-layout" onbeforeunload="checkLeave()">
+		<div id="" data-options="region:'center'" style="">
+			<div id="zuo1" style="width:38%;float: left;position: relative;">
+				<textarea style="width: 100%;height: 100%;" name="" id="s1" rows="" cols=""></textarea>
+				<!--<div id="full" style="width: 40px;height: 40px;border-radius: 20px; background: blanchedalmond;position: absolute;top: 5px;right: 10px;z-index: 11;">
+					<a  class="sip" style="left: 26%;top: 18%;position: relative;font-size: 24px;color:burlywood;" title="全屏" data-placement="left"><i class="fa fa-expand"></i></a>
+				</div>-->
+				<div id="full" style="width: 40px;height: 40px;border-radius: 20px; background: blanchedalmond;position: absolute;top: 5px;right: 10px;z-index: 11;">
+					<a class="sip" style="left: 26%;top: 18%;position: relative;font-size: 24px;color:burlywood;" title="全屏" data-placement="left"><i class="fa fa-expand"></i></a>
+				</div>
+			</div>
+			<div id="ceshi1" class="easyui-layout" style="position:relative;top:0px;width: 61%;float: left; border: 1px solid #337AB7;height: 100%;">
+				<div class="tool"  style="height:40px;padding: 10px;overflow: hidden;" data-options="region:'north'">
+					<a  class="sip clear" title="删除" data-placement="bottom" style="color:#999;"><i class="fa fa-trash"></i></a>
+					<a  class="sip save" title="保存" data-placement="bottom" style="color:#999;"><i class="fa fa-download"></i></a>
+					<a  class="sip copy" title="复制" data-clipboard-target="#copyspan" style="color:#999;" data-placement="bottom"><i class="fa fa-copy"></i></a>
+					<select name="" id="dropdownMenu1" class="pos1" style="display: block;">
+						<option value="json">json</option>
+						<option value="HTML">HTML</option>
+						<option value="CSS">CSS</option>
+						<option value="JavaScript">JavaScript</option>
+						<option value="Java">Java</option>
+						<option value="Sql">Sql</option>
+					</select>
+					<select name="" id="javascript" class="dropdownMenu2 tiaojian javascript HTML pos2" style="">
+						<option value="Tab符缩进">Tab符缩进</option>
+						<option value="2个空格缩进">2个空格缩进</option>
+						<option value="4个空格缩进">4个空格缩进</option>
+						<option value="8个空格缩进">8个空格缩进</option>
+					</select>
+					
+					<select name="" id="sql" class="dropdownMenu2 tiaojian sql pos2" style="">
+						<option value="MySQL">MySQL</option>
+						<option value="SQLServer">SQLServer</option>
+						<option value="Oracle">Oracle</option>
+						<option value="PostgreSQL">PostgreSQL</option>
+					</select>
+					
+					<select name="" id="css1" class="dropdownMenu2 tiaojian Css pos2" style="">
+						<option value="Tab">Tab</option>
+						<option value="Spaces">Spaces</option>
+					</select>
+					<select name="" id="css2" class="dropdownMenu2 tiaojian Css pos3" style="">
+						<option value="行结束">行结束</option>
+						<option value="换行">换行</option>
+					</select>
+					
+					<select name="" id="tubiao1" class="dropdownMenu2 tiaojian tubiao pos2" style="">
+						<option value="faTuBiao">faTuBiao</option>
+						<option value="BootStrapT">BootStrapT</option>
+					</select>
+					<input type="text" class="tiaojian tubiao pos3" name="" id="sousuo" value="" style="" />
+					
+					<select name="" id="style1" class="dropdownMenu2 tiaojian style pos2" style="">
+						<option value="局部高亮">局部高亮</option>
+						<option value="整体主题">整体主题</option>
+					</select>
+					<input type="text" class="tiaojian style pos3" name="" id="style_sou" value="" style="" />
+					
+					<select name="" id="quchong1" class="dropdownMenu2 tiaojian quchong pos2" style="">
+						<option value="string">string</option>
+						<option value="obj">obj</option>
+					</select>
+					<input type="text" class="tiaojian quchong pos3" placeholder="根据属性,逗号分隔" name="" id="sousuo1" value="" style="" />
+					
+					<select name="" id="js_sousuo" class="dropdownMenu2 tiaojian js pos2" style="">
+						<option value="TEXT">TEXT</option>
+						<option value="HTML">HTML</option>
+					</select>
+					<select name="" id="js_sousuo1" class="dropdownMenu2 tiaojian js pos3" style="">
+						<option value="单引号">单引号</option>
+						<option value="双引号">双引号</option>
+					</select>
+
+				</div>
+				<div id="copyspan" data-options="region:'center'" style="position: relative;">
+					<div id="jiajian" style="display: none;padding: 0 5px; position: absolute;z-index: 7; top: 5px;right: 5px;font-size: 17px;background: rgba(0,170,170,0.5);padding: 8px 3px;border-radius: 10px;">
+						<a  class="jia sip" title="展开" data-placement="top" style="color:white;padding: 0 7px; "><i class="fa fa-expand"></i></a> 
+						<a  class="jian sip" title="收回" data-placement="top" style="color:white;padding: 0 7px;"><i class="fa fa-compress"></i></a>
+						<a  class="pen sip" title="编辑" data-placement="top" style="color:white;padding: 0 7px;"><i class="fa fa-pencil-square-o"></i></a>
+						<div id="ctrlzy" style="position: absolute;top: 5px;left: -80px;padding: 0px 4px;font-size: 20px;">
+							<a  class="ctrl_z sip" title="撤销" data-placement="top" style="color: #D9D9D9;padding: 0 7px;"><i class="fa fa-arrow-left"></i></a>
+							<a  class="ctrl_y sip" title="重做" data-placement="top" style="color: #D9D9D9;padding: 0 7px;"><i class="fa fa-arrow-right"></i></a>
+						</div>
+						<div id="bianji" style="display: none; width: 300px;min-height: 220px; position: absolute;z-index: 7; top: 40px;background: rgba(0,170,170,0.5);right: 0;font-size: 17px;padding: 8px 0 0 10px;border-radius: 10px;">
+							<!--<select id="bianji_obj" data-placeholder=" " style="width: 100px;">
+								<option></option>
+							</select>-->
+							<select class="chzn-select" id="bianji_obj" data-placeholder=" " style="min-width: 50px;max-width: 125px;" tabindex="1"> 
+				                <option value=""></option>  
+					        </select>
+							修改：<input type="radio" value="1" name="update_obj" style="margin: 0px 2px 0px 5px;"/> 键名<input type="radio" value="2" name="update_obj" style="margin: 0px 2px 0px 5px;" checked="checked" />值
+							<br/>
+							<div id="" style="width: 95%;height: 130px;margin: 10px 0 0 0;">
+								<textarea id="bianji_yunsuan" style=""></textarea>
+							</div>
+							<div id="" style="margin-top: 9px;">
+								运算前值为 $1 ,运算后为 $2     <button id="bianji_up" class="btn btn-success" style="position: relative;top: -5px;left: 17px;">修改</button>
+							</div>
+						</div>
+					</div>
+					<textarea id="text" style="border:0;resize:none;"></textarea>
+					<span name="span-1" id="span0" class="json_but">
+					</span>
+				</div>
+				<div id="title1" style="background:lavenderblush;width: auto;height: 29px;padding:5px 10px;position: absolute;bottom: 16px;z-index:8;left:initial;border-top: 1px solid #DBDBDB;border-right: 1px solid #DBDBDB;border-radius: 10px;">
+					<a  class="tip zip" title="压缩" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="fa fa-database"></i></a>
+					<a  class="tip json_xml" title="转XML" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="fa fa-file-code-o"></i></a>
+					<a  class="tip xml_json" title="转json" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="">{ }</i></a>
+					<a class="tip quchong" title="去重复" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="fa fa-dedent fa-rotate-180"></i></a>
+					<a  class="tip js" title="转字符串" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;" data-original-title="JS"><i class="fa fa-random"></i></a>
+					<a class="tip yunsuan" title="运算" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="fa fa-calculator"></i></a>
+					<a class="tip createData" title="假数据" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="fa fa-sort-numeric-desc"></i></a>
+					<a class="tip style" title="高亮" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="fa fa-snowflake-o"></i></a>
+					<a class="tip tubiao" title="图标" data-placement="top" style="color:#999;padding: 0px 10px;border-right:  1px solid #DBDBDB;"><i class="fa fa-flag"></i></a>
+					<a class="tip donghua" title="动画" data-placement="top" style="color:#999;"><i class="fa fa-optin-monster"></i></a>
+				</div>
+			</div>
+		</div>
+		<div id="" data-options="region:'south'" style="height: 85px;">
+			<div style="width: 37.7%;float: left;height: 100%;border:  1px solid #DBDBDB;" id="zhanshi">
+			</div>
+			<div style="width: 61%;height: 100%;padding: 0 0 0 15px; float: left;margin-right: 1.3%;border:  1px solid #DBDBDB;" id="beizhu">
+				
+			</div>
+		</div>
+		<div id="zuo2" style=" background-color: white;width:500px;height: 400px;display:none;position: absolute;left: 300px;top: 20%;z-index: 7;">
+		    <div id="title"
+		         style="height: inherit;width:32px;background-color:#BBBBBB;position: absolute;right: 0px;top: 0px;z-index: 999;cursor: move;"></div>
+			<textarea style="width: 100%;" name="" id="s2" rows="" cols=""></textarea>
+			<div id="chicun" style="height: 32px;width:32px;background-color: #009900;position: absolute;right: 0px;bottom: 0px;z-index: 999;cursor: move;">
+			</div>
+		</div>
+		<div id="createDataModal" class="Modal" style=" background-color: white;width:455px;height: 400px;display:none;position: absolute;left: 10px;top: 20%;z-index: 7;">
+		    <div id="title2"
+		         style="height: inherit;width:32px;background-color:#BBBBBB;position: absolute;right: 0px;top: 0px;z-index: 999;cursor: move;"></div>
+			<div id="chicun2" style="height: 32px;width:32px;background-color: #009900;position: absolute;right: 0px;bottom: 0px;z-index: 999;cursor: move;">
+			</div>
+			<div class="row">
+				数据类型:
+				<select id="dataKand">
+					<option value="lang">lang</option>
+					<option value="float">float</option>
+					<option value="string">string</option>
+				</select>
+			</div>
+			<div id="" class="row">
+				数据个数:
+				<input type="text" name="dataNum" id="dataNum" value="20" />
+			</div>
+			<div class="row lang">
+				数据范围:<input type="" class="fanwei1" name="" id="" value="500" />~
+						<input type="" class="fanwei2" name="" id="" value="5000" />
+			</div>
+			<div class="row float">
+				数据范围:<input type="" class="fanwei1" name="" id="" value="0" />
+						~<input type="" class="fanwei2" name="" id="" value="100" />
+						<br /><br />
+				<input type="radio" name="weishu" id="" value="zuiduo" checked="checked" />最多
+				<input type="radio" name="weishu" id="" value="baoliu" />保留
+				<input type="text" id="weishu" value="2" />
+			</div>
+			<div class="row string">
+				<select name="" id="stringKand">
+					<option value="zhengze">正则</option>
+					<option value="riqi">日期</option>
+				</select>
+				<br/><br/>
+				<div id="" class="stringKand zhengze">
+					表达式:<input type="text" name="" id="zhengzelidu" value="" />
+				</div>
+				<div id="" class="stringKand riqi">
+					粒度:
+					<select name="" id="riqilidu">
+						<option value="month">月</option>
+						<option value="week">周</option>
+						<option value="day">天</option>
+						<option value="hour">小时</option>
+						<option value="15fen">15分钟</option>
+					</select>
+				</div>
+			</div>
+			<div id="" class="modal-footer">
+				<center>
+					<button class="btn btn-default" id="createdatas">生  成</button>
+				</center>
+			</div>
+		</div>
+	</body>
+	<!--
+    	作者：wangpeng@eastcom-sw.com
+    	时间：2018-10-31
+    	描述：自己的jscss
+    -->
+	<script src="js/fileCtrl/Filesave.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/formatTime.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/fileCtrl/copy.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bJSONCtrl/JSON_moxing.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/xml_json/ObjTree.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/xml_json/JSAN.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/geshihua/javascript.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/geshihua/Css.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/geshihua/html.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/geshihua/jsonline.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bJSONCtrl/button.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bJSONCtrl/initClass.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/scrllow/resize.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/scrllow/srcll.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/select/chosen.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="js/select/css/chosen.css"/>
+	<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	<!--<script src="js/require.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/randexp.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+//	　var　aa = define("./js/randexp");
+	</script>
+	<script type="text/javascript">
+		//引入css文件，用以支持主题
+		var styleL = ["3024-day","3024-night","abcdef","ambiance-mobile","ambiance","base16-dark","base16-light","bespin","blackboard","cobalt","colorforth","dracula","default","duotone-dark","duotone-light","eclipse","elegant","erlang-dark","hopscotch","icecoder","isotope","lesser-dark","liquibyte","lucario","material","mbo","mdn-like","midnight","monokai","neat","neo","night","oceanic-next","panda-syntax","paraiso-dark","paraiso-light","pastel-on-dark","railscasts","rubyblue","seti","shadowfox","solarized","the-matrix","tomorrow-night-bright","tomorrow-night-eighties","ttcn","twilight","vibrant-ink","xq-dark","xq-light","yeti","zenburn"];
+		styleL.map(function (num,index) {
+			if(num!="default"){
+				document.write('<link rel="stylesheet" href="editOnline/theme/'+num+'.css" type="text/css" />');
+			}
+		});
+		//引入高亮
+		var gaoliang = ["apl","asciiarmor","asn.1","asterisk","brainfuck","clike","clojure","cmake","cobol","coffeescript","commonlisp","crystal","css","cypher","d","dart","diff","django","dockerfile","dtd","dylan","ebnf","ecl","eiffel","elm","erlang","factor","fcl","forth","fortran","gas","gfm","gherkin","go","groovy","haml","handlebars","haskell","haskell-literate","haxe","htmlembedded","htmlmixed","http","idl","javascript","jinja2","jsx","julia","livescript","lua","markdown","mathematica","mbox","mirc","mllike","modelica","mscgen","mumps","nginx","nsis","ntriples","octave","oz","pascal","pegjs","perl","php","pig","powershell","properties","protobuf","pug","puppet","python","q","r","rpm","rst","ruby","rust","sas","sass","scheme","shell","sieve","slim","smalltalk","smarty","solr","soy","sparql","spreadsheet","sql","stex","stylus","swift","tcl","textile","tiddlywiki","tiki","toml","tornado","troff","ttcn","ttcn-cfg","turtle","twig","vb","vbscript","velocity","verilog","vhdl","vue","webidl","xml","xquery","yacas","yaml","yaml-frontmatter","z80"];
+		gaoliang.map(function (num,index) {
+			document.write('<script type="text/javascript" src="editOnline/mode/'+num+'/'+num+'.js"><\/script>');
+		});
+		var huancun = {};
+		$(".sip").tooltip();
+		$(".tip").tooltip();
+		CodeMirrorEditor2 = null;
+		var flag={
+			"json_xml_flag":{"text":"转XML中...","isJiCehng":true},
+			"xml_json_flag":{"text":"转JSON中...","isJiCehng":true},
+			"zip_flag":{"text":"压缩中...","isJiCehng":true},
+			"js_flag":{"text":"转Str中..","isJiCehng":true},
+			"yunsuan_flag":{"text":"运算中...","isJiCehng":true},
+			"tubiao_flag":{"text":"tubiao","isJiCehng":false},
+			"donghua_flag":{"text":"动画展示","isJiCehng":false},
+			"style_flag":{"text":"调整高亮..","isJiCehng":false},
+			"quchong_flag":{"text":"去重复中..","isJiCehng":true},
+			"createData_flag":{"text":"造假数据..","isJiCehng":false},
+		};
+		for(var i in flag){
+			eval(i+"=false;")
+		}
+		var CodeMirrorEditor = CodeMirror.fromTextArea(document.getElementById("s1"), {
+			lineNumbers: true,
+			mode: { name: "text/javascript", json: true},
+			//设置主题
+				         theme:"default",
+			//绑定Vim
+//				         keyMap:"vim",
+			//代码折叠
+			lineWrapping: true,
+			foldGutter: true,
+			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			fullScreen: false,	//全屏模式
+			matchBrackets: true,//括号匹配
+			matchTags: true,	//标签匹配
+			autoCloseTags:true,	//标签补全
+//			cursorHeight:0.85,	//光标高度
+			indentUnit: 4,
+			indentWithTabs:true,
+			extraKeys: {
+				"Alt-/": "autocomplete",//ctrl-/唤起智能提示
+				"Ctrl-S": function() {
+					jicheng();
+				},
+				"Esc": function(){
+					$("#full").click();
+				}
+			}
+		});
+		var sett;
+		CodeMirrorEditor.on("change", function() {
+			if(sett) {
+				clearTimeout(sett);
+			}
+			sett = setTimeout("jicheng()", 800);
+		});
+		var CodeMirrorEditor3 = CodeMirror.fromTextArea(document.getElementById("text"), {
+			lineNumbers: true,
+			mode: { name: "text/javascript", json: true},
+			//设置主题
+				         theme:"3024-day",
+			//绑定Vim
+//				         keyMap:"vim",
+			//代码折叠
+			lineWrapping: true,
+			foldGutter: true,
+			gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			fullScreen: false,	//全屏模式
+			matchBrackets: true,//括号匹配
+			matchTags: true,	//标签匹配
+			autoCloseTags:true,	//标签补全
+//			cursorHeight:0.85,	//光标高度
+			indentUnit: 4,
+			indentWithTabs:true,
+			extraKeys: {
+				"Alt-/": "autocomplete",
+				"Ctrl-S": function() {
+//					jicheng();
+				},
+				"Esc": function(){
+//					$("#full").click();
+				}
+			}
+		});
+		var CodeMirrorEditor4 = null;
+		initClass();
+		jicheng();
+	function Mover(title,t){
+        this.obj = title;
+        this.startx = 0;
+        this.starty;
+        this.startLeft;
+        this.startTop;
+        var that = this;
+        this.isDown = false;
+        this.mainDiv = t.split("-").length==1?title.parentNode:title;
+        this.movedown = function (e) {
+            e = e ? e : window.event;
+            if (!window.captureEvents) {
+                this.setCapture();
+            }  
+//			事件捕获仅支持ie
+//          函数功能：该函数在属于当前线程的指定窗口里设置鼠标捕获。一旦窗口捕获了鼠标，
+//          所有鼠标输入都针对该窗口，无论光标是否在窗口的边界内。同一时刻只能有一个窗口捕获鼠标。
+//          如果鼠标光标在另一个线程创建的窗口上，只有当鼠标键按下时系统才将鼠标输入指向指定的窗口。
+//          非ie浏览器 需要在 document上设置事件
+            that.isDown = true;
+            that.id = $(this).attr("id");
+            that.startx = e.clientX;
+            that.starty = e.clientY;
+            that.startw = that.mainDiv.offsetWidth;
+			that.starth = that.mainDiv.offsetHeight;
+            that.startLeft = parseInt(that.mainDiv.offsetLeft);
+            that.startTop = parseInt(that.mainDiv.offsetTop);
+            document.onmouseup = that.moveup;
+        }
+        this.move = function (e) {
+            e = e ? e : winrfdow.event;
+            if (that.isDown&&t=="postion"||that.isDown&&t=="postion-1") {
+                that.mainDiv.style.left = e.clientX - (that.startx - that.startLeft) + "px";
+                that.mainDiv.style.top = e.clientY - (that.starty - that.startTop) + "px";
+            }else if(that.isDown&&t=="chicun"){
+            	that.mainDiv.style.width =parseInt(that.startw)+e.clientX - that.startx;
+                that.mainDiv.style.height =parseInt(that.starth)+ e.clientY - that.starty;
+                if(that.id == "chicun"){
+                	 CodeMirrorEditor2.refresh()
+                }
+            }
+        }
+        this.moveup = function () {
+            that.isDown = false;
+            if (!window.captureEvents) {
+                this.releaseCapture();
+            } //事件捕获仅支持ie
+        }
+        this.obj.onmousedown = this.movedown;
+        this.obj.onmousemove = this.move;
+        //非ie浏览器
+        document.addEventListener("mousemove", this.move, true);
+    }
+	var mover1 = new Mover(document.getElementById("title"),"postion");
+	var mover2 = new Mover(document.getElementById("chicun"),"chicun");
+	var mover3 = new Mover(document.getElementById("title2"),"postion");
+	var mover4 = new Mover(document.getElementById("chicun2"),"chicun");
+    var mover5 = new Mover(document.getElementById("title1"),"postion-1");
+//  $("#zuo2").resize(function () {
+//  	
+//  })
+	</script>
+</html>

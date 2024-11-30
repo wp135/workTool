@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>TWaver HTML5 Demo</title>
+			<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				function init() {
+					var network = new twaver.network.Network();
+					var box = network.getElementBox();
+					
+					var node=new twaver.Node();
+					node.setLocation(20,20);
+					var node2=new twaver.Node();
+					node2.setLocation(150,50);
+					
+					var link=new twaver.Link(node,node2);
+					var node=new twaver.Node();
+					node.setName("node in subnetwork A");
+					node.setLocation(100,50);
+					var subNetworkA=new twaver.SubNetwork();
+					subNetworkA.addChild(node);
+					subNetworkA.setName("Subnetwork A");
+					subNetworkA.setLocation(20,20);
+					var node2=new twaver.Node();
+					node2.setName("node in subnetwork B");
+					node2.setLocation(100,50);
+					var subNetworkB=new twaver.SubNetwork();
+//					node2._addMouseoverListener(function(e){
+//						alert(1);
+//					});
+					subNetworkB.addChild(node2);
+					subNetworkB.setName("Subnetwork B");
+					subNetworkB.setLocation(120,20);
+					box.add(node);
+					box.add(subNetworkA);
+					box.add(node2);
+					box.add(subNetworkB);
+					var networkDom = network.getView();
+					networkDom.style.width = "100%";
+					networkDom.style.height = "100%";
+					document.body.appendChild(networkDom);
+				}
+			</script>			
+	<body onload="init()">
+	</body>
+</html>

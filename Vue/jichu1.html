@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+	<script src="js/aaa.js" type="text/javascript" charset="utf-8"></script>
+		<!--
+        	作者：wp
+        	时间：2017-07-20
+        	描述:
+        		Vue.set(example1.items, indexOfItem, newValue)
+        		example1.items.splice(newLength)
+        		
+        		v-text			---		文本显示
+        		v-html			---		解析为html
+        		v-show			---		渲染css的display属性
+        		v-if			---		
+        		v-else-if		---		
+        		v-else			---		组件的销毁/重建
+        		
+				v-pre			---		跳过不编程        	
+				v-cloak			---		加载css文件中
+				
+        		v-model			---		双向绑定
+        		v-bind:href="" 	缩写		:href=""
+        		
+        		v-on:click=""   缩写		@click=""
+        						类型		Function | Inline Statement | Object
+				methods:{
+					createPerson: function(){
+						this.people.push(this.newPerson);
+						// 添加完newPerson对象后，重置newPerson对象
+						this.newPerson = {name: '', age: 0, sex: 'Male'}
+					},
+					deletePerson: function(index){
+						// 删一个数组元素
+						alert(index);
+						this.people.splice(index,1);
+					}
+				},
+			
+        		v-for			类型		Array | Object | number | string
+        		v-for="(person,index) in people"
+        		
+        		过滤器
+        		{{ person.name|filterA}}
+        		filters: {
+				    filterA: function (value) {
+			      	value = value.toString();
+			      	return value.toUpperCase();
+			    }
+			  }
+        -->
+	<body>
+		<div id="app">
+		<fieldset>
+				<legend>
+					Create New Person
+				</legend>
+				<div class="form-group">
+					<label>Name:</label>
+					<input type="text" v-model="newPerson.name"/>
+				</div>
+				<div class="form-group">
+					<label>Age:</label>
+					<input type="text" v-model="newPerson.age"/>
+				</div>
+				<div class="form-group">
+					<label>Sex:</label>
+					<select v-model="newPerson.sex">
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+				</select>
+				</div>
+				<div class="form-group">
+					<label></label>
+					<button @click="createPerson">Create</button>
+				</div>
+		</fieldset>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>Sex</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--
+                	作者：王鹏
+                	时间：2017-07-20
+                	描述：for循环组件
+                -->
+				<tr v-for="(person,index) in people">
+					<td>{{ person.name|filterA}}</td>
+					<td>{{ person.age }}</td>
+					<td>{{ person.sex }}</td>
+					<td :class="'text-center'"><button @click="deletePerson(index)">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Computed reversed message: "{{ reversedMessage }}"</p>
+		<input type="text" name="" id="" v-model="message" value="" />
+		  <p>
+		    Ask a yes/no question:
+		    <input v-model="question">
+		  </p>
+		  <p>{{ answer }}</p>
+		  <template>AAA</template>
+		</div>
+		
+		<div id="todo-list-example">
+		  <input
+		    v-model="newTodoText"
+		    v-on:keyup.enter="addNewTodo"
+		    placeholder="Add a todo"
+		  >
+		  <ul>
+		    <li
+		      is="todo-item"
+		      v-for="(todo, index) in todos"
+		      v-bind:index="index"
+		      v-bind:title="todo"
+		      v-on:remove="todos.splice(index, 1)"
+		    ></li>
+		  </ul>
+		</div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				newPerson: {
+					name: '',
+					age: 0,
+					sex: 'Male'
+				},
+				people: [{
+					name: 'Jack',
+					age: 30,
+					sex: 'Male'
+				}, {
+					name: 'Bill',
+					age: 26,
+					sex: 'Male'
+				}, {
+					name: 'Tracy',
+					age: 22,
+					sex: 'Female'
+				}, {
+					name: 'Chris',
+					age: 36,
+					sex: 'Male'
+				}],
+				message:'hello',
+				question:'',
+				answer:'aa' 
+			},
+			 created: function () {
+		    	// `this` 指向 vm 实例
+		    	console.log('a is: ' + this.people[0].name);
+		  	},
+			//@click函数
+			methods:{
+				createPerson: function(){
+					this.people.push(this.newPerson);
+					// 添加完newPerson对象后，重置newPerson对象
+					this.newPerson = {name: '', age: 0, sex: 'Male'}
+				},
+				deletePerson: function(index){
+					// 删一个数组元素
+					alert(index);
+					this.people.splice(index,1);
+				},
+				getAnswer: _.debounce(
+			      function () {
+			        if (this.question.indexOf('?') === -1) {
+			          this.answer = 'Questions usually contain a question mark. ;-)'
+			          return
+			        }
+			        this.answer = 'Thinking...'
+			        var vm = this
+			        axios.get('https://yesno.wtf/api')
+			          .then(function (response) {
+			            vm.answer = _.capitalize(response.data.answer)
+			          })
+			          .catch(function (error) {
+			            vm.answer = 'Error! Could not reach the API. ' + error
+			          })
+			      },
+			      // 这是我们为用户停止输入等待的毫秒数
+			      500
+			  ),
+				
+			},
+			
+			//过滤器
+			filters: {
+				    filterA: function (value) {
+			      	value = value.toString();
+			      	return value.toUpperCase();
+			    	},
+			    	reversedMessage1: function (value) {
+			      // `this` points to the vm instance
+			      return value.split('').reverse().join('')
+			    }
+			 },
+			//计算属性
+			computed: {
+			    // a computed getter
+			    reversedMessage: function () {
+			      // `this` points to the vm instance
+			      return this.message.split('').reverse().join('')
+			    }
+		  	},
+		  	//观察者，锁定属性值变化时触发
+		  	watch: {
+			    message: function (val) {
+			      alert(val);
+			    },
+			    question: function (newQuestion) {
+			      this.answer = 'Waiting for you to stop typing...'
+			      this.getAnswer()
+			    }
+  			}
+		})
+		
+		
+		
+			Vue.component('todo-item', {
+			  template: '\<li>\
+			      {{ index }}\
+			      <button v-on:click="$emit(\'remove\')">X</button>\
+			      </li>\
+			      ',
+			  props: ['index']
+			})
+			new Vue({
+			  el: '#todo-list-example',
+			  data: {
+			    newTodoText: '',
+			    todos: [
+			      'Do the dishes',
+			      'Take out the trash',
+			      'Mow the lawn'
+			    ]
+			  },
+			  methods: {
+			    addNewTodo: function () {
+			      this.todos.push(this.newTodoText)
+			      this.newTodoText = ''
+			    }
+			  }
+			})
+	</script>
+
+</html>

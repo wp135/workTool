@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="leafletGIS/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<link href="leafletGIS/css/leaflet.css" rel="stylesheet" type="text/css"/>
+		<link href="leafletGIS/css/leaflet.groupedlayercontrol.css" rel="stylesheet" type="text/css"/>
+		<link href="leafletGIS/css/leaflet.contextmenu.css" rel="stylesheet" type="text/css"/>
+		<link href="leafletGIS/css/Icon.Label.css" rel="stylesheet" type="text/css"/>
+	
+		<link href="leafletGIS/css/gis.css" rel="stylesheet" type="text/css"/>
+		<link href="leafletGIS/css/styleNewLast.css" rel="stylesheet" type="text/css"/>
+		
+		<script src="leafletGIS/scripts/timeTools.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/leaflet.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/heatmap.js"></script>
+	    <script src="leafletGIS/scripts/leaflet-heatmap.js"></script>
+		<script src="leafletGIS/scripts/leaflet.contextmenu.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/leaflet.groupedlayercontrol.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/Icon.Label.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/Semicircle.js" type="text/javascript"></script>
+	
+		<script src="leafletGIS/scripts/leaflet-baidu.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/gisNew.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/treeData.js" type="text/javascript"></script>
+		<script src="leafletGIS/scripts/ToExcelOrCSV.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div id="map" style="width: 1000px;height: 800px;">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			GIS.initMap('map');
+			GIS.addAllLine("京沪高速铁路")
+		});
+	</script>
+</html>

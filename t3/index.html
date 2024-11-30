@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/mono.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+<body onload="init()" style="margin:0px;padding:0px;">
+</body>
+<script>
+    function init () {
+	        var box = new mono.DataBox();
+	        var camera = new mono.PerspectiveCamera(30, 1.5, 0.1, 10000);
+		    var target = new mono.Vec3(0,-100,0); 
+		    camera.setPosition(800,2500,3500);
+		    camera.lookAt(target);
+	      var network= new mono.Network3D(box,camera);
+	      document.body.appendChild(network.getRootView());
+	      mono.Utils.autoAdjustNetworkBounds(network, document.documentElement, 'clientWidth', 'clientHeight',50,50);
+		//光源
+	      var pointLight = new mono.PointLight(0xFFFFFF, 1.5);
+	      pointLight.setPosition(5000, 5000, 5000);
+	      box.add(pointLight);
+	    //禁止选中
+		network.setInteractions([new mono.DefaultInteraction(network)]);
+	    //地板
+		var floor = new mono.Plane(3000, 2500);
+		floor.setRotationX(Math.PI/2);
+		floor.s({
+		  'm.type':'phong',
+		  'm.texture.image': 'img/floor.jpg',
+		  'm.repeat': new mono.Vec2(5, 5),
+		  'm.side': mono.DoubleSide,
+		});
+//		floor.setRotation(Math.PI/180*15, 0,0);
+		box.add(floor);
+		//创建一个segments为3的cube
+		 var cube = new mono.Cube(100,100,100);
+//      cube.setStyle('m.wireframe',true).setStyle('m.color','green');
+        cube.setPosition(200,50,200);
+//      cube.setSelectable(false);
+        box.add(cube);
+        //墙体
+        var path = new mono.Path();
+		path.moveTo(1000, -1000,0);
+//		path.lineTo(1000, 0, 0);
+		path.lineTo(1000, 500, 0);
+		path.lineTo(500, 500, 0);
+		path.lineTo(500, 1000, 0);
+		path.lineTo(-800, 1000, 0);
+		path.curveTo(-850,850,0,-1000,800,0);
+		path.lineTo(-1000, -700, 0);
+		path.lineTo(-700, -700, 0);
+		path.lineTo(-700, -1000, 0);
+		path.lineTo(1000, -1000,0);
+		
+		var wall = new mono.PathCube(path,20,300,32,40);
+		wall.setStyle('m.texture.image', 'img/wall.png');
+		wall.setStyle('inside.m.texture.image', 'img/wall3.png');
+		wall.setStyle('top.m.texture.image', 'img/wall2.png');
+		wall.setStyle('bottom.m.texture.image', 'img/wall2.png');
+		wall.setStyle('aside.m.texture.image', 'img/wall2.png');
+		wall.setStyle('zside.m.texture.image', 'img/wall2.png');
+		box.add(wall);
+		
+		//门
+		
+    }
+function animateDoorOpen(door){
+  if(door.getClient('animating')) { 
+    return;
+  }
+  door.setClient('animating', true);
+  var axis = new mono.Vec3(0, 1, 0);
+  var axisPosition = new mono.Vec3(-door.getWidth()/2+10, 0, 0);
+  var opened=door.getClient('opened');
+  var animation=new twaver.Animate({
+    from: 0,
+    to: Math.PI/2,
+    dur: 1000,
+    easing: 'bounceOut',
+    onUpdate: function (value) {
+      var angle = value;
+      if(opened){
+        angle=Math.PI/2-value;
+      }
+      var angleStep = angle - door.getRotationY();
+      door.rotateFromAxis(axis, axisPosition, angleStep);
+    },
+    onDone: function(){
+      door.setClient('opened', !opened);
+      door.setClient('animating', false);
+    },
+  });
+  animation.play();
+}
+
+  </script>
+</html>

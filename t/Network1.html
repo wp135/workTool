@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TWaver HTML5 Demo</title>
+<script type="text/javascript" src="js/twaver.js"></script>
+<script type="text/javascript">
+var box;
+var number;
+function init() {
+number = 0;
+var network = new twaver.network.Network();
+network.setToolTipEnabled(true);
+box =new network.DataBox();
+var tree = new twaver.controls.Tree(box);
+var group = new twaver.Group();
+group.setName("group");
+box.add(group);
+group.addChild(createTWaverNode("node1", 200, 100));
+group.addChild(createTWaverNode("node2", 300, 130));
+group.setExpanded(true);
+var from = createTWaverNode("from", 30, 30);
+var to = createTWaverNode("to", 70, 150);
+var link = new twaver.Link(from, to);
+link.setName("hello TWaver HTML5");
+box.add(link);
+// 树节点自身渲染颜色
+tree.getInnerColor = function(data) {
+return "#ff0000";
+};
+// 树节点边框颜色
+tree.getOuterColor = function(data) {
+return "#00ff00";
+};
+// 左下方小球的颜色，如果为null表示不显示
+tree.getAlarmFillColor = function(data) {
+if (data instanceof twaver.Element && !data.getAlarmState().isEmpty()) {
+return "#0000ff";
+}
+return null;
+};
+// network是同样的原理，同样的默认实现，
+// innerColor - 节点渲染色
+// outerColor - 边框颜色
+// alarmFillColor － 告警冒泡颜色，如果下面的告警文本为空，告警冒泡不显示
+// alarmLabel － 告警文本
+// Body 渲染色
+network.getInnerColor = function(data) {
+return "#ff0000";
+};
+// 节点边框颜色
+network.getOuterColor = function(data) {
+return "#00ff00";
+};
+// 告警冒泡的颜色，如果下面相应的alarmLabel返回null或者颜色为null不显示
+network.getAlarmFillColor = function(data) {
+if (data instanceof twaver.Element && !data.getAlarmState().isEmpty()) {
+return "#0000ff";
+}
+return null;
+};
+network.getAlarmLabel = function(element) {
+if (!element.getAlarmState().isEmpty()) {
+return "alarmLabel";
+}
+return null;
+};
+network.getSelectColor = function(element) {
+return "#ffff00";
+};
+var treeDom = tree.getView();
+treeDom.style.width = "150px";
+treeDom.style.height = "100%";
+var networkDom = network.getView();
+networkDom.style.left = "150px";
+networkDom.style.width = "100%";
+networkDom.style.height = "100%";
+document.body.appendChild(treeDom);
+document.body.appendChild(networkDom);
+}
+function createTWaverNode(name, x, y) {
+var node = new twaver.Node();
+node.setName(name);
+node.setToolTip(name);
+node.getAlarmState().increaseNewAlarm(twaver.AlarmSeverity.MAJOR);
+node.setClient("number", number++);
+node.setLocation(x, y);
+box.add(node);
+return node;
+}
+</script>
+</head>
+<body onload="init()" style="margin:10;"></body>
+</html>

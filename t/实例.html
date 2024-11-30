@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/twaver.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="tuopu" style="height: auto;width: 1000px;">
+			
+		</div>
+		<script type="text/javascript">
+			
+			var vpcs=[];
+			var ce_faults=[];
+			var ces=[];
+			var cpes=[];
+			var users=[];
+			var huancun={};
+			var links="";
+			$.ajax({
+				type:"get",
+				url:"http://188.102.18.19:8080/api/view/hlz/topology",
+				async:true,
+				success:function(data){
+					links=data.links;
+					var datas=data.nodes;
+					for(var i=0;i<datas.length;i++){
+						switch (datas[i].type){
+							case "CMZJ::CPE":
+								cpes.push(datas[i]);
+								break;
+							case "CMZJ::WanNode":
+								ces.push(datas[i]);
+								break;
+							case "CMZJ::VPC":
+								vpcs.push(datas[i]);
+								break;
+							case "CMZJ::Site":
+								users.push(datas[i]);
+								break;
+							case "CMZJ::CloudNode":
+								ce_faults.push(datas[i]);
+								break;
+						}
+					}
+				},
+				error:function(){
+					alert(1);
+				}
+			});
+			//图片注册
+			regiterImages("img/xnj.png","img1");
+			regiterImages("img/CE-fault.png","img2");
+			regiterImages("img/CE.png","img3");
+			regiterImages("img/CPE.png","img4");
+			regiterImages("img/user.png","img5");
+			
+			
+			var network= new twaver.network.Network();
+			var box = network.getElementBox();
+			
+			var group_vpc = new twaver.Group();
+			for(var i=0;i<vpcs.length;i++){
+				var node = new twaver.Node();
+				node.setImage("img1");
+				box.add(node);
+				huancun[vpcs[i].id] = node;
+				group_vpc.addChild();
+			}
+			box.add(group_vpc);
+			var wid_vpc=parseInt(group_vpc.getWidth());
+			var wid_div=parseInt($("#tuopu").css("width"));
+			group_vpc.setLocation((wid_div-wid_vpc)/2,20);
+			
+			
+			var newworkDom=network.getView();
+			newworkDom.style.width = "100%";
+			newworkDom.style.height = "100%";
+			document.getElementById("tuopu").appendChild(newworkDom);
+			
+			//zhuce图片
+			function regiterImages(url, name) {
+				var image = new Image();
+				image.src = url;
+				image.onload = function() {
+					twaver.Util.registerImage(name, image, image.width, image.height);
+					image.onload = null;
+					if (window.network) {
+						window.network.invalidateElementUIs();
+					}
+					if (window.tree) {
+						window.tree.invalidateDisplay();
+					}
+				};
+			}
+		</script>
+	</body>
+</html>

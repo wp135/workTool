@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/enjine.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			new Enjine.Application().Initialize(new Mario.LoadingState(), 320, 240)
+		});
+	</script>
+	<body>
+		<div class="main">
+			<canvas id="canvas" width="640" height="480">
+				<p style="text-align: center;">糟糕！您的浏览器不支持HTML5 Canvas，玩不了，请尝试用Firefox、Chrome、IE9浏览器</p>
+			</canvas>
+		<div class="spacing"></div>
+		</div>
+	</body>
+</html>

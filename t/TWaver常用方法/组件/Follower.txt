@@ -1,0 +1,8 @@
+设置宿主节点
+//设置宿主
+get/setHost : function(host)
+//是否依附在某个节点上
+isHostOn : function(node)
+
+互为宿主的情况
+isLoopedHostOn : function(node)
